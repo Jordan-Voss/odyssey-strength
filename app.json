@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "odyssey-strength",
+    "slug": "odyssey-strength",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
