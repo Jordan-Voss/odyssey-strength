@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Test'){
             steps {
-                sh 'sh expo build:web'
+                sh 'expo build:web'
             }
         }
         stage('Deploy') {
