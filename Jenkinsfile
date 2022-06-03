@@ -7,6 +7,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 sh 'npm install'
+                sh 'expo add'
                 sh 'expo build:web'
             }
         }
