@@ -6,16 +6,17 @@ pipeline {
     stages {
         stage('Build') { 
             steps { 
-                sh 'expo build:web' 
+                sh 'npm install --save-dev expo-cli' 
             }
         }
         stage('Test'){
             steps {
-                sh 'cd ~'
+                sh 'sh expo build:web'
             }
         }
         stage('Deploy') {
             steps {
+                sh 'cd ~'
                 sh 'ls'
             }
         }
