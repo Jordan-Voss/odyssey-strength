@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps { 
-                sh 'ls' 
+                sh 'expo build:web' 
             }
         }
         stage('Test'){
