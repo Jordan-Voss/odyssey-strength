@@ -14,7 +14,7 @@ export default class Homepage extends React.Component {
         return (
         <View style={styles.container}>
             <View style={styles.container}>
-                <Text>This is the web Homepage screen</Text>
+                <Text>This is the web Homepagesss screen</Text>
                 <Link routeName="Profile">Go Profile</Link>
             </View>
         </View>
