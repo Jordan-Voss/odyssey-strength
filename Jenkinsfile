@@ -22,5 +22,4 @@ pipeline {
             }
         }
     }
-    // cp -r ./jenkins/workspace/Odyssey /var/www/html/test/
 }
