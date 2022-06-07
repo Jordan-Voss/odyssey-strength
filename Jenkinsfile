@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test'){
             steps {
-                sh ''
+                sh 'sudo mv web-build/ /var/www/html'
             }
         }
         stage('Deploy') {
@@ -22,5 +22,5 @@ pipeline {
                 sh 'ls'
             }
         }
-    }
+    }cp -r ./jenkins/workspace/Odyssey /var/www/html/test/
 }
