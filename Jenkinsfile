@@ -11,15 +11,14 @@ pipeline {
                 sh 'expo build:web'
             }
         }
-        stage('Test'){
+        stage('Remove Old Site'){
             steps {
-                sh 'sudo cp -r web-build/ /var/www/html'
+                sh 'sudo cp -r /var/www/html/web-build ~/'
             }
         }
-        stage('Deploy') {
+        stage('Deploy New Site') {
             steps {
-                sh 'cd ~'
-                sh 'ls'
+                sh 'sudo cp -r web-build/ /var/www/html'
             }
         }
     }
