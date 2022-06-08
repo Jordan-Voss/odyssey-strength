@@ -1,28 +1,28 @@
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView,Button, Platform} from 'react-native';
+import {View, Text, StyleSheet, ScrollView,Button, TouchableOpacity, Platform} from 'react-native';
 import {Link} from "@react-navigation/web";
 import Header from "../../components/Header";
 
 
 export default class Profile extends React.Component {
     static path = "profile";
-
     render() {
         return(
-            <ScrollView
-            stickyHeaderIndices={[1]}
-            showsVerticalScrollIndicator={false}
-            >
+        <ScrollView
+        stickyHeaderIndices={[1]}
+        showsVerticalScrollIndicator={false}
+        >
             <View>
-                <Header></Header>
+                <Header navigation={this.props.navigation}></Header>
             </View>
             <View style={styles.container}>
-
-            <Text>This is the web profile screen</Text>
+                <TouchableOpacity onPress={() => console.log(this)}>
+                    <Text>Profile</Text>
+                </TouchableOpacity> 
             </View>
         </ScrollView>
 )
-    }
+}
 }
 
 const styles = StyleSheet.create({

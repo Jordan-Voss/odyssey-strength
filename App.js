@@ -52,7 +52,7 @@ export default function App() {
   return (
     <View style={styles.outer} onLayout={onLayoutRootView}>
       {/* <Header/> */}
-      <Home/>
+      <Home nav={this}/>
     </View>
   );
 }

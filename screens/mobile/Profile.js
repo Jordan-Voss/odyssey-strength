@@ -8,7 +8,7 @@ export default class Profile extends React.Component {
     render() {
         return(
         <View style={styles.container}>
-            <Text>This is the mobile profile screen</Text>
+            This is the mobile profile screen
             <Button
                 title="Go to Homepage"
                 onPress={() => this.props.navigation.navigate('Homepage')}
