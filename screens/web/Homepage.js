@@ -14,7 +14,10 @@ export default class Homepage extends React.Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView
+                stickyHeaderIndices={[1]}
+                showsVerticalScrollIndicator={false}
+                >
             <View>
                 <Header></Header>
             </View>
