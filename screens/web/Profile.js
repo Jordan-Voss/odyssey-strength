@@ -9,6 +9,7 @@ export default class Profile extends React.Component {
     render() {
         return(
         <ScrollView
+        style={styles.scrollview}
         stickyHeaderIndices={[1]}
         showsVerticalScrollIndicator={false}
         >
@@ -26,9 +27,13 @@ export default class Profile extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    scrollview:{
+backgroundColor:'red',
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor:'red',
     }
 })

@@ -30,7 +30,10 @@ export default class Homepage extends React.Component {
                 rate={1.0}
                 ignoreSilentSwitch={"obey"}/>
             </View>
-            <View>
+            <View style={{position:'absolute',   justifyContent: 'space-evenly',
+    alignItems: 'space-evenly',
+    top: this.windowHeight*0.1,
+    marginLeft: this.windowWidth*0.88,}}>
                 <Header navigation={this.props.navigation}></Header>
             </View>
             <View style={styles.container}>

@@ -13,18 +13,26 @@ export default class Header extends React.Component {
     render() {
         return (
         <View style={styles.header} >
-            <View>
+            <View
+                style={styles.link}>
                 <TouchableOpacity
+                style={styles.link}
                 title="Go to Profile"
                 onPress={() => this.props.navigation.navigate('Profile', this.props.navigation)}>
-                    <Text>Profile</Text>
+                    <Text style={{color:'white', margin: '50'}}>Profile</Text>
                 </TouchableOpacity>
             </View>
-            <View>
+            <View                style={styles.link}>
+
+                
+            </View>
+            <View
+                style={styles.link}>
                 <TouchableOpacity
+                style={styles.link}
                 title="Go to Homepage"
                 onPress={() => this.props.navigation.navigate('Homepage', this.props.navigation)}>
-                    <Text>Home</Text>
+                    <Text style={{color:'white', margin: '50'}}>Home</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -34,22 +42,23 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     link: {
-        alignItems: 'flex-end',
-        underline: 'none',
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems: 'space-between',
+        margin: '100',
+        padding:'100',
+        width:'100%',
         textColor: 'white',
-        // padding:'0 1%',
-        // justifyContent:'space-between',
-        // alignItems:'flex-end',
-        // float: 'right',
     },
         header: {
             flex: 1,
-            justifyContent:'space-evenly',
+            justifyContent:'space-between',
             flexDirection: 'row',
-            // height: height/10,
-            // width: '100%',
-            alignItems: 'flex-end',
-            marginRight:'0%',
+            // height: '100px',
+            width: '100%',
+            alignItems: 'space-between',
+            // marginRight:'0%',
             backgroundColor: 'transparent',
         },
 });
