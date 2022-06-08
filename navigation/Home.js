@@ -7,14 +7,15 @@ import HomepageMobile from "../screens/mobile/Homepage";
 import ProfileWeb from "../screens/web/Profile";
 import ProfileMobile from "../screens/mobile/Profile";
 import {Platform} from "react-native";
+import Header from "../components/Header";
 
 const isWeb = Platform.OS === 'web';
-
 
 const HomeWeb = createStackNavigator(
     {
         Profile: ProfileWeb,
         Homepage: HomepageWeb,
+        Header: Header,
     },
     {
     headerMode: 'none',

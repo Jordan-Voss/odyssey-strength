@@ -7,6 +7,7 @@ import Home from './navigation/Home';
 export default function App() {
   return (
     <View style={styles.outer}>
+      {/* <Header/> */}
       <Home/>
     </View>
   );

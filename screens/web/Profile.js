@@ -1,16 +1,23 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Platform} from 'react-native';
+import {View, Text, StyleSheet, ScrollView,Button, Platform} from 'react-native';
 import {Link} from "@react-navigation/web";
+import Header from "../../components/Header";
+
 
 export default class Profile extends React.Component {
     static path = "profile";
 
     render() {
         return(
-        <View style={styles.container}>
-            <Text>This is the web PRRRROOOOFILLEE screen</Text>
-            <Link routeName="Homepage">Go Homepage</Link>
-        </View>
+        <ScrollView>
+            <View>
+                <Header></Header>
+            </View>
+            <View style={styles.container}>
+
+            <Text>This is the web profile screen</Text>
+            </View>
+        </ScrollView>
 )
     }
 }

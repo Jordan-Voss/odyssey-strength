@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Platform} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Button, Platform} from 'react-native';
 import {Link} from "@react-navigation/web";
+import Header from "../../components/Header";
+
 
 const isWeb = Platform.OS === 'web';
 
@@ -12,12 +14,15 @@ export default class Homepage extends React.Component {
 
     render() {
         return (
-        <View style={styles.container}>
-            <View style={styles.container}>
-                <Text>This is the web Homepagesss screen</Text>
-                <Link routeName="Profile">Go Profile</Link>
+            <ScrollView>
+            <View>
+                <Header></Header>
             </View>
-        </View>
+            <View style={styles.container}>
+
+                <Text>This is the web Homepage screen</Text>
+            </View>
+        </ScrollView>
         )
     }
 }
