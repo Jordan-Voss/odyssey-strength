@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps { 
+                sh 'sudo cp -r /var/www/html/web-build ~/'
                 sh 'npm install'
                 sh 'expo add'
                 sh 'expo build:web'
