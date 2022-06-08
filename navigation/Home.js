@@ -25,7 +25,10 @@ const HomeWeb = createStackNavigator(
 
 const HomeMobile = createStackNavigator(
     {
-        Profile: ProfileMobile,
+        Profile: {
+            screen: ProfileMobile,
+            path: '/profile'
+        },
         Homepage: HomepageMobile,
     },
     {
