@@ -8,7 +8,7 @@ export default class Profile extends React.Component {
     render() {
         return(
         <View style={styles.container}>
-            <Text>This is the web profile screen</Text>
+            <Text>This is the web PRRRROOOOFILLEE screen</Text>
             <Link routeName="Homepage">Go Homepage</Link>
         </View>
 )
