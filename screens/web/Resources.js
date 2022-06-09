@@ -6,8 +6,8 @@ import { useWindowDimensions } from 'react-native';
 
 
 
-export default function Profile(props) {
-    // static path = "profile";
+export default function Resources(props) {
+    // static path = "About";
     const windowWidth = useWindowDimensions().width;
     const windowHeight = useWindowDimensions().height;
         return(
@@ -24,7 +24,7 @@ export default function Profile(props) {
             </View>
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => console.log(props)}>
-                    <Text>Profile</Text>
+                    <Text>About</Text>
                 </TouchableOpacity> 
             </View>
         </ScrollView>
@@ -34,12 +34,12 @@ export default function Profile(props) {
 
 const styles = StyleSheet.create({
     scrollview:{
-backgroundColor:'red',
+backgroundColor:'green',
     },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:'red',
+        backgroundColor:'green',
     }
 })

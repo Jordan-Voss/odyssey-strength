@@ -4,8 +4,12 @@ import {createBrowserApp} from '@react-navigation/web';
 
 import HomepageWeb from "../screens/web/Homepage";
 import HomepageMobile from "../screens/mobile/Homepage";
-import ProfileWeb from "../screens/web/Profile";
-import ProfileMobile from "../screens/mobile/Profile";
+import AboutWeb from "../screens/web/About";
+import Resources from "../screens/web/Resources";
+
+import Coaching from "../screens/web/Coaching";
+
+import AboutMobile from "../screens/mobile/About";
 import {Platform} from "react-native";
 import Header from "../components/Header";
 
@@ -13,10 +17,18 @@ const isWeb = Platform.OS === 'web';
 
 const HomeWeb = createStackNavigator(
     {
-        Profile: {
-        screen: ProfileWeb,
-        path: 'profile',
+        About: {
+        screen: AboutWeb,
+        path: 'About',
         },
+        Coaching: {
+            screen: Coaching,
+            path: 'About',
+        },
+        Resources: {
+            screen: Resources,
+            path: 'About',
+            },
         Homepage: HomepageWeb,
         Header: Header,
     },
@@ -30,9 +42,9 @@ const HomeWeb = createStackNavigator(
 
 const HomeMobile = createStackNavigator(
     {
-        Profile: {
-            screen: ProfileMobile,
-            path: '/profile'
+        About: {
+            screen: AboutMobile,
+            path: '/About'
         },
         Homepage: HomepageMobile,
     },

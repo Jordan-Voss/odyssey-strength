@@ -20,11 +20,15 @@ export default function Homepage(props) {
     const windowHeight = useWindowDimensions().height;
 
         return (
-        <ScrollView style={{}}>
-            <View style={{}} >
+        <ScrollView style={{    flex: 1, position:'absolute'}}>
+            <View style={{    width: '100%',
+    height: 200,
+    position: 'relative',
+    top: 0,
+    left: 0}} >
                 <Video
                 source={require('../../assets/video/odyssey.mp4')}
-                style={{width: windowWidth,flex:'1', height: windowHeight/2}}
+                style={{width: windowWidth,height: windowHeight/2}}
                 isMuted={true}
                 isLooping={true}
                 shouldPlay={true}
@@ -33,11 +37,13 @@ export default function Homepage(props) {
                 rate={1.0}
                 ignoreSilentSwitch={"obey"}/>
             </View>
+            <Header navigation={props.navigation} style={{position:'absolute'}}></Header>
+
             <View style={{position:'absolute',   justifyContent: 'space-evenly',
     alignItems: 'space-evenly',
     top: windowHeight*0.1,
     right: windowWidth*0.08,}}>
-                <Header navigation={props.navigation}></Header>
+                
             </View>
             <View style={styles.container}>
                 <Button onPress={() => console.log(props)}>
@@ -53,6 +59,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+        marginTop:'50%',
         alignItems: 'center',
     }
 })

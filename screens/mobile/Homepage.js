@@ -15,7 +15,7 @@ export default class Homepage extends React.Component {
         <View style={styles.container}>
             <View style={styles.container}>
                 This is the mobile Homepage screen
-                <Link routeName="Profile">Go Profile</Link>
+                <Link routeName="About">Go About</Link>
             </View>
         </View>
     }

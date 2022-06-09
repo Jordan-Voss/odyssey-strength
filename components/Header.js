@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, View, Dimensions,TouchableOpacity } from 'react-native';
 import HomepageWeb from "../screens/web/Homepage";
 import HomepageMobile from "../screens/mobile/Homepage";
-import ProfileWeb from "../screens/web/Profile";
-import ProfileMobile from "../screens/mobile/Profile";
+import AboutWeb from "../screens/web/About";
+import Coaching from "../screens/web/Coaching";
+
+import AboutMobile from "../screens/mobile/About";
 import {Link} from "@react-navigation/web";
 import { scale } from "../utils/scale";
 import { useWindowDimensions } from 'react-native';
@@ -22,24 +24,43 @@ export default function Header(props) {
         style={styles.container}
         >
             <View style={styles.rowContainer}>
-                <TouchableOpacity
+            <TouchableOpacity
                 // style={styles.link}
-                style={styles.navLink}
-
-                    title="Go to Profile"
-                    onPress={() => props.navigation.navigate('Profile', props.navigation)}>
-                    <Text style={{fontSize: fontDimension*20, color:'white'}}>Profile</Text>
+                style={{ flex: 1}} 
+                    title="Go to About"
+                    onPress={() => props.navigation.navigate('About', props.navigation)}>
+                    <Text style={{fontSize: fontDimension*20, color:'white'}}>About</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                style={styles.navLink}
+                // style={styles.link}
+                style={{ flex: 1}} 
+
+                    title="Go to About"
+                    onPress={() => props.navigation.navigate('Coaching', props.navigation)}>
+                    <Text style={{fontSize: fontDimension*20, color:'white'}}>Coaching</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                // style={styles.link}
+                style={{ flex: 1,}} 
+
+                    title="Go to About"
+                    onPress={() => props.navigation.navigate('Homepage', props.navigation)}>
+                    
+                      <Image
+                    //   style={{ flex: 1, backgroundColor: "red" }} 
+                    style={styles.tinyLogo}
+                    source={require('../assets/ody2.png')}
+                ></Image>
+                </TouchableOpacity>
+                <TouchableOpacity
+                style={{ flex: 1}} 
                 title="Go to Homepage"
-                onPress={() => props.navigation.navigate('Homepage', props.navigation)}>
-                <Text style={{fontSize: fontDimension*20, color: 'white'}}>Home</Text>
+                onPress={() => props.navigation.navigate('Resources', props.navigation)}>
+                <Text style={{fontSize: fontDimension*20, color: 'white'}}>Resources</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                 onPress={() => Linking.openURL('https://instagram.com/odysseystrength')}
-                style={styles.navLink}
-                >
+                style={{ flex: 1}}                 >
                 <AntDesign name="instagram" size={fontDimension*20} color="white"/>
                 </TouchableOpacity>
             </View>
@@ -49,18 +70,46 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 8,
+        flex:1,
+        width:'100%',
+        // flexDirection:'row',
+        // marginTop:'-20%',
+        // justifyContent:'space-between',
+
+        // height: '100%',
+        // padding: 8,
         // backgroundColor: "#ffffff",
     },
     rowContainer: {
+        position:'absolute',
+        // top:20,
+        // left:100,
+
+        // // flex:1,
+        // alignSelf: 'stretch',
+
+        width: '100%',
+        padding:20,
         flexDirection:'row',
-        marginTop:'-25%',
+        marginTop:'-20%',
+        marginLeft:'11%',
+        // justifyContent: 'space-evenly',
+        // backgroundColor:'red',
     },
-    navLink:{
-        paddingLeft: 45,
-        // color: "white",
-        // fontSize: fontDimension*20,
-    },
+    // navLink:{
+    //     paddingLeft: 45,
+    //     // color: "white",
+    //     // fontSize: fontDimension*20,
+    // },
+    tinyLogo: {
+        flex:1,
+        // flexDirection:'row',
+        // position:'absolute',
+        // marginLeft:'-800%',
+        marginTop:'-20%',
+        width: 100,
+        height: 100,
+      },
     // link: {
     //     flex:1,
     //     flexDirection:'row',
