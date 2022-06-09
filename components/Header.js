@@ -9,72 +9,73 @@ import { scale } from "../utils/scale";
 import { useWindowDimensions } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 
+
 export default function Header(props) {
     const width = useWindowDimensions().width;
     const height = useWindowDimensions().height;
-    const font = useWindowDimensions().fontScale;
+    const fontDimension = useWindowDimensions().fontScale;
         return (
-        <View style={styles.header} >
-            <View
-                style={styles.link}>
+        <View 
+        style={styles.container}
+        >
+            <View style={styles.rowContainer}>
                 <TouchableOpacity
-                style={styles.link}
-                title="Go to Profile"
-                onPress={() => props.navigation.navigate('Profile', props.navigation)}>
-                    <Text style={{color:'white', fontSize: font*20, margin: '50'}}>Profile</Text>
-                </TouchableOpacity>
-            </View>
-            <View                style={styles.link}>
+                // style={styles.link}
+                style={styles.navLink}
 
-                
-            </View>
-            <View
-                style={styles.link}>
+                    title="Go to Profile"
+                    onPress={() => props.navigation.navigate('Profile', props.navigation)}>
+                    <Text style={{fontSize: fontDimension*20, color:'white'}}>Profile</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
-                style={styles.link}
+                style={styles.navLink}
                 title="Go to Homepage"
                 onPress={() => props.navigation.navigate('Homepage', props.navigation)}>
-                    <Text style={{color:'white',fontSize: font*20, margin: '50'}}>Home</Text>
+                <Text style={{fontSize: fontDimension*20, color: 'white'}}>Home</Text>
                 </TouchableOpacity>
-            </View>
-            <View style={styles.link}>
-
-            </View>
-            <View
-                style={styles.link}>
-            <AntDesign name="instagram" size={font*20} color="white" style={ {margin: '50',         flex:1,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems: 'space-between',
-        marginTop:'-40%',
-        // margin: '100',
-        // padding:'100',
-        width:'100%',}}/>
+                <TouchableOpacity
+                style={styles.navLink}
+                >
+                <AntDesign name="instagram" size={fontDimension*20} color="white"/>
+                </TouchableOpacity>
             </View>
         </View>
             )
     }
 
 const styles = StyleSheet.create({
-    link: {
-        flex:1,
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems: 'space-between',
-        marginTop:'-40%',
-        // margin: '100',
-        // padding:'100',
-        width:'100%',
-        textColor: 'white',
+    container: {
+        padding: 8,
+        // backgroundColor: "#ffffff",
     },
-        header: {
-            flex: 1,
-            justifyContent:'space-between',
-            flexDirection: 'row',
-            // height: '100px',
-            width: '100%',
-            alignItems: 'space-between',
-            // marginRight:'0%',
-            backgroundColor: 'transparent',
-        },
+    rowContainer: {
+        flexDirection:'row',
+        marginTop:'-25%',
+    },
+    navLink:{
+        paddingLeft: 45,
+        // color: "white",
+        // fontSize: fontDimension*20,
+    },
+    // link: {
+    //     flex:1,
+    //     flexDirection:'row',
+    //     justifyContent:'space-between',
+    //     alignItems: 'space-between',
+    //     marginTop:'-70%',
+    //     // margin: '100',
+    //     // padding:'100',
+    //     width:'100%',
+    //     textColor: 'white',
+    // },
+    //     header: {
+    //         flex: 1,
+    //         justifyContent:'space-between',
+    //         flexDirection: 'row',
+    //         // height: '100px',
+    //         width: '100%',
+    //         alignItems: 'space-between',
+    //         // marginRight:'0%',
+    //         backgroundColor: 'transparent',
+    //     },
 });
