@@ -8,12 +8,15 @@ import {Link} from "@react-navigation/web";
 import { scale } from "../utils/scale";
 import { useWindowDimensions } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
+import * as Linking from 'expo-linking';
+
 
 
 export default function Header(props) {
     const width = useWindowDimensions().width;
     const height = useWindowDimensions().height;
     const fontDimension = useWindowDimensions().fontScale;
+
         return (
         <View 
         style={styles.container}
@@ -34,6 +37,7 @@ export default function Header(props) {
                 <Text style={{fontSize: fontDimension*20, color: 'white'}}>Home</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                onPress={() => Linking.openURL('https://instagram.com/odysseystrength')}
                 style={styles.navLink}
                 >
                 <AntDesign name="instagram" size={fontDimension*20} color="white"/>

@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 import {Video} from "expo-av";
 import { Dimensions } from 'react-native';
 import { useWindowDimensions } from 'react-native';
-
+import * as Linking from 'expo-linking';
 
 
 // const isWeb = Platform.OS === 'web';
@@ -18,6 +18,7 @@ export default function Homepage(props) {
 
     const windowWidth = useWindowDimensions().width;
     const windowHeight = useWindowDimensions().height;
+
         return (
         <ScrollView style={{}}>
             <View style={{}} >
@@ -39,6 +40,9 @@ export default function Homepage(props) {
                 <Header navigation={props.navigation}></Header>
             </View>
             <View style={styles.container}>
+                <Button onPress={() => console.log(props)}>
+
+                </Button>
 
             </View>
         </ScrollView>

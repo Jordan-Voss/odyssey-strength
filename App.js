@@ -4,11 +4,20 @@ import Header from './components/Header';
 import Home from './navigation/Home';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
+import './utils/trusted-security-policies';
+
+// import * as Linking from 'expo-linking';
+
 
 const isWeb = Platform.OS === 'web'; 
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+  // const prefix = Linking.createURL('/');
+  // const linking = {
+  //   prefixes: [Linking.createURL('/'), 'https://app.example.com'],
+  // };
+
 
   useEffect(() => {
     async function prepare() {

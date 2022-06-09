@@ -13,11 +13,15 @@ const isWeb = Platform.OS === 'web';
 
 const HomeWeb = createStackNavigator(
     {
-        Profile: ProfileWeb,
+        Profile: {
+        screen: ProfileWeb,
+        path: 'profile',
+        },
         Homepage: HomepageWeb,
         Header: Header,
     },
     {
+    initialRouteName: 'Homepage',
     headerMode: 'none',
     navigationOptions: {
         headerVisible: false,
