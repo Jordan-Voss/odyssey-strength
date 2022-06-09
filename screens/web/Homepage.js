@@ -4,24 +4,26 @@ import {Link} from "@react-navigation/web";
 import Header from "../../components/Header";
 import {Video} from "expo-av";
 import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
 
-const isWeb = Platform.OS === 'web';
 
-export default class Homepage extends React.Component {
-    static path = "";
-    static navigationOptions = {
-        title: ""
-    }
-    windowWidth = Dimensions.get('window').width;
-    windowHeight = Dimensions.get('window').height;
-    render() {
+// const isWeb = Platform.OS === 'web';
+// const windowWidth = Dimensions.get('window').width;
+// const windowHeight = Dimensions.get('window').height;
+
+
+export default function Homepage(props) {
+    const isWeb = Platform.OS === 'web';
+
+    const windowWidth = useWindowDimensions().width;
+    const windowHeight = useWindowDimensions().height;
         return (
-        <ScrollView>
-            <View> 
+        <ScrollView style={{}}>
+            <View style={{}} >
                 <Video
                 source={require('../../assets/video/odyssey.mp4')}
-                style={{width: this.windowWidth, height: this.windowHeight/2}}
+                style={{width: windowWidth,flex:'1', height: windowHeight/2}}
                 isMuted={true}
                 isLooping={true}
                 shouldPlay={true}
@@ -32,16 +34,15 @@ export default class Homepage extends React.Component {
             </View>
             <View style={{position:'absolute',   justifyContent: 'space-evenly',
     alignItems: 'space-evenly',
-    top: this.windowHeight*0.1,
-    marginLeft: this.windowWidth*0.88,}}>
-                <Header navigation={this.props.navigation}></Header>
+    top: windowHeight*0.1,
+    right: windowWidth*0.08,}}>
+                <Header navigation={props.navigation}></Header>
             </View>
             <View style={styles.container}>
 
             </View>
         </ScrollView>
             )
-        }
     }
 
 const styles = StyleSheet.create({

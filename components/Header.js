@@ -5,12 +5,13 @@ import HomepageMobile from "../screens/mobile/Homepage";
 import ProfileWeb from "../screens/web/Profile";
 import ProfileMobile from "../screens/mobile/Profile";
 import {Link} from "@react-navigation/web";
+import { scale } from "../utils/scale";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 
 const {width, height} = Dimensions.get('window');
 
-export default class Header extends React.Component {
-    render() {
+export default function Header(props) {
         return (
         <View style={styles.header} >
             <View
@@ -18,8 +19,8 @@ export default class Header extends React.Component {
                 <TouchableOpacity
                 style={styles.link}
                 title="Go to Profile"
-                onPress={() => this.props.navigation.navigate('Profile', this.props.navigation)}>
-                    <Text style={{color:'white', margin: '50'}}>Profile</Text>
+                onPress={() => props.navigation.navigate('Profile', props.navigation)}>
+                    <Text style={{color:'white', fontSize:RFValue(24, 580), margin: '50'}}>Profile</Text>
                 </TouchableOpacity>
             </View>
             <View                style={styles.link}>
@@ -31,13 +32,12 @@ export default class Header extends React.Component {
                 <TouchableOpacity
                 style={styles.link}
                 title="Go to Homepage"
-                onPress={() => this.props.navigation.navigate('Homepage', this.props.navigation)}>
-                    <Text style={{color:'white', margin: '50'}}>Home</Text>
+                onPress={() => props.navigation.navigate('Homepage', props.navigation)}>
+                    <Text style={{color:'white',fontSize:scale(18), margin: '50'}}>Home</Text>
                 </TouchableOpacity>
             </View>
         </View>
             )
-        }
     }
 
 const styles = StyleSheet.create({

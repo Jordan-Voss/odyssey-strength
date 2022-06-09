@@ -4,9 +4,8 @@ import {Link} from "@react-navigation/web";
 import Header from "../../components/Header";
 
 
-export default class Profile extends React.Component {
-    static path = "profile";
-    render() {
+export default function Profile(props) {
+    // static path = "profile";
         return(
         <ScrollView
         style={styles.scrollview}
@@ -14,16 +13,16 @@ export default class Profile extends React.Component {
         showsVerticalScrollIndicator={false}
         >
             <View>
-                <Header navigation={this.props.navigation}></Header>
+                <Header navigation={props.navigation}></Header>
             </View>
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => console.log(this)}>
+                <TouchableOpacity onPress={() => console.log(props)}>
                     <Text>Profile</Text>
                 </TouchableOpacity> 
             </View>
         </ScrollView>
 )
-}
+
 }
 
 const styles = StyleSheet.create({
