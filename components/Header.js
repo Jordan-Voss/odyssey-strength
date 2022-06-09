@@ -6,12 +6,13 @@ import ProfileWeb from "../screens/web/Profile";
 import ProfileMobile from "../screens/mobile/Profile";
 import {Link} from "@react-navigation/web";
 import { scale } from "../utils/scale";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-
-
-const {width, height} = Dimensions.get('window');
+import { useWindowDimensions } from 'react-native';
+import { AntDesign } from '@expo/vector-icons'; 
 
 export default function Header(props) {
+    const width = useWindowDimensions().width;
+    const height = useWindowDimensions().height;
+    const font = useWindowDimensions().fontScale;
         return (
         <View style={styles.header} >
             <View
@@ -20,7 +21,7 @@ export default function Header(props) {
                 style={styles.link}
                 title="Go to Profile"
                 onPress={() => props.navigation.navigate('Profile', props.navigation)}>
-                    <Text style={{color:'white', fontSize:RFValue(24, 580), margin: '50'}}>Profile</Text>
+                    <Text style={{color:'white', fontSize: font*20, margin: '50'}}>Profile</Text>
                 </TouchableOpacity>
             </View>
             <View                style={styles.link}>
@@ -33,8 +34,22 @@ export default function Header(props) {
                 style={styles.link}
                 title="Go to Homepage"
                 onPress={() => props.navigation.navigate('Homepage', props.navigation)}>
-                    <Text style={{color:'white',fontSize:scale(18), margin: '50'}}>Home</Text>
+                    <Text style={{color:'white',fontSize: font*20, margin: '50'}}>Home</Text>
                 </TouchableOpacity>
+            </View>
+            <View style={styles.link}>
+
+            </View>
+            <View
+                style={styles.link}>
+            <AntDesign name="instagram" size={font*20} color="white" style={ {margin: '50',         flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems: 'space-between',
+        marginTop:'-40%',
+        // margin: '100',
+        // padding:'100',
+        width:'100%',}}/>
             </View>
         </View>
             )
@@ -46,8 +61,9 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems: 'space-between',
-        margin: '100',
-        padding:'100',
+        marginTop:'-40%',
+        // margin: '100',
+        // padding:'100',
         width:'100%',
         textColor: 'white',
     },
