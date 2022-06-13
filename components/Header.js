@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         width:'100%',
+        // backgroundColor:'black',
         // flexDirection:'row',
         // marginTop:'-20%',
         // justifyContent:'space-between',
@@ -82,6 +83,9 @@ const styles = StyleSheet.create({
     },
     rowContainer: {
         position:'absolute',
+        // backgroundColor:'rgba(52, 52, 52, 0.2)',
+        // opacity:15,
+
         // top:20,
         // left:100,
 
@@ -91,8 +95,9 @@ const styles = StyleSheet.create({
         width: '100%',
         padding:20,
         flexDirection:'row',
-        marginTop:'-20%',
-        marginLeft:'11%',
+        marginTop:'-20vh',
+        marginLeft:'11vw',
+        // backgroundColor:'rgba(52, 52, 52, 0.2)',
         // justifyContent: 'space-evenly',
         // backgroundColor:'red',
     },
@@ -103,6 +108,7 @@ const styles = StyleSheet.create({
     // },
     tinyLogo: {
         flex:1,
+        // backgroundColor:'rgba(52, 52, 52, 0.2)',
         // flexDirection:'row',
         // position:'absolute',
         // marginLeft:'-800%',

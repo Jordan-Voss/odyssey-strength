@@ -22,22 +22,27 @@ export default function Homepage(props) {
         return (
         <ScrollView style={{    flex: 1, position:'absolute'}}>
             <View style={{    width: '100%',
+            backgroundColor:'rgba(52, 52, 52, 0.9)',
     height: 200,
     position: 'relative',
     top: 0,
     left: 0}} >
                 <Video
                 source={require('../../assets/video/odyssey.mp4')}
-                style={{width: windowWidth,height: windowHeight/2}}
+                style={{width: windowWidth,backgroundColor:'red',height: windowHeight/2}}
                 isMuted={true}
                 isLooping={true}
                 shouldPlay={true}
                 repeat={true}
                 resizeMode={"cover"}
                 rate={1.0}
-                ignoreSilentSwitch={"obey"}/>
+                ignoreSilentSwitch={"obey"}>
+                     </Video>
+                     <View                 style={{marginTop:-windowHeight/2,width: windowWidth, backgroundColor:'rgba(0, 0, 0, 0.6)'
+,height: windowHeight/2}}
+></View>
             </View>
-            <Header navigation={props.navigation} style={{position:'absolute'}}></Header>
+            <Header navigation={props.navigation} style={{marginTop:-windowHeight/2,width: windowWidth}}></Header>
 
             <View style={{position:'absolute',   justifyContent: 'space-evenly',
     alignItems: 'space-evenly',
@@ -58,6 +63,7 @@ export default function Homepage(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // backgroundColor: 'rgba(0,0,0,.6)',
         justifyContent: 'center',
         marginTop:'50%',
         alignItems: 'center',
