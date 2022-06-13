@@ -20,7 +20,7 @@ export default function Homepage(props) {
     const windowHeight = useWindowDimensions().height;
 
         return (
-        <ScrollView style={{    flex: 1, position:'absolute'}}>
+        <ScrollView style={{ flex: 1, position:'absolute'}}>
             <View style={{    width: '100%',
             backgroundColor:'rgba(52, 52, 52, 0.9)',
     height: 200,
@@ -38,18 +38,22 @@ export default function Homepage(props) {
                 rate={1.0}
                 ignoreSilentSwitch={"obey"}>
                      </Video>
-                     <View                 style={{marginTop:-windowHeight/2,width: windowWidth, backgroundColor:'rgba(0, 0, 0, 0.6)'
+                     <View style={{marginTop:-windowHeight/2,width: windowWidth, backgroundColor:'rgba(0, 0, 0, 0.6)'
 ,height: windowHeight/2}}
 ></View>
             </View>
+            <View style={{paddingTop:'1rem'}}>
             <Header navigation={props.navigation} style={{marginTop:-windowHeight/2,width: windowWidth}}></Header>
-
-            <View style={{position:'absolute',   justifyContent: 'space-evenly',
+            </View>
+            {/* <View 
+            style={{position:'absolute',   justifyContent: 'space-evenly',
     alignItems: 'space-evenly',
     top: windowHeight*0.1,
-    right: windowWidth*0.08,}}>
+    right: windowWidth*0.08,}}> */}
+
                 
-            </View>
+            {/* </View> */}
+            <View></View>
             <View style={styles.container}>
                 <Button onPress={() => console.log(props)}>
 
