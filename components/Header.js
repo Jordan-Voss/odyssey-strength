@@ -9,7 +9,7 @@ import AboutMobile from "../screens/mobile/About";
 import {Link} from "@react-navigation/web";
 import { scale } from "../utils/scale";
 import { useWindowDimensions } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign, Entypo } from '@expo/vector-icons'; 
 import * as Linking from 'expo-linking';
 
 
@@ -29,7 +29,14 @@ export default function Header(props) {
                 style={{ flex: 1}} 
                     title="Go to About"
                     onPress={() => props.navigation.navigate('About', props.navigation)}>
-                    <Text style={{fontSize: fontDimension*20, color:'white'}}>About</Text>
+                    <Text style={{fontSize: fontDimension*15, color:'white'}}>About</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                // style={styles.link}
+                style={{ flex: 1}} 
+                    title="Go to Pricing"
+                    onPress={() => props.navigation.navigate('About', props.navigation)}>
+                    <Text style={{fontSize: fontDimension*15, color:'white'}}>Pricing</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                 // style={styles.link}
@@ -37,7 +44,7 @@ export default function Header(props) {
 
                     title="Go to About"
                     onPress={() => props.navigation.navigate('Coaching', props.navigation)}>
-                    <Text style={{fontSize: fontDimension*20, color:'white'}}>Coaching</Text>
+                    <Text style={{fontSize: fontDimension*15, color:'white'}}>Coaching</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                 // style={styles.link}
@@ -56,13 +63,29 @@ export default function Header(props) {
                 style={{ flex: 1}} 
                 title="Go to Homepage"
                 onPress={() => props.navigation.navigate('Resources', props.navigation)}>
-                <Text style={{fontSize: fontDimension*20, color: 'white'}}>Resources</Text>
+                <Text style={{fontSize: fontDimension*15, color: 'white'}}>Resources</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                onPress={() => Linking.openURL('https://instagram.com/odysseystrength')}
-                style={{ flex: 1}}                 >
-                <AntDesign name="instagram" size={fontDimension*20} color="white"/>
+                // style={styles.link}
+                style={{ flex: 1}} 
+                    title="Go to Pricing"
+                    onPress={() => props.navigation.navigate('About', props.navigation)}>
+                    <Text style={{fontSize: fontDimension*15, color:'white'}}>Pricing</Text>
                 </TouchableOpacity>
+                <View style={{ flex: 1, flexDirection:'row'}}>
+                    <TouchableOpacity
+                        onPress={() => Linking.openURL('https://instagram.com/odysseystrength')}>
+                            <AntDesign name="instagram" size={fontDimension*20} color="white"/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => Linking.openURL('https://instagram.com/odysseystrength')}>
+                            <AntDesign name="mail" size={fontDimension*20} color="white"/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => Linking.openURL('https://instagram.com/odysseystrength')}>
+                            <Entypo name="spotify" size={fontDimension*20} color="white"/>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
             )
@@ -73,72 +96,18 @@ const styles = StyleSheet.create({
         flex:1,
         top:10,
         width:'100%',
-        // backgroundColor:'black',
-        // flexDirection:'row',
-        // marginTop:'-20%',
-        // justifyContent:'space-between',
-
-        // height: '100%',
-        // padding: 8,
-        // backgroundColor: "#ffffff",
     },
     rowContainer: {
         position:'fixed',
-        // backgroundColor:'rgba(52, 52, 52, 0.2)',
-        // opacity:15,
-
-        // top:20,
-        // left:100,
-
-        // // flex:1,
-        // alignSelf: 'stretch',
-
         width: '100%',
-        // top:0,
-        // padding:'2%',
-        // minHeight:'10%',
         flexDirection:'row',
         marginTop:'-20vh',
-        marginLeft:'10vw',
-        // backgroundColor:'rgba(52, 52, 52, 0.2)',
-        // justifyContent: 'space-evenly',
-        // backgroundColor:'red',
+        marginLeft:'7vw',
     },
-    // navLink:{
-    //     paddingLeft: 45,
-    //     // color: "white",
-    //     // fontSize: fontDimension*20,
-    // },
     tinyLogo: {
         flex:1,
-        // backgroundColor:'rgba(52, 52, 52, 0.2)',
-        // flexDirection:'row',
-        // position:'absolute',
-        // marginLeft:'-800%',
-        // paddingTop:'10%',
         marginTop:'-3vh',
         width: 100,
         height: 100,
       },
-    // link: {
-    //     flex:1,
-    //     flexDirection:'row',
-    //     justifyContent:'space-between',
-    //     alignItems: 'space-between',
-    //     marginTop:'-70%',
-    //     // margin: '100',
-    //     // padding:'100',
-    //     width:'100%',
-    //     textColor: 'white',
-    // },
-    //     header: {
-    //         flex: 1,
-    //         justifyContent:'space-between',
-    //         flexDirection: 'row',
-    //         // height: '100px',
-    //         width: '100%',
-    //         alignItems: 'space-between',
-    //         // marginRight:'0%',
-    //         backgroundColor: 'transparent',
-    //     },
 });

@@ -18,6 +18,8 @@ export default function Homepage(props) {
 
     const windowWidth = useWindowDimensions().width;
     const windowHeight = useWindowDimensions().height;
+    const fontDimension = useWindowDimensions().fontScale;
+
 
         return (
         <ScrollView style={{ flex: 1, position:'absolute'}}>
@@ -29,7 +31,7 @@ export default function Homepage(props) {
     left: 0}} >
                 <Video
                 source={require('../../assets/video/odyssey.mp4')}
-                style={{width: windowWidth,backgroundColor:'red',height: windowHeight/2}}
+                style={{width: windowWidth,height: windowHeight/2}}
                 isMuted={true}
                 isLooping={true}
                 paused={false}
@@ -43,8 +45,13 @@ export default function Homepage(props) {
 ,height: windowHeight/2}}
 ></View>
             </View>
-            <View style={{paddingTop:'1rem'}}>
+            <View style={{paddingTop:'1rem',}}>
             <Header navigation={props.navigation} style={{marginTop:-windowHeight/2,width: windowWidth}}></Header>
+            <View style={{flexDirection:'row',      width: '100%', marginLeft:'20vw'}}>
+                {windowWidth > 900 ? <Text>hu</Text> : <Text>ho</Text>}
+            <Text style={{flex:1,color:'white', fontFamily: 'Roboto', fontSize: fontDimension*40}}>Odyssey</Text>
+            <Text style={{flex:1,color:'white', fontFamily: 'Roboto', fontSize: fontDimension*30}}>An Epic Journey</Text>
+            </View>
             </View>
             {/* <View 
             style={{position:'absolute',   justifyContent: 'space-evenly',
@@ -54,7 +61,7 @@ export default function Homepage(props) {
 
                 
             {/* </View> */}
-            <View></View>
+            <View style={{backgroundColor:'red'}}></View>
             <View style={styles.container}>
                 <Button onPress={() => console.log(props)}>
 
@@ -68,6 +75,7 @@ export default function Homepage(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'red',
         // backgroundColor: 'rgba(0,0,0,.6)',
         justifyContent: 'center',
         marginTop:'50%',
