@@ -32,6 +32,7 @@ export default function Homepage(props) {
                 style={{width: windowWidth,backgroundColor:'red',height: windowHeight/2}}
                 isMuted={true}
                 isLooping={true}
+                paused={false}
                 shouldPlay={true}
                 repeat={true}
                 resizeMode={"cover"}

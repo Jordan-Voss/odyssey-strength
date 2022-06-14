@@ -11,7 +11,7 @@ export default function About(props) {
     const windowWidth = useWindowDimensions().width;
     const windowHeight = useWindowDimensions().height;
     return(
-        <ScrollView style={{    padding:20,flex: 1, position:'absolute'}}>
+        <ScrollView style={{    flex: 1, position:'absolute'}}>
             <View style={{    width: windowWidth,
                 backgroundColor:'red',
                 height: 200,

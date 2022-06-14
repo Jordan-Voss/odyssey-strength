@@ -71,6 +71,7 @@ export default function Header(props) {
 const styles = StyleSheet.create({
     container: {
         flex:1,
+        top:10,
         width:'100%',
         // backgroundColor:'black',
         // flexDirection:'row',
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
         // backgroundColor: "#ffffff",
     },
     rowContainer: {
-        position:'absolute',
+        position:'fixed',
         // backgroundColor:'rgba(52, 52, 52, 0.2)',
         // opacity:15,
 
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
         // minHeight:'10%',
         flexDirection:'row',
         marginTop:'-20vh',
-        marginLeft:'11vw',
+        marginLeft:'10vw',
         // backgroundColor:'rgba(52, 52, 52, 0.2)',
         // justifyContent: 'space-evenly',
         // backgroundColor:'red',
