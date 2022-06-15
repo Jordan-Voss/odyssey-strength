@@ -1,9 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Dimensions, StyleSheet, Text, View, Platform } from "react-native";
 import Header from "./components/Header";
+import "react-native-gesture-handler";
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+  Easing,
+} from "react-native-reanimated";
 import Home from "./navigation/Home";
-import HomepageWeb from "./screens/web/Homepage";
-import Coaching from "./screens/web/Coaching";
+import HomepageWebSmall from "./screens/web/WebSmall/HomepageWebSmall";
+import NotificationsScreen from "./screens/web/WebSmall/NotificationsScreen";
 
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
@@ -66,9 +73,15 @@ export default function App() {
   const show =
     windowWidth < 900 ? (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
-          <Drawer.Screen name="Home" component={HomepageWeb} />
-          <Drawer.Screen name="Notifications" component={Coaching} />
+        <Drawer.Navigator
+          screenOptions={{
+            // drawerStyle: { backgroundColor: "black" },
+            drawerPosition: "right",
+          }}
+          initialRouteName="Home"
+        >
+          <Drawer.Screen name="Home" component={HomepageWebSmall} />
+          <Drawer.Screen name="Notifications" component={NotificationsScreen} />
         </Drawer.Navigator>
       </NavigationContainer>
     ) : (
@@ -77,10 +90,34 @@ export default function App() {
       </View>
     );
 
-  return (
-    // <View>
+  return windowWidth < 900 ? (
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerType="front"
+        // drawerContent={(props) => <CustomDrawerContent {...props} />}
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+          headerStyle: {
+            height: 80,
+            // backgroundOpacity: 1,
+            backgroundColor: "#133E7C",
+            shadowColor: "#133E7C",
+            borderBottomColor: "#133E7C",
+          },
+          headerBackgroundColor: "#133E7C",
+          headerTitle: "",
+          activeTintColor: "#9BE6DE",
+          itemStyle: { marginVertical: 10 },
+        }}
+      >
+        <Drawer.Screen name="Home" component={HomepageWebSmall} />
+        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  ) : (
     <View style={styles.outer} onLayout={onLayoutRootView}>
-      {show}
+      <Home />
     </View>
   );
 }
