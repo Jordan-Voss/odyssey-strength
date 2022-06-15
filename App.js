@@ -71,7 +71,7 @@ export default function App() {
   }
   const Drawer = createDrawerNavigator();
   const show =
-    windowWidth < 900 ? (
+    windowWidth < 1300 ? (
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{
