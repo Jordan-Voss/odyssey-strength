@@ -1,6 +1,6 @@
-import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
-import {createBrowserApp} from '@react-navigation/web';
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import { createBrowserApp } from "@react-navigation/web";
 
 import HomepageWeb from "../screens/web/Homepage";
 import HomepageMobile from "../screens/mobile/Homepage";
@@ -10,53 +10,55 @@ import Resources from "../screens/web/Resources";
 import Coaching from "../screens/web/Coaching";
 
 import AboutMobile from "../screens/mobile/About";
-import {Platform} from "react-native";
+import { Platform } from "react-native";
 import Header from "../components/Header";
 
-const isWeb = Platform.OS === 'web';
+const isWeb = Platform.OS === "web";
 
 const HomeWeb = createStackNavigator(
-    {
-        About: {
-        screen: AboutWeb,
-        path: 'About',
-        },
-        Coaching: {
-            screen: Coaching,
-            path: 'About',
-        },
-        Resources: {
-            screen: Resources,
-            path: 'About',
-            },
-        Homepage: HomepageWeb,
-        Header: Header,
+  {
+    About: {
+      screen: AboutWeb,
+      path: "About",
     },
-    {
-    initialRouteName: 'Homepage',
-    headerMode: 'none',
+    Coaching: {
+      screen: Coaching,
+      path: "About",
+    },
+    Resources: {
+      screen: Resources,
+      path: "About",
+    },
+    Homepage: HomepageWeb,
+    Header: Header,
+  },
+  {
+    initialRouteName: "Homepage",
+    headerMode: "none",
     navigationOptions: {
-        headerVisible: false,
-     } }
+      headerVisible: false,
+    },
+  }
 );
 
 const HomeMobile = createStackNavigator(
-    {
-        About: {
-            screen: AboutMobile,
-            path: '/About'
-        },
-        Homepage: HomepageMobile,
+  {
+    About: {
+      screen: AboutMobile,
+      path: "/About",
     },
-    {
-    headerMode: 'none',
+    Homepage: HomepageMobile,
+  },
+  {
+    headerMode: "none",
     navigationOptions: {
-        headerVisible: false,
-     } }
+      headerVisible: false,
+    },
+  }
 );
 
 const Home = isWeb ? HomeWeb : HomeMobile;
 
-const container = isWeb ? createBrowserApp(Home): createAppContainer(Home);
+const container = isWeb ? createBrowserApp(Home) : createAppContainer(Home);
 
 export default container;

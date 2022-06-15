@@ -21,7 +21,8 @@ export function scale(size) {
   // Fixed base width that has worked well for most of my use cases
   const baseWidth = isTabletLike() ? 520 : 350;
   const windowDimensions = Dimensions.get("window");
-  const shorterWindowDimension = windowDimensions.width > windowDimensions.height
+  const shorterWindowDimension =
+    windowDimensions.width > windowDimensions.height
       ? windowDimensions.height
       : windowDimensions.width;
   return (shorterWindowDimension / baseWidth) * size;
