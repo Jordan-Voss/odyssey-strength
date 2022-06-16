@@ -26,20 +26,20 @@ export default function HomepageWebSmall({ navigation }) {
         }}
       >
         <Video
-          source={require("../../../assets/video/odyssey.mp4")}
-          style={{ height: windowHeight }}
+          source={require("../../../assets/video/ody2.mp4")}
+          style={{ width: windowWidth, height: windowHeight / 2 }}
           isMuted={true}
           isLooping={true}
           paused={false}
           shouldPlay={true}
           repeat={true}
-          resizeMode={"stretch"}
+          resizeMode={"cover"}
           rate={1.0}
           ignoreSilentSwitch={"obey"}
         ></Video>
         <View
           style={{
-            marginTop: -windowHeight,
+            marginTop: -windowHeight / 2,
             width: windowWidth,
             backgroundColor: "rgba(0, 0, 0, 0.6)",
             height: windowHeight / 2,

@@ -1,5 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, View, Platform } from "react-native";
+import React, { useCallback, useEffect, useState, useRef } from "react";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import Header from "./components/Header";
 import "react-native-gesture-handler";
 import Animated, {
@@ -8,6 +16,8 @@ import Animated, {
   useAnimatedStyle,
   Easing,
 } from "react-native-reanimated";
+import * as Animatable from "react-native-animatable";
+
 // import HeaderWebSmall from "../../components/HeaderWebSmall";
 
 import Home from "./navigation/Home";
@@ -19,18 +29,56 @@ import {
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
+import { useIsDrawerOpen } from "@react-navigation/drawer";
+
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import "./utils/trusted-security-policies";
 import { useWindowDimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { AntDesign, Feather } from "@expo/vector-icons";
 // import * as Linking from 'expo-linking';
-
+// Feather = Animatable.createAnimatableComponent(Feather);
 const isWeb = Platform.OS === "web";
 function CustomDrawerContent(props) {
+  const AnimationRef = useRef(null);
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
+  const fontDimension = useWindowDimensions().fontScale;
+
+  useEffect(() => {
+    // props.navigation.toggleDrawer();
+    if (props.navigation.isDrawerOpen) {
+    }
+    if (AnimationRef) {
+      AnimationRef.current?.wobble();
+      // AnimationRef.current?.lightSpeedOut();
+    }
+  });
+
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView
+      // overlayColor="transparent"
+      // inactiveBackgroundColor="transparent"
+      // drawerBackgroundColor="black"
+      // style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+      {...props}
+    >
+      <Animatable.View
+        // delay={4000}
+        ref={AnimationRef}
+        // iterationCount={1}
+        // style={{ color: "white" }}
+      >
+        <TouchableOpacity onPress={() => props.navigation.toggleDrawer()}>
+          <Feather
+            name="x"
+            color="white"
+            style={{ marginLeft: "80%" }}
+            size={fontDimension * 50}
+          />
+        </TouchableOpacity>
+      </Animatable.View>
       <DrawerItemList {...props} />
       {/* <DrawerItem
         label="Close drawer"
@@ -94,24 +142,27 @@ export default function App() {
   return windowWidth < 500 ? (
     <NavigationContainer>
       <Drawer.Navigator
+        // overlayColor="transparent"
         useLegacyImplementation
         // headerShown={false}
+        // sets background color of drawer
+
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
+          // overlayColor: "transparent",
           headerShown: false,
           drawerPosition: "right",
+          drawerStyle: {
+            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            drawerActiveTintColor: "white",
 
-          headerStyle: {
-            height: 80,
-            backgroundOpacity: 1,
-            backgroundColor: "#133E7C",
-            shadowColor: "#133E7C",
-            borderBottomColor: "#133E7C",
+            width: "75%",
           },
-          headerBackgroundColor: "#133E7C",
-          headerTitle: "",
-          activeTintColor: "#9BE6DE",
-          itemStyle: { marginVertical: 10 },
+          // itemStyle: { marginVertical: 10 },
+        }}
+        contentOptions={{
+          activeTintColor: "white",
+          overlayColor: "white",
         }}
       >
         <Drawer.Screen name="Home" component={HomepageWebSmall} />
