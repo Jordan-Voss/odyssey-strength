@@ -8,6 +8,8 @@ import Animated, {
   useAnimatedStyle,
   Easing,
 } from "react-native-reanimated";
+// import HeaderWebSmall from "../../components/HeaderWebSmall";
+
 import Home from "./navigation/Home";
 import HomepageWebSmall from "./screens/web/WebSmall/HomepageWebSmall";
 import NotificationsScreen from "./screens/web/WebSmall/NotificationsScreen";

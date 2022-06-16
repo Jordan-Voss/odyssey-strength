@@ -4,6 +4,7 @@ import { Link } from "@react-navigation/web";
 import { useWindowDimensions, TouchableOpacity } from "react-native";
 import { Video } from "expo-av";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import HeaderWebSmall from "../../../components/HeaderWebSmall";
 
 const isWeb = Platform.OS === "web";
 
@@ -26,28 +27,26 @@ export default function HomepageWebSmall({ navigation }) {
       >
         <Video
           source={require("../../../assets/video/odyssey.mp4")}
-          style={{ width: windowWidth, height: windowHeight / 2 }}
+          style={{ height: windowHeight }}
           isMuted={true}
           isLooping={true}
           paused={false}
           shouldPlay={true}
           repeat={true}
-          resizeMode={"cover"}
+          resizeMode={"stretch"}
           rate={1.0}
           ignoreSilentSwitch={"obey"}
         ></Video>
         <View
           style={{
-            marginTop: -windowHeight / 2,
+            marginTop: -windowHeight,
             width: windowWidth,
             backgroundColor: "rgba(0, 0, 0, 0.6)",
             height: windowHeight / 2,
           }}
         ></View>
       </View>
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <AntDesign name="instagram" size={fontDimension * 20} color="white" />
-      </TouchableOpacity>
+      <HeaderWebSmall navigation={navigation} />
       <Text style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {windowWidth}
       </Text>
