@@ -11,18 +11,36 @@ import Animated, {
 import Home from "./navigation/Home";
 import HomepageWebSmall from "./screens/web/WebSmall/HomepageWebSmall";
 import NotificationsScreen from "./screens/web/WebSmall/NotificationsScreen";
-
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from "@react-navigation/drawer";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import "./utils/trusted-security-policies";
 import { useWindowDimensions } from "react-native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
 // import * as Linking from 'expo-linking';
 
 const isWeb = Platform.OS === "web";
-
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      {/* <DrawerItem
+        label="Close drawer"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+      <DrawerItem
+        label="Toggle drawer"
+        onPress={() => props.navigation.toggleDrawer()}
+  /> */}
+    </DrawerContentScrollView>
+  );
+}
 export default function App() {
   const windowWidth = useWindowDimensions().width;
   const [appIsReady, setAppIsReady] = useState(false);
@@ -70,37 +88,20 @@ export default function App() {
     return null;
   }
   const Drawer = createDrawerNavigator();
-  const show =
-    windowWidth < 1300 ? (
-      <NavigationContainer>
-        <Drawer.Navigator
-          screenOptions={{
-            // drawerStyle: { backgroundColor: "black" },
-            drawerPosition: "right",
-          }}
-          initialRouteName="Home"
-        >
-          <Drawer.Screen name="Home" component={HomepageWebSmall} />
-          <Drawer.Screen name="Notifications" component={NotificationsScreen} />
-        </Drawer.Navigator>
-      </NavigationContainer>
-    ) : (
-      <View style={styles.outer} onLayout={onLayoutRootView}>
-        <Home />
-      </View>
-    );
 
   return windowWidth < 500 ? (
     <NavigationContainer>
       <Drawer.Navigator
-        drawerType="front"
-        // drawerContent={(props) => <CustomDrawerContent {...props} />}
-        initialRouteName="Home"
+        useLegacyImplementation
+        // headerShown={false}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           headerShown: false,
+          drawerPosition: "right",
+
           headerStyle: {
             height: 80,
-            // backgroundOpacity: 1,
+            backgroundOpacity: 1,
             backgroundColor: "#133E7C",
             shadowColor: "#133E7C",
             borderBottomColor: "#133E7C",
