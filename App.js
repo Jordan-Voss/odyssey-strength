@@ -90,7 +90,7 @@ export default function App() {
       </View>
     );
 
-  return windowWidth < 900 ? (
+  return windowWidth < 500 ? (
     <NavigationContainer>
       <Drawer.Navigator
         drawerType="front"
