@@ -24,6 +24,7 @@ pipeline {
                 sh 'sudo cp -r web-build/ /var/www/html'
             }
         }
+        
                 stage('Remove Old') {
             steps {
                 sh 'sudo rm -rf ~/web-build'
