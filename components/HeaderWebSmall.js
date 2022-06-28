@@ -49,6 +49,10 @@ const styles = StyleSheet.create({
     flex: 1,
     // marginTop: "300vh",
     width: "100%",
-    height: "100%",
+    height: "100%"    "homepage": "http://jordan-voss.github.io/ody",
+    "scripts": {
+        "deploy": "gh-pages -d web-build",
+        "predeploy": "expo build:web"
+    },,
   },
 });
