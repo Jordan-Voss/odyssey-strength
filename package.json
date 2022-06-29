@@ -16,7 +16,6 @@
     "@react-navigation/web": "^1.0.0-alpha.9",
     "dompurify": "^2.3.8",
     "expo": "~45.0.0",
-    "expo-cli": "5.4.12",
     "expo-av": "~11.2.3",
     "expo-font": "~10.1.0",
     "expo-linking": "~3.1.0",
@@ -42,7 +41,6 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "gh-pages": "^4.0.0",
-    "expo-cli": "5.4.12",
     "react-native-reanimated": "^2.8.0"
   },
   "private": true

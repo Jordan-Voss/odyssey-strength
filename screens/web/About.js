@@ -29,7 +29,7 @@ export default function About(props) {
         }}
       ></View>
       <Header
-        navigation={props.navigation}
+        // navigation={props.navigation}
         style={{ marginTop: -windowHeight / 2, width: windowWidth }}
       ></Header>
       <View style={styles.container}>
