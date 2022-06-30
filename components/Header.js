@@ -56,7 +56,7 @@ export default function Header(props) {
           }
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
-            Coaching21
+            Coaching
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
