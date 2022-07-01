@@ -9,4 +9,9 @@ export default [
     iconType: "AntDesign",
     iconName: "linechart",
   },
+  {
+    name: "CoachingScreen",
+    iconType: "AntDesign",
+    iconName: "linechart",
+  },
 ];
