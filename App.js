@@ -21,7 +21,7 @@ import * as Animatable from "react-native-animatable";
 // import HeaderWebSmall from "../../components/HeaderWebSmall";
 
 import Home from "./navigation/Home";
-import Coaching from "./screens/web/Coaching";
+import AboutWebSmall from "./screens/web/WebSmall/AboutWebSmall";
 import HomepageWebSmall from "./screens/web/WebSmall/HomepageWebSmall";
 import NotificationsScreen from "./screens/web/WebSmall/NotificationsScreen";
 import {
@@ -168,7 +168,7 @@ export default function App() {
       >
         <Drawer.Screen name="Home" component={HomepageWebSmall} />
         <Drawer.Screen name="Notifications" component={NotificationsScreen} />
-        <Drawer.Screen name="Coaching" component={Coaching} />
+        <Drawer.Screen name="About" component={AboutWebSmall} />
       </Drawer.Navigator>
     </NavigationContainer>
   ) : (
