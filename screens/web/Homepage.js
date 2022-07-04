@@ -99,7 +99,7 @@ export default function Homepage(props) {
       {/* </View> */}
       <View style={{ backgroundColor: "red" }}></View>
       <View style={styles.container}>
-        <Button onPress={() => console.log(props)}></Button>
+        <Button onPress={() => props.navigation.navigate("About")}></Button>
       </View>
     </ScrollView>
   );

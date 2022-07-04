@@ -12,7 +12,7 @@ import { Link } from "@react-navigation/web";
 import Header from "../../components/Header";
 import { useWindowDimensions } from "react-native";
 
-export default function About(props) {
+export default function About({ navigation }) {
   // static path = "About";
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -29,11 +29,12 @@ export default function About(props) {
         }}
       ></View>
       <Header
-        // navigation={props.navigation}
+        navigation={navigation}
         style={{ marginTop: -windowHeight / 2, width: windowWidth }}
       ></Header>
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => console.log(props)}>
+        <TouchableOpacity>
+          {/* // onPress={() => console.log(props)}> */}
           <Text>About</Text>
         </TouchableOpacity>
       </View>

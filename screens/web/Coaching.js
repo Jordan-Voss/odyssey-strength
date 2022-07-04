@@ -12,7 +12,7 @@ import { Link } from "@react-navigation/web";
 import Header from "../../components/Header";
 import { useWindowDimensions } from "react-native";
 
-export default function Coaching(props) {
+export default function Coaching({ navigation }) {
   // static path = "About";
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -29,7 +29,7 @@ export default function Coaching(props) {
         }}
       ></View>
       <Header
-        navigation={props.navigation}
+        navigation={navigation}
         style={{ marginTop: -windowHeight / 2, width: windowWidth }}
       ></Header>
 

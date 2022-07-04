@@ -23,11 +23,9 @@ const HomeWeb = createStackNavigator(
     },
     Coaching: {
       screen: Coaching,
-      path: "About",
     },
     Resources: {
       screen: Resources,
-      path: "About",
     },
     Homepage: HomepageWeb,
     Header: Header,

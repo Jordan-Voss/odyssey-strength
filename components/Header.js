@@ -19,7 +19,7 @@ import { useWindowDimensions } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 
-export default function Header(props) {
+export default function Header({ navigation }) {
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
@@ -31,7 +31,7 @@ export default function Header(props) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to About"
-          onPress={() => props.navigation.navigate("About", props.navigation)}
+          onPress={() => navigation.navigate("About")}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             About
@@ -41,7 +41,7 @@ export default function Header(props) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to Pricing"
-          onPress={() => props.navigation.navigate("About", props.navigation)}
+          onPress={() => navigation.navigate("About")}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Pricing
@@ -51,9 +51,7 @@ export default function Header(props) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to About"
-          onPress={() =>
-            props.navigation.navigate("Coaching", props.navigation)
-          }
+          onPress={() => navigation.navigate("Coaching")}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Coaching
@@ -63,9 +61,7 @@ export default function Header(props) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to About"
-          onPress={() =>
-            props.navigation.navigate("Homepage", props.navigation)
-          }
+          onPress={() => navigation.navigate("Homepage")}
         >
           <Image
             //   style={{ flex: 1, backgroundColor: "red" }}
@@ -76,9 +72,7 @@ export default function Header(props) {
         <TouchableOpacity
           style={{ flex: 1 }}
           title="Go to Homepage"
-          onPress={() =>
-            props.navigation.navigate("Resources", props.navigation)
-          }
+          onPress={() => navigation.navigate("Resources")}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Resources
@@ -88,7 +82,7 @@ export default function Header(props) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to Pricing"
-          onPress={() => props.navigation.navigate("About", props.navigation)}
+          onPress={() => navigation.navigate("About")}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Pricing
