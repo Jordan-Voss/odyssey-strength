@@ -102,8 +102,8 @@ export default function Header({ navigation }) {
           style={{ flex: 1 }}
           title="Go to Pricing"
           onPress={() => {
-            if (navigation.state.routeName != "About")
-              Navigate(navigation, "About");
+            if (navigation.state.routeName != "Coaching")
+              Navigate(navigation, "Coaching");
           }}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
