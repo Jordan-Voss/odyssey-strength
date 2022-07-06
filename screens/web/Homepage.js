@@ -15,10 +15,6 @@ import { Dimensions } from "react-native";
 import { useWindowDimensions } from "react-native";
 import * as Linking from "expo-linking";
 
-// const isWeb = Platform.OS === 'web';
-// const windowWidth = Dimensions.get('window').width;
-// const windowHeight = Dimensions.get('window').height;
-
 export default function Homepage(props) {
   const isWeb = Platform.OS === "web";
 
@@ -29,18 +25,24 @@ export default function Homepage(props) {
   return (
     <ScrollView style={{ flex: 1, position: "absolute" }}>
       <View
-        style={{
-          width: "100%",
-          backgroundColor: "rgba(52, 52, 52, 0.9)",
-          height: 200,
-          position: "relative",
-          top: 0,
-          left: 0,
-        }}
+        style={
+          {
+            // width: "100%",
+            // backgroundColor: "rgba(0, 0, 0, 0.9)",
+            // height: 200,
+            // position: "relative",
+            // top: 0,
+            // left: 0,
+          }
+        }
       >
         <Video
           source={require("../../assets/video/odyssey.mp4")}
-          style={{ width: windowWidth, height: windowHeight / 2 }}
+          style={{
+            width: windowWidth,
+            // height: windowHeight / 2,
+            aspectRatio: 800 / 450,
+          }}
           isMuted={true}
           isLooping={true}
           paused={false}
@@ -52,54 +54,65 @@ export default function Homepage(props) {
         ></Video>
         <View
           style={{
-            marginTop: -windowHeight / 2,
             width: windowWidth,
+            aspectRatio: 800 / 450,
             backgroundColor: "rgba(0, 0, 0, 0.6)",
-            height: windowHeight / 2,
+            position: "fixed",
           }}
-        ></View>
-      </View>
-      <View style={{ paddingTop: "1rem" }}>
-        <Header
-          navigation={props.navigation}
-          style={{ marginTop: -windowHeight / 2, width: windowWidth }}
-        ></Header>
-        <View
-          style={{ flexDirection: "row", width: "100%", marginLeft: "20vw" }}
         >
-          {windowWidth > 900 ? <Text>hu</Text> : <Text>ho</Text>}
-          <Text
+          <Header
+            navigation={props.navigation}
+            // style={{ marginTop: -windowHeight / 2 }}
+          ></Header>
+          <View
             style={{
-              flex: 1,
-              color: "white",
-              fontFamily: "Roboto",
-              fontSize: fontDimension * 40,
+              flexDirection: "row",
+              paddingLeft: "15%",
+              paddingRight: "15%",
+              justifyContent: "space-between",
+              marginTop: "10%",
             }}
           >
-            Odyssey
-          </Text>
-          <Text
-            style={{
-              flex: 1,
-              color: "white",
-              fontFamily: "Roboto",
-              fontSize: fontDimension * 30,
-            }}
-          >
-            An Epic Journey
-          </Text>
+            <Text
+              style={{
+                flex: 1,
+                color: "white",
+                fontFamily: "Roboto",
+                fontSize: fontDimension * 40,
+              }}
+            >
+              Odyssey
+            </Text>
+            <Text
+              style={{
+                flex: 1,
+                color: "white",
+                fontFamily: "Roboto",
+                fontSize: fontDimension * 35,
+              }}
+            >
+              An Epic Journey
+            </Text>
+          </View>
         </View>
-      </View>
-      {/* <View 
-            style={{position:'absolute',   justifyContent: 'space-evenly',
-    alignItems: 'space-evenly',
-    top: windowHeight*0.1,
-    right: windowWidth*0.08,}}> */}
-
-      {/* </View> */}
-      <View style={{ backgroundColor: "red" }}></View>
-      <View style={styles.container}>
-        <Button onPress={() => props.navigation.navigate("About")}></Button>
+        <View style={styles.container}>
+          {/* <Text>f</Text> */}
+          {/* <View style={{ flex: 1, backgroundColor: "red", height: 100 }}>
+            <Text>red</Text>
+          </View>
+          <View style={{ flex: 1 }}></View>
+          <View style={{ flex: 1, backgroundColor: "darkorange" }}>
+            <Text>orange</Text>
+          </View>
+          <View style={{ flex: 1 }}></View>
+          <View style={{ flex: 1, backgroundColor: "green" }}>
+            <Text>green</Text>
+          </View>  */}
+        </View>
+        <View>
+          <Text>gwreg</Text>
+        </View>
+        <Text>erfhwe</Text>
       </View>
     </ScrollView>
   );
@@ -107,11 +120,20 @@ export default function Homepage(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "red",
+    // flexDirection: "row",
+    height: 900,
+    width: "100%",
+    backgroundColor: "blue",
     // backgroundColor: 'rgba(0,0,0,.6)',
-    justifyContent: "center",
+    // justifyContent: "space-between",
+    // marginTop: "20%",
+    // alignItems: "center",
+  },
+  prices: {
+    backgroundColor: "red",
+    // flex: 1,
     marginTop: "50%",
-    alignItems: "center",
+
+    // height: 100,
   },
 });

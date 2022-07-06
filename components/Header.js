@@ -142,15 +142,15 @@ export default function Header({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    top: 10,
-    width: "100%",
+    // flex: 1,
+    // top: 10,
+    // width: "100%",
   },
   rowContainer: {
-    position: "fixed",
-    width: "100%",
+    // position: "fixed",
+    // width: "100%",
     flexDirection: "row",
-    marginTop: "-20vh",
+    marginTop: "5vh",
     marginLeft: "7vw",
   },
   tinyLogo: {
