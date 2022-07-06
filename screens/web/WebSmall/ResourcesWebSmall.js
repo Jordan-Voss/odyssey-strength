@@ -29,7 +29,9 @@ export default function ResourcesWebSmall({ navigation }) {
       <Text style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {windowWidth}
       </Text>
-      <Text>Recources</Text>
+      <Text style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        Recources
+      </Text>
     </View>
   );
 }
