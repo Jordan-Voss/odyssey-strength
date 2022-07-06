@@ -149,8 +149,9 @@ const styles = StyleSheet.create({
   rowContainer: {
     // position: "fixed",
     // width: "100%",
+    justifyContent: "space-between",
     flexDirection: "row",
-    marginTop: "5vh",
+    // marginTop: "5vh",
     marginLeft: "7vw",
   },
   tinyLogo: {
