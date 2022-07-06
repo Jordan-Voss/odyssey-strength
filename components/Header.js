@@ -19,6 +19,10 @@ import { useWindowDimensions } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
 
+function Navigate(navigation, route) {
+  navigation.navigate(route);
+}
+
 export default function Header({ navigation }) {
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
@@ -31,7 +35,10 @@ export default function Header({ navigation }) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to About"
-          onPress={() => navigation.navigate("About")}
+          onPress={() => {
+            if (navigation.state.routeName != "About")
+              Navigate(navigation, "About");
+          }}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             About
@@ -41,7 +48,10 @@ export default function Header({ navigation }) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to Pricing"
-          onPress={() => navigation.navigate("About")}
+          onPress={() => {
+            if (navigation.state.routeName != "Pricing")
+              Navigate(navigation, "Pricing");
+          }}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Pricing
@@ -51,7 +61,10 @@ export default function Header({ navigation }) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to About"
-          onPress={() => navigation.navigate("Coaching")}
+          onPress={() => {
+            if (navigation.state.routeName != "Coaching")
+              Navigate(navigation, "Coaching");
+          }}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Coaching
@@ -61,7 +74,10 @@ export default function Header({ navigation }) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to About"
-          onPress={() => navigation.navigate("Homepage")}
+          onPress={() => {
+            if (navigation.state.routeName != "Homepage")
+              Navigate(navigation, "Homepage");
+          }}
         >
           <Image
             //   style={{ flex: 1, backgroundColor: "red" }}
@@ -72,7 +88,10 @@ export default function Header({ navigation }) {
         <TouchableOpacity
           style={{ flex: 1 }}
           title="Go to Homepage"
-          onPress={() => navigation.navigate("Resources")}
+          onPress={() => {
+            if (navigation.state.routeName != "Resources")
+              Navigate(navigation, "Resources");
+          }}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Resources
@@ -82,7 +101,10 @@ export default function Header({ navigation }) {
           // style={styles.link}
           style={{ flex: 1 }}
           title="Go to Pricing"
-          onPress={() => navigation.navigate("About")}
+          onPress={() => {
+            if (navigation.state.routeName != "About")
+              Navigate(navigation, "About");
+          }}
         >
           <Text style={{ fontSize: fontDimension * 15, color: "white" }}>
             Pricing
@@ -108,9 +130,7 @@ export default function Header({ navigation }) {
             <AntDesign name="mail" size={fontDimension * 20} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() =>
-              Linking.openURL("https://instagram.com/odysseystrength")
-            }
+            onPress={() => Linking.openURL("mailto:jordan@jordan.voss.online")}
           >
             <Entypo name="spotify" size={fontDimension * 20} color="white" />
           </TouchableOpacity>

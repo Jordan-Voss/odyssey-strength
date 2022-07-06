@@ -23,7 +23,10 @@ import * as Animatable from "react-native-animatable";
 import Home from "./navigation/Home";
 import AboutWebSmall from "./screens/web/WebSmall/AboutWebSmall";
 import HomepageWebSmall from "./screens/web/WebSmall/HomepageWebSmall";
-import NotificationsScreen from "./screens/web/WebSmall/NotificationsScreen";
+import ResourcesWebSmall from "./screens/web/WebSmall/ResourcesWebSmall";
+import PricingWebSmall from "./screens/web/WebSmall/PricingWebSmall";
+
+import CoachingWebSmall from "./screens/web/WebSmall/CoachingWebSmall";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -40,6 +43,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AntDesign, Feather } from "@expo/vector-icons";
 // import * as Linking from 'expo-linking';
 // Feather = Animatable.createAnimatableComponent(Feather);
+
 const isWeb = Platform.OS === "web";
 function CustomDrawerContent(props) {
   const AnimationRef = useRef(null);
@@ -81,14 +85,6 @@ function CustomDrawerContent(props) {
         </TouchableOpacity>
       </Animatable.View>
       <DrawerItemList {...props} />
-      {/* <DrawerItem
-        label="Close drawer"
-        onPress={() => props.navigation.closeDrawer()}
-      />
-      <DrawerItem
-        label="Toggle drawer"
-        onPress={() => props.navigation.toggleDrawer()}
-  /> */}
     </DrawerContentScrollView>
   );
 }
@@ -167,8 +163,10 @@ export default function App() {
         }}
       >
         <Drawer.Screen name="Home" component={HomepageWebSmall} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
         <Drawer.Screen name="About" component={AboutWebSmall} />
+        <Drawer.Screen name="Pricing" component={PricingWebSmall} />
+        <Drawer.Screen name="Coaching" component={CoachingWebSmall} />
+        <Drawer.Screen name="Resources" component={ResourcesWebSmall} />
       </Drawer.Navigator>
     </NavigationContainer>
   ) : (

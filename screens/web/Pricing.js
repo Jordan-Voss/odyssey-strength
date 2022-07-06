@@ -21,7 +21,7 @@ export default function Pricing({ navigation }) {
       <View
         style={{
           width: windowWidth,
-          backgroundColor: "green",
+          backgroundColor: "yellow",
           height: 200,
           position: "relative",
           top: 0,

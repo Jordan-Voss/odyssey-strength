@@ -6,6 +6,7 @@ import HomepageWeb from "../screens/web/Homepage";
 import HomepageMobile from "../screens/mobile/Homepage";
 import AboutWeb from "../screens/web/About";
 import Resources from "../screens/web/Resources";
+import Pricing from "../screens/web/Pricing";
 
 import Coaching from "../screens/web/Coaching";
 
@@ -23,6 +24,9 @@ const HomeWeb = createStackNavigator(
     },
     Coaching: {
       screen: Coaching,
+    },
+    Pricing: {
+      screen: Pricing,
     },
     Resources: {
       screen: Resources,

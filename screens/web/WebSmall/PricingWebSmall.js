@@ -8,7 +8,7 @@ import HeaderWebSmall from "../../../components/HeaderWebSmall";
 
 const isWeb = Platform.OS === "web";
 
-export default function AboutWebSmall({ navigation }) {
+export default function PricingWebSmall({ navigation }) {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
@@ -18,7 +18,7 @@ export default function AboutWebSmall({ navigation }) {
       <View
         style={{
           width: windowWidth,
-          backgroundColor: "red",
+          backgroundColor: "green",
           height: 200,
           position: "relative",
           top: 0,
@@ -30,7 +30,7 @@ export default function AboutWebSmall({ navigation }) {
         {windowWidth}
       </Text>
       <Text style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        About
+        Pricing
       </Text>
     </View>
   );

@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import { Link } from "@react-navigation/web";
 import Header from "../../components/Header";
 import { useWindowDimensions } from "react-native";
 
