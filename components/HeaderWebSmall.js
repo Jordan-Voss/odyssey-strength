@@ -14,39 +14,54 @@ export default function HeaderWebSmall(props) {
   const fontDimension = useWindowDimensions().fontScale;
   return (
     <View style={styles.container}>
-      <View style={styles.rowContainer}>
+      <View style={{ position: "absolute", right: "5%", top: "-5%" }}>
         <TouchableOpacity
-          style={{ marginTop: "-200%", marginLeft: "190%" }}
+          // style={{ flex: 1, justifyContent: "center" }}
           onPress={() => props.navigation.toggleDrawer()}
         >
           <Feather name="menu" size={fontDimension * 50} color="white" />
         </TouchableOpacity>
-        <Image
-          //   style={{ flex: 1, backgroundColor: "red" }}
-          style={styles.tinyLogo}
-          source={require("../assets/ody2.png")}
-        ></Image>
       </View>
+      {/* <View style={styles.rowContainer}>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <TouchableOpacity
+            // style={{ flex: 1, justifyContent: "center" }}
+            onPress={() => props.navigation.toggleDrawer()}
+          >
+            <Feather name="menu" size={fontDimension * 50} color="white" />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flex: 10, justifyContent: "center" }}>
+          <Image
+            // style={{ flex: 1 }}
+            style={styles.tinyLogo}
+            source={require("../assets/ody2.png")}
+          ></Image>
+        </View>
+      </View> */}
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    height: "100%",
+    width: "100%",
+    // flexDirection: "row",
     // flex: 1,
     // top: 10,
     // width: "100%",
   },
   rowContainer: {
+    flexDirection: "row",
     // position: "fixed",
     // width: "100%",
     // flexDirection: "row",
     // marginTop: "-20vh",
     // marginLeft: "7vw",
-    flex: 1,
+    // flex: 1,
   },
   tinyLogo: {
-    flex: 1,
+    // flex: 1,
     // marginTop: "300vh",
     width: "100%",
     height: "100%",

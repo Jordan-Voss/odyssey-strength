@@ -27,26 +27,29 @@ export default function HomepageWebSmall({ navigation }) {
       >
         <Video
           source={require("../../../assets/video/ody2.mp4")}
-          style={{ width: windowWidth, height: windowHeight / 2 }}
+          // style={{ height: windowHeight }}
           isMuted={true}
           isLooping={true}
           paused={false}
           shouldPlay={true}
           repeat={true}
-          resizeMode={"cover"}
+          resizeMode={"contain"}
           rate={1.0}
           ignoreSilentSwitch={"obey"}
         ></Video>
         <View
           style={{
-            marginTop: -windowHeight / 2,
             width: windowWidth,
+            height: windowHeight,
+            // top: 0,
+            // aspectRatio: 800 / 450,
             backgroundColor: "rgba(0, 0, 0, 0.6)",
-            height: windowHeight / 2,
+            justifyContent: "center",
+            position: "fixed",
           }}
         ></View>
       </View>
-      <HeaderWebSmall navigation={navigation} />
+      <HeaderWebSmall style={{ marginRight: "-10%" }} navigation={navigation} />
       <Text style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {windowWidth}
       </Text>

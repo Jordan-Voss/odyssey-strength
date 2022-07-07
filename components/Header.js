@@ -142,8 +142,10 @@ export default function Header({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    // paddingTop: "3%",
     // flex: 1,
-    // top: 10,
+    top: -300,
+    // marginTop: "-20%",
     // width: "100%",
   },
   rowContainer: {

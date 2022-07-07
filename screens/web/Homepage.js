@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Button,
+  Image,
   TouchableOpacity,
   Platform,
   SafeAreaView,
@@ -25,79 +26,89 @@ export default function Homepage(props) {
 
   return (
     <ScrollView>
-      {/* tyle={{ flex: 1, position: "absolute" }}> */}
-      <View
-        style={
-          {
-            // width: "100%",
-            // backgroundColor: "rgba(0, 0, 0, 0.9)",
-            // height: 200,
-            // position: "relative",
-            // top: 0,
-            // left: 0,
-          }
-        }
-      >
+      <View style={{ alignItems: "center" }}>
         <Video
           source={require("../../assets/video/odyssey.mp4")}
           style={{
-            width: windowWidth,
-            // height: windowHeight / 2,
-            aspectRatio: 800 / 450,
+            height: windowHeight,
+            // width: windowWidth,
+            // aspectRatio: 800 / 800,
           }}
           isMuted={true}
           isLooping={true}
           paused={false}
           shouldPlay={true}
           repeat={true}
-          resizeMode={"cover"}
+          resizeMode={"contain"}
           rate={1.0}
           ignoreSilentSwitch={"obey"}
         ></Video>
         <View
           style={{
             width: windowWidth,
-            aspectRatio: 800 / 450,
+            height: windowHeight,
+            // top: 0,
+            // aspectRatio: 800 / 450,
             backgroundColor: "rgba(0, 0, 0, 0.6)",
-            // alignItems: "center",
             justifyContent: "center",
             position: "fixed",
           }}
         >
           <Header
+            // style={{ top: "1000" }}
             navigation={props.navigation}
-            // style={{ marginTop: -windowHeight / 2 }}
           ></Header>
           <View
             style={{
+              backgroundColor: "blue",
               flexDirection: "row",
-              // paddingLeft: "15%",
-              // paddingRight: "15%",
               alignItems: "center",
-              justifyContent: "center",
-              marginTop: "10%",
+              justifyContent: "space-between",
+              top: 0,
             }}
           >
-            <Text
+            <View
               style={{
                 flex: 1,
-                color: "white",
-                fontFamily: "Roboto",
-                fontSize: fontDimension * 40,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              Odyssey
-            </Text>
-            <Text
+              <Text
+                style={{
+                  paddingLeft: "2%",
+                  flex: 2,
+                  color: "white",
+                  fontFamily: "Roboto",
+                  fontSize: fontDimension * 40,
+                }}
+              >
+                <Image
+                  //   style={{ flex: 1, backgroundColor: "red" }}
+                  style={styles.tinyLogo}
+                  source={require("../../assets/ody2.png")}
+                ></Image>
+                dyssey
+              </Text>
+            </View>
+            <View
               style={{
                 flex: 1,
-                color: "white",
-                fontFamily: "Roboto",
-                fontSize: fontDimension * 35,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              An Epic Journey
-            </Text>
+              <Text
+                style={{
+                  flex: 2,
+                  color: "white",
+                  fontFamily: "Roboto",
+                  fontSize: fontDimension * 35,
+                }}
+              >
+                An Epic Journey
+              </Text>
+            </View>
           </View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
@@ -112,73 +123,44 @@ export default function Homepage(props) {
               }}
             >
               <Text>My button</Text>
-            </TouchableOpacity>{" "}
+            </TouchableOpacity>
           </View>
         </View>
         <View style={{ alignItems: "center" }}>
-          <Text>TITLE</Text>
+          <Text style={{ fontFamily: "Roboto", fontSize: fontDimension * 30 }}>
+            TITLE
+          </Text>
         </View>
         <View style={styles.pricesContainer}>
-          {/* <Text>f</Text> */}
           <View style={styles.item}>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              finibus arcu a risus aliquet, ullamcorper vestibulum justo
-              accumsan. Nunc tortor enim, eleifend posuere tempor congue,
-              tincidunt quis dolor. Nam tristique eros mi, a sodales elit
-              accumsan vitae. In feugiat sodales quam, pharetra suscipit magna
-              lobortis sed. Fusce luctus diam purus. Phasellus finibus ut lectus
-              id volutpat. Phasellus sodales dolor et lacus tempus venenatis.
-              Maecenas sit amet ligula enim. Proin nisi arcu, placerat a neque
-              eget, rutrum faucibus felis. Maecenas scelerisque nunc erat,
-              lacinia venenatis mi consequat id. Nam dapibus luctus sem, sit
-              amet finibus mauris. Integer tellus lacus, vehicula vitae mauris
-              non, sollicitudin feugiat dolor. Cras sed aliquet ligula.
-              Suspendisse nec magna condimentum, consequat elit sit amet,
-              euismod metus.
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              Let us handle the details of your athletic pursuit by working
+              hard, allowing you to work smarter. You’ll shine to your fullest
+              potential.
             </Text>
           </View>
           <View style={styles.item}>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              finibus arcu a risus aliquet, ullamcorper vestibulum justo
-              accumsan. Nunc tortor enim, eleifend posuere tempor congue,
-              tincidunt quis dolor. Nam tristique eros mi, a sodales elit
-              accumsan vitae. In feugiat sodales quam, pharetra suscipit magna
-              lobortis sed. Fusce luctus diam purus. Phasellus finibus ut lectus
-              id volutpat. Phasellus sodales dolor et lacus tempus venenatis.
-              Maecenas sit amet ligula enim. Proin nisi arcu, placerat a neque
-              eget, rutrum faucibus felis. Maecenas scelerisque nunc erat,
-              lacinia venenatis mi consequat id. Nam dapibus luctus sem, sit
-              amet finibus mauris. Integer tellus lacus, vehicula vitae mauris
-              non, sollicitudin feugiat dolor. Cras sed aliquet ligula.
-              Suspendisse nec magna condimentum, consequat elit sit amet,
-              euismod metus.
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              We focus on being athlete-centric, responsive to data, and
+              committed to relationships and coaching the whole athlete.
             </Text>
           </View>
           <View style={styles.item}>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              finibus arcu a risus aliquet, ullamcorper vestibulum justo
-              accumsan. Nunc tortor enim, eleifend posuere tempor congue,
-              tincidunt quis dolor. Nam tristique eros mi, a sodales elit
-              accumsan vitae. In feugiat sodales quam, pharetra suscipit magna
-              lobortis sed. Fusce luctus diam purus. Phasellus finibus ut lectus
-              id volutpat. Phasellus sodales dolor et lacus tempus venenatis.
-              Maecenas sit amet ligula enim. Proin nisi arcu, placerat a neque
-              eget, rutrum faucibus felis. Maecenas scelerisque nunc erat,
-              lacinia venenatis mi consequat id. Nam dapibus luctus sem, sit
-              amet finibus mauris. Integer tellus lacus, vehicula vitae mauris
-              non, sollicitudin feugiat dolor. Cras sed aliquet ligula.
-              Suspendisse nec magna condimentum, consequat elit sit amet,
-              euismod metus.
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              You’re more than a set of numbers. We refine your lifting
+              technique, your mind, your nutrition, and habits that will last a
+              lifetime.
             </Text>
           </View>
         </View>
-        <View>
-          <Text>gwreg</Text>
-        </View>
-        <Text>erfhwe</Text>
+        <View>{/* <Text>gwreg</Text> */}</View>
+        {/* <Text>erfhwe</Text> */}
       </View>
     </ScrollView>
   );
@@ -196,16 +178,26 @@ const styles = StyleSheet.create({
     // alignItems: "center",
   },
   pricesContainer: {
-    flex: 1,
+    // flex: 1,
+    // backgroundColor: "red",
+    width: "80%",
+    height: "30%",
     flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
+    // flexWrap: "wrap",
     justifyContent: "space-between",
+    alignItems: "center",
     // marginLeft: 1 / 7,
-    padding: 3,
+    // padding: 3,
   },
   item: {
-    width: "30%",
+    width: "33%",
     alignItems: "center",
+    justifyContent: "space-between",
+  },
+  tinyLogo: {
+    // flex: 1,
+    // marginTop: "-3vh",
+    width: 40,
+    height: 40,
   },
 });

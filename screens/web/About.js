@@ -16,26 +16,39 @@ export default function About({ navigation }) {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   return (
-    <ScrollView style={{ flex: 1, position: "absolute" }}>
-      <View
-        style={{
-          width: windowWidth,
-          backgroundColor: "red",
-          height: 200,
-          position: "relative",
-          top: 0,
-          left: 0,
-        }}
-      ></View>
-      <Header
-        navigation={navigation}
-        style={{ marginTop: -windowHeight / 2, width: windowWidth }}
-      ></Header>
-      <View style={styles.container}>
-        <TouchableOpacity>
-          {/* // onPress={() => console.log(props)}> */}
-          <Text>About</Text>
-        </TouchableOpacity>
+    <ScrollView>
+      <View>
+        <View
+          style={{
+            width: windowWidth,
+            aspectRatio: 800 / 450,
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            // alignItems: "center",
+            // marginTop: "10%",
+
+            justifyContent: "center",
+            position: "fixed",
+          }}
+        >
+          <Header
+            styles={{ position: "fixed" }}
+            navigation={navigation}
+          ></Header>
+          <View
+            style={{
+              flexDirection: "row",
+              // paddingLeft: "15%",
+              // paddingRight: "15%",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "40%",
+            }}
+          >
+            <TouchableOpacity onPress={() => console.log(props)}>
+              <Text>About</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
