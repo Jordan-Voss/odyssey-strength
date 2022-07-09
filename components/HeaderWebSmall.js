@@ -14,7 +14,7 @@ export default function HeaderWebSmall(props) {
   const fontDimension = useWindowDimensions().fontScale;
   return (
     <View style={styles.container}>
-      <View style={{ position: "absolute", right: "5%", top: "-5%" }}>
+      <View style={{ width: fontDimension * 50 }}>
         <TouchableOpacity
           // style={{ flex: 1, justifyContent: "center" }}
           onPress={() => props.navigation.toggleDrawer()}
@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: "100%",
+    paddingTop: 5,
+    paddingLeft: 5,
     // flexDirection: "row",
     // flex: 1,
     // top: 10,

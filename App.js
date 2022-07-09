@@ -79,7 +79,7 @@ function CustomDrawerContent(props) {
           <Feather
             name="x"
             color="white"
-            style={{ marginLeft: "80%" }}
+            style={{ marginLeft: "0%" }}
             size={fontDimension * 50}
           />
         </TouchableOpacity>
@@ -148,7 +148,7 @@ export default function App() {
         screenOptions={{
           // overlayColor: "transparent",
           headerShown: false,
-          drawerPosition: "right",
+          drawerPosition: "left",
           drawerStyle: {
             backgroundColor: "rgba(0, 0, 0, 0.9)",
             drawerActiveTintColor: "white",
