@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   View,
   Text,
@@ -20,6 +20,41 @@ export default function HomepageWebSmall({ navigation }) {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  var currentOffset2 = 0;
+
+  const fadeIn = (y) => {
+    console.log(y + "Y");
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: y / 2,
+      // duration: 5000,
+      useNativeDriver: false, // Add This line
+    }).start();
+  };
+
+  const fadeOut = (y) => {
+    if (y != 0) {
+      y / 2;
+    }
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: y,
+      // duration: 3000,
+      useNativeDriver: false, // Add This line
+    }).start();
+  };
+
+  // function direction(event) {
+  //   const currentOffset = event.nativeEvent.contentOffset.y;
+  //   const direction = currentOffset > currentOffset2 ? "down" : "up";
+  //   currentOffset2 = currentOffset;
+  //   if (direction == "down") {
+  //     fadeIn(currentOffset);
+  //   } else {
+  //     fadeOut(currentOffset);
+  //   }
+  // }
 
   return (
     // <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -33,7 +68,36 @@ export default function HomepageWebSmall({ navigation }) {
     //       left: 0,
     //     }}
     //   >
-    <ScrollView>
+    <ScrollView
+      // var currentOffset = event.nativeEvent.contentOffset.y;
+      //     var direction = currentOffset > this.offset ? 'down' : 'up';
+      // this.offset = currentOffset;
+      // console.log(direction);
+      onScroll={(event) => {
+        const currentOffset = event.nativeEvent.contentOffset.y;
+        const direction = currentOffset > currentOffset2 ? "down" : "up";
+        currentOffset2 = currentOffset;
+        console.log(direction);
+        if (direction == "down") {
+          fadeIn(currentOffset);
+        } else {
+          fadeOut(currentOffset);
+        }
+      }}
+      // function (event) {
+      // const currentOffset = event.nativeEvent.contentOffset.y;
+      // const direction = currentOffset > offset ? "down" : "up";
+      // offset = currentOffset;
+      // console.log(direction);
+
+      // if (scrolling > 50) {
+      //   fadeIn(scrolling);
+      //   console.log(scrolling);
+      // } else {
+      //   console.log(scrolling);
+      // }
+      // }}
+    >
       <View style={{ alignItems: "center" }}>
         <Video
           source={require("../../../assets/video/ody2_AdobeExpress.mp4")}
@@ -66,6 +130,17 @@ export default function HomepageWebSmall({ navigation }) {
             style={{ marginRight: "-10%" }}
             navigation={navigation}
           />
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                // Bind opacity to animated value
+                opacity: fadeAnim,
+              },
+            ]}
+          >
+            <Text style={styles.fadingText}>Fading View!</Text>
+          </Animated.View>
         </View>
 
         <Text
@@ -73,6 +148,11 @@ export default function HomepageWebSmall({ navigation }) {
         >
           {windowWidth}
         </Text>
+        {/* 
+        <View style={styles.buttonRow}>
+          <Button title="Fade In View" onPress={fadeIn(1000)} />
+          <Button title="Fade Out View" onPress={fadeOut(1000)} />
+        </View> */}
       </View>
     </ScrollView>
   );
@@ -83,5 +163,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  fadingContainer: {
+    padding: 20,
+    backgroundColor: "powderblue",
+  },
+  fadingText: {
+    fontSize: 28,
+  },
+  buttonRow: {
+    flexBasis: 100,
+    justifyContent: "space-evenly",
+    marginVertical: 16,
   },
 });
