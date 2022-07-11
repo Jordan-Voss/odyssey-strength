@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,11 @@ import {
   Button,
   Animated,
   Platform,
+  AppState,
 } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
+import { useAnimatedScrollHandler } from "react-native-reanimated";
+
 import { Link } from "@react-navigation/web";
 import { useWindowDimensions, TouchableOpacity } from "react-native";
 import { Video } from "expo-av";
@@ -17,86 +21,30 @@ import HeaderWebSmall from "../../../components/HeaderWebSmall";
 const isWeb = Platform.OS === "web";
 
 export default function HomepageWebSmall({ navigation }) {
+  const scroll = useRef(new Animated.Value(0)).current;
+
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  var currentOffset2 = 0;
-
-  const fadeIn = (y) => {
-    console.log(y + "Y");
-    // Will change fadeAnim value to 1 in 5 seconds
-    Animated.timing(fadeAnim, {
-      toValue: y / 2,
-      // duration: 5000,
-      useNativeDriver: false, // Add This line
-    }).start();
-  };
-
-  const fadeOut = (y) => {
-    if (y != 0) {
-      y / 2;
-    }
-    // Will change fadeAnim value to 0 in 3 seconds
-    Animated.timing(fadeAnim, {
-      toValue: y,
-      // duration: 3000,
-      useNativeDriver: false, // Add This line
-    }).start();
-  };
-
-  // function direction(event) {
-  //   const currentOffset = event.nativeEvent.contentOffset.y;
-  //   const direction = currentOffset > currentOffset2 ? "down" : "up";
-  //   currentOffset2 = currentOffset;
-  //   if (direction == "down") {
-  //     fadeIn(currentOffset);
-  //   } else {
-  //     fadeOut(currentOffset);
-  //   }
-  // }
+  const headerDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
+  const translateHeader = Animated.multiply(headerDiffClamp, -1);
+  const translateHeaderText = Animated.multiply(translateHeader, -1.5);
+  const fadeOut = headerDiffClamp.interpolate({
+    inputRange: [0, windowHeight / 4],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
 
   return (
-    // <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    //   <View
-    //     style={{
-    //       width: windowWidth,
-    //       backgroundColor: "rgba(52, 52, 52, 0.9)",
-    //       height: windowHeight,
-    //       position: "relative",
-    //       top: 0,
-    //       left: 0,
-    //     }}
-    //   >
     <ScrollView
-      // var currentOffset = event.nativeEvent.contentOffset.y;
-      //     var direction = currentOffset > this.offset ? 'down' : 'up';
-      // this.offset = currentOffset;
-      // console.log(direction);
-      onScroll={(event) => {
-        const currentOffset = event.nativeEvent.contentOffset.y;
-        const direction = currentOffset > currentOffset2 ? "down" : "up";
-        currentOffset2 = currentOffset;
-        console.log(direction);
-        if (direction == "down") {
-          fadeIn(currentOffset);
-        } else {
-          fadeOut(currentOffset);
+      scrollEventThrottle={1}
+      onScroll={Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scroll } } }],
+        {
+          useNativeDriver: false,
         }
-      }}
-      // function (event) {
-      // const currentOffset = event.nativeEvent.contentOffset.y;
-      // const direction = currentOffset > offset ? "down" : "up";
-      // offset = currentOffset;
-      // console.log(direction);
-
-      // if (scrolling > 50) {
-      //   fadeIn(scrolling);
-      //   console.log(scrolling);
-      // } else {
-      //   console.log(scrolling);
-      // }
-      // }}
+      )}
+      // scrollEventThrottle={1}
     >
       <View style={{ alignItems: "center" }}>
         <Video
@@ -130,16 +78,16 @@ export default function HomepageWebSmall({ navigation }) {
             style={{ marginRight: "-10%" }}
             navigation={navigation}
           />
+          <Button onPress={() => moveBall()}></Button>
           <Animated.View
             style={[
               styles.fadingContainer,
-              {
-                // Bind opacity to animated value
-                opacity: fadeAnim,
-              },
+              { transform: [{ translateY: translateHeader }] },
             ]}
           >
-            <Text style={styles.fadingText}>Fading View!</Text>
+            <Animated.Text style={[styles.fadingText, { opacity: fadeOut }]}>
+              Odyssey
+            </Animated.Text>
           </Animated.View>
         </View>
 
@@ -147,6 +95,19 @@ export default function HomepageWebSmall({ navigation }) {
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
           {windowWidth}
+        </Text>
+        <Text
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing
+          and typesetting industry. Lorem Ipsum has been the industry's standard
+          dummy text ever since the 1500s, when an unknown printer took a galley
+          of type and scrambled it to make a type specimen book. It has survived
+          not only five centuries, but also the leap into electronic
+          typesetting, remaining essentially unchanged. It was popularised in
+          the 1960s with the release of Letraset sheets containing Lorem Ipsum
+          passages, and more recently with desktop publishing software like
+          Aldus PageMaker including versions of Lorem Ipsum.
         </Text>
         {/* 
         <View style={styles.buttonRow}>
@@ -166,9 +127,11 @@ const styles = StyleSheet.create({
   },
   fadingContainer: {
     padding: 20,
-    backgroundColor: "powderblue",
+    marginTop: "-50%",
+    // backgroundColor: "powderblue",
   },
   fadingText: {
+    color: "white",
     fontSize: 28,
   },
   buttonRow: {
