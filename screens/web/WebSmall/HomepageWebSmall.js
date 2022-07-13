@@ -26,12 +26,19 @@ export default function HomepageWebSmall({ navigation }) {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
-  const headerDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
-  const translateHeader = Animated.multiply(headerDiffClamp, -1);
-  const translateHeaderText = Animated.multiply(translateHeader, -1.5);
-  const fadeOut = headerDiffClamp.interpolate({
+  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
+  const translateTopText = Animated.multiply(topTextDiffClamp, -1);
+  const bottomTextDiffClamp = Animated.diffClamp(scroll, 1, windowHeight / 2);
+  const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
+  // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
+  const fadeOut = topTextDiffClamp.interpolate({
     inputRange: [0, windowHeight / 4],
     outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+  const fadeIn = bottomTextDiffClamp.interpolate({
+    inputRange: [0, windowHeight / 4],
+    outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
@@ -81,12 +88,22 @@ export default function HomepageWebSmall({ navigation }) {
           <Button onPress={() => moveBall()}></Button>
           <Animated.View
             style={[
-              styles.fadingContainer,
-              { transform: [{ translateY: translateHeader }] },
+              styles.fadingContainerTop,
+              { transform: [{ translateY: translateTopText }] },
             ]}
           >
-            <Animated.Text style={[styles.fadingText, { opacity: fadeOut }]}>
+            <Animated.Text style={[styles.topFadingText, { opacity: fadeOut }]}>
               Odyssey
+            </Animated.Text>
+          </Animated.View>
+          <Animated.View
+            style={[
+              styles.fadingContainerBottom,
+              { transform: [{ translateY: translateTopText }] },
+            ]}
+          >
+            <Animated.Text style={[styles.topFadingText, { opacity: fadeIn }]}>
+              An Epic Journey
             </Animated.Text>
           </Animated.View>
         </View>
@@ -95,6 +112,19 @@ export default function HomepageWebSmall({ navigation }) {
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
           {windowWidth}
+        </Text>
+        <Text
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing
+          and typesetting industry. Lorem Ipsum has been the industry's standard
+          dummy text ever since the 1500s, when an unknown printer took a galley
+          of type and scrambled it to make a type specimen book. It has survived
+          not only five centuries, but also the leap into electronic
+          typesetting, remaining essentially unchanged. It was popularised in
+          the 1960s with the release of Letraset sheets containing Lorem Ipsum
+          passages, and more recently with desktop publishing software like
+          Aldus PageMaker including versions of Lorem Ipsum.
         </Text>
         <Text
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
@@ -125,14 +155,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  fadingContainer: {
+  fadingContainerTop: {
     padding: 20,
     marginTop: "-50%",
     // backgroundColor: "powderblue",
   },
-  fadingText: {
+  fadingContainerBottom: {
+    padding: 20,
+    // marginTop: "-50%",
+    // backgroundColor: "powderblue",
+  },
+  topFadingText: {
     color: "white",
-    fontSize: 28,
+    fontSize: 50,
+  },
+  bottomFadingText: {
+    color: "white",
+    fontSize: 50,
   },
   buttonRow: {
     flexBasis: 100,

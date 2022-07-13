@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  Animated,
   SafeAreaView,
 } from "react-native";
 import { Link } from "@react-navigation/web";
@@ -19,13 +20,37 @@ import * as Linking from "expo-linking";
 
 export default function Homepage(props) {
   const isWeb = Platform.OS === "web";
+  const scroll = useRef(new Animated.Value(0)).current;
 
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
+  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
+  const translateTopText = Animated.multiply(topTextDiffClamp, -1);
+  const bottomTextDiffClamp = Animated.diffClamp(scroll, 1, windowHeight / 2);
+  const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
+  // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
+  const fadeOut = topTextDiffClamp.interpolate({
+    inputRange: [0, windowHeight / 4],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+  const fadeIn = bottomTextDiffClamp.interpolate({
+    inputRange: [0, windowHeight / 4],
+    outputRange: [0, 1],
+    extrapolate: "clamp",
+  });
 
   return (
-    <ScrollView>
+    <ScrollView
+      scrollEventThrottle={1}
+      onScroll={Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scroll } } }],
+        {
+          useNativeDriver: false,
+        }
+      )}
+    >
       <View style={{ alignItems: "center" }}>
         <Video
           source={require("../../assets/video/odyssey.mp4")}
@@ -55,61 +80,29 @@ export default function Homepage(props) {
           }}
         >
           <Header
-            // style={{ top: "1000" }}
+            style={{ position: "absolute" }}
             navigation={props.navigation}
           ></Header>
-          <View
-            style={{
-              backgroundColor: "blue",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              top: 0,
-            }}
+          <Animated.View
+            style={[
+              styles.fadingContainerTop,
+              { transform: [{ translateY: translateTopText }] },
+            ]}
           >
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{
-                  paddingLeft: "2%",
-                  flex: 2,
-                  color: "white",
-                  fontFamily: "Roboto",
-                  fontSize: fontDimension * 40,
-                }}
-              >
-                <Image
-                  //   style={{ flex: 1, backgroundColor: "red" }}
-                  style={styles.tinyLogo}
-                  source={require("../../assets/ody2.png")}
-                ></Image>
-                dyssey
-              </Text>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{
-                  flex: 2,
-                  color: "white",
-                  fontFamily: "Roboto",
-                  fontSize: fontDimension * 35,
-                }}
-              >
-                An Epic Journey
-              </Text>
-            </View>
-          </View>
+            <Animated.Text style={[styles.topFadingText, { opacity: fadeOut }]}>
+              Odyssey
+            </Animated.Text>
+          </Animated.View>
+          <Animated.View
+            style={[
+              styles.fadingContainerBottom,
+              { transform: [{ translateY: translateTopText }] },
+            ]}
+          >
+            <Animated.Text style={[styles.topFadingText, { opacity: fadeIn }]}>
+              An Epic Journey
+            </Animated.Text>
+          </Animated.View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={{
@@ -199,5 +192,22 @@ const styles = StyleSheet.create({
     // marginTop: "-3vh",
     width: 40,
     height: 40,
+  },
+  fadingContainerTop: {
+    // padding: 20,
+    // marginTop: "50%",
+    // backgroundColor: "powderblue",
+  },
+  fadingContainerBottom: {
+    // marginTop: "-50%",
+    // backgroundColor: "powderblue",
+  },
+  topFadingText: {
+    color: "white",
+    fontSize: 50,
+  },
+  bottomFadingText: {
+    color: "white",
+    fontSize: 50,
   },
 });
