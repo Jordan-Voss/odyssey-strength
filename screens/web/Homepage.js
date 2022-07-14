@@ -27,16 +27,16 @@ export default function Homepage(props) {
   const fontDimension = useWindowDimensions().fontScale;
   const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
   const translateTopText = Animated.multiply(topTextDiffClamp, -1);
-  const bottomTextDiffClamp = Animated.diffClamp(scroll, 1, windowHeight / 2);
+  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
   const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
   // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
   const fadeOut = topTextDiffClamp.interpolate({
-    inputRange: [0, windowHeight / 4],
+    inputRange: [0, windowHeight / 5],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
   const fadeIn = bottomTextDiffClamp.interpolate({
-    inputRange: [0, windowHeight / 4],
+    inputRange: [0, windowHeight / 2],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
@@ -56,6 +56,7 @@ export default function Homepage(props) {
           source={require("../../assets/video/odyssey.mp4")}
           style={{
             height: windowHeight,
+            position: "absolute",
             // width: windowWidth,
             // aspectRatio: 800 / 800,
           }}
@@ -86,7 +87,7 @@ export default function Homepage(props) {
           <Animated.View
             style={[
               styles.fadingContainerTop,
-              { transform: [{ translateY: translateTopText }] },
+              { transform: [{ translateX: translateTopText }] },
             ]}
           >
             <Animated.Text style={[styles.topFadingText, { opacity: fadeOut }]}>
@@ -99,7 +100,9 @@ export default function Homepage(props) {
               { transform: [{ translateY: translateTopText }] },
             ]}
           >
-            <Animated.Text style={[styles.topFadingText, { opacity: fadeIn }]}>
+            <Animated.Text
+              style={[styles.bottomFadingText, { opacity: fadeIn }]}
+            >
               An Epic Journey
             </Animated.Text>
           </Animated.View>
@@ -119,8 +122,14 @@ export default function Homepage(props) {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ fontFamily: "Roboto", fontSize: fontDimension * 30 }}>
+        <View style={{ alignItems: "center", marginTop: "100%" }}>
+          <Text
+            style={{
+              fontFamily: "Roboto",
+              fontSize: fontDimension * 30,
+              // marginTop: "100%",
+            }}
+          >
             TITLE
           </Text>
         </View>
@@ -173,6 +182,7 @@ const styles = StyleSheet.create({
   pricesContainer: {
     // flex: 1,
     // backgroundColor: "red",
+    // marginTop: "100%",
     width: "80%",
     height: "30%",
     flexDirection: "row",
@@ -195,19 +205,24 @@ const styles = StyleSheet.create({
   },
   fadingContainerTop: {
     // padding: 20,
-    // marginTop: "50%",
+    marginTop: "120%",
     // backgroundColor: "powderblue",
   },
   fadingContainerBottom: {
-    // marginTop: "-50%",
+    marginTop: "20%",
     // backgroundColor: "powderblue",
   },
   topFadingText: {
+    fontFamily: "Roboto",
+
+    padding: 15,
     color: "white",
-    fontSize: 50,
+    fontSize: 200,
   },
   bottomFadingText: {
+    fontFamily: "Roboto",
+    padding: 15,
     color: "white",
-    fontSize: 50,
+    fontSize: 200,
   },
 });

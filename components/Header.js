@@ -144,9 +144,10 @@ const styles = StyleSheet.create({
   container: {
     // paddingTop: "3%",
     // flex: 1,
-    top: -300,
+    position: "absolute",
+    top: 30,
     // marginTop: "-20%",
-    // width: "100%",
+    width: "100%",
   },
   rowContainer: {
     // position: "fixed",

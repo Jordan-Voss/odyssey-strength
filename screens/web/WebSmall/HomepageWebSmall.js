@@ -28,20 +28,19 @@ export default function HomepageWebSmall({ navigation }) {
   const fontDimension = useWindowDimensions().fontScale;
   const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
   const translateTopText = Animated.multiply(topTextDiffClamp, -1);
-  const bottomTextDiffClamp = Animated.diffClamp(scroll, 1, windowHeight / 2);
+  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
   const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
   // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
   const fadeOut = topTextDiffClamp.interpolate({
-    inputRange: [0, windowHeight / 4],
+    inputRange: [0, windowHeight / 5],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
   const fadeIn = bottomTextDiffClamp.interpolate({
-    inputRange: [0, windowHeight / 4],
+    inputRange: [0, windowHeight / 2],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
-
   return (
     <ScrollView
       scrollEventThrottle={1}
@@ -89,7 +88,7 @@ export default function HomepageWebSmall({ navigation }) {
           <Animated.View
             style={[
               styles.fadingContainerTop,
-              { transform: [{ translateY: translateTopText }] },
+              { transform: [{ translateX: translateTopText }] },
             ]}
           >
             <Animated.Text style={[styles.topFadingText, { opacity: fadeOut }]}>
@@ -99,7 +98,7 @@ export default function HomepageWebSmall({ navigation }) {
           <Animated.View
             style={[
               styles.fadingContainerBottom,
-              { transform: [{ translateY: translateTopText }] },
+              { transform: [{ translateY: translateBottomText }] },
             ]}
           >
             <Animated.Text style={[styles.topFadingText, { opacity: fadeIn }]}>
@@ -108,37 +107,45 @@ export default function HomepageWebSmall({ navigation }) {
           </Animated.View>
         </View>
 
-        <Text
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          {windowWidth}
-        </Text>
-        <Text
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing
-          and typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book. It has survived
-          not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in
-          the 1960s with the release of Letraset sheets containing Lorem Ipsum
-          passages, and more recently with desktop publishing software like
-          Aldus PageMaker including versions of Lorem Ipsum.
-        </Text>
-        <Text
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing
-          and typesetting industry. Lorem Ipsum has been the industry's standard
-          dummy text ever since the 1500s, when an unknown printer took a galley
-          of type and scrambled it to make a type specimen book. It has survived
-          not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in
-          the 1960s with the release of Letraset sheets containing Lorem Ipsum
-          passages, and more recently with desktop publishing software like
-          Aldus PageMaker including versions of Lorem Ipsum.
-        </Text>
+        <View style={{ alignItems: "center", marginTop: "100%" }}>
+          <Text
+            style={{
+              fontFamily: "Roboto",
+              fontSize: fontDimension * 30,
+              // marginTop: "100%",
+            }}
+          >
+            TITLE
+          </Text>
+        </View>
+        <View style={styles.pricesContainer}>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              Let us handle the details of your athletic pursuit by working
+              hard, allowing you to work smarter. You’ll shine to your fullest
+              potential.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              We focus on being athlete-centric, responsive to data, and
+              committed to relationships and coaching the whole athlete.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              You’re more than a set of numbers. We refine your lifting
+              technique, your mind, your nutrition, and habits that will last a
+              lifetime.
+            </Text>
+          </View>
+        </View>
         {/* 
         <View style={styles.buttonRow}>
           <Button title="Fade In View" onPress={fadeIn(1000)} />
