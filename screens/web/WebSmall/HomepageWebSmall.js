@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import {
   View,
   Text,
+  Image,
   ScrollView,
   StyleSheet,
   Button,
@@ -52,7 +53,12 @@ export default function HomepageWebSmall({ navigation }) {
       )}
       // scrollEventThrottle={1}
     >
-      <View style={{ alignItems: "center" }}>
+      <View
+        style={{
+          alignItems: "center",
+          // flex: 1,
+        }}
+      >
         <Video
           source={require("../../../assets/video/ody2_AdobeExpress.mp4")}
           style={{
@@ -73,6 +79,7 @@ export default function HomepageWebSmall({ navigation }) {
           style={{
             width: windowWidth,
             height: windowHeight,
+            flex: 1,
             // top: 0,
             // aspectRatio: 800 / 450,
             backgroundColor: "rgba(0, 0, 0, 0.6)",
@@ -81,17 +88,48 @@ export default function HomepageWebSmall({ navigation }) {
           }}
         >
           <HeaderWebSmall
-            style={{ marginRight: "-10%" }}
+            style={{ marginRight: "-10%", flex: 1 }}
             navigation={navigation}
           />
-          <Button onPress={() => moveBall()}></Button>
+          <View
+            style={{
+              justifyContent: "center",
+              // position: "center",
+              position: "fixed",
+              top: "15%",
+              left: "12.5%",
+              // padding: 20,
+              // marginTop: "-250%",
+              // backgroundColor: "red",
+              alignItems: "center",
+              // height: "100%",
+              // width: "100%",
+              // paddingTop: "30%",
+              // paddingLeft: 10,
+            }}
+          >
+            <Image
+              //   style={{ flex: 1, backgroundColor: "red" }}
+              style={[styles.tinyLogo, {}]}
+              source={require("../../../assets/ody2.png")}
+            ></Image>
+          </View>
           <Animated.View
             style={[
               styles.fadingContainerTop,
-              { transform: [{ translateX: translateTopText }] },
+              {
+                transform: [
+                  { translateX: translateTopText, backgroundColor: "blue" },
+                ],
+              },
             ]}
           >
-            <Animated.Text style={[styles.topFadingText, { opacity: fadeOut }]}>
+            <Animated.Text
+              style={[
+                styles.topFadingText,
+                { opacity: fadeOut, fontSize: fontDimension * 70 },
+              ]}
+            >
               Odyssey
             </Animated.Text>
           </Animated.View>
@@ -101,13 +139,18 @@ export default function HomepageWebSmall({ navigation }) {
               { transform: [{ translateY: translateBottomText }] },
             ]}
           >
-            <Animated.Text style={[styles.topFadingText, { opacity: fadeIn }]}>
+            <Animated.Text
+              style={[
+                styles.topFadingText,
+                { opacity: fadeIn, fontSize: fontDimension * 70 },
+              ]}
+            >
               An Epic Journey
             </Animated.Text>
           </Animated.View>
         </View>
 
-        <View style={{ alignItems: "center", marginTop: "100%" }}>
+        <View style={{ alignItems: "center", marginTop: "100%", flex: 1 }}>
           <Text
             style={{
               fontFamily: "Roboto",
@@ -174,15 +217,21 @@ const styles = StyleSheet.create({
   },
   topFadingText: {
     color: "white",
-    fontSize: 50,
   },
   bottomFadingText: {
     color: "white",
-    fontSize: 50,
   },
   buttonRow: {
     flexBasis: 100,
     justifyContent: "space-evenly",
     marginVertical: 16,
+  },
+  tinyLogo: {
+    // flex: 1,
+    // marginTop: "300vh",
+    // paddingTop: "30%",
+    // paddingLeft: 10,
+    width: 300,
+    height: 300,
   },
 });

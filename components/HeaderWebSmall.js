@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: "100%",
-    paddingTop: 0,
+    paddingTop: "30%",
     paddingLeft: 10,
     // flexDirection: "row",
     // flex: 1,
