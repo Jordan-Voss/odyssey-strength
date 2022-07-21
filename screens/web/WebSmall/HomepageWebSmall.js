@@ -27,21 +27,34 @@ export default function HomepageWebSmall({ navigation }) {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
-  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
+  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
   const translateTopText = Animated.multiply(topTextDiffClamp, -1);
-  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
+  const bottomTextDiffClampView = Animated.diffClamp(
+    scroll,
+    -5,
+    windowHeight / 2
+  );
+  const bottomTextDiffClamp = Animated.diffClamp(
+    scroll,
+    -windowHeight / 5,
+    windowHeight / 6
+  );
   const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
+  const titleFontSize = windowWidth * 0.1;
+  const homeAnimatedTextFontSize = windowWidth * 0.2;
+  const paragraphFontSize = windowWidth * 0.075;
   // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
   const fadeOut = topTextDiffClamp.interpolate({
     inputRange: [0, windowHeight / 5],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
-  const fadeIn = bottomTextDiffClamp.interpolate({
+  const fadeIn = bottomTextDiffClampView.interpolate({
     inputRange: [0, windowHeight / 2],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
+
   return (
     <ScrollView
       scrollEventThrottle={1}
@@ -131,11 +144,10 @@ export default function HomepageWebSmall({ navigation }) {
             style={[
               styles.fadingContainerTop,
               {
+                marginTop: windowHeight / 1.3,
                 transform: [
                   {
                     translateX: translateTopText,
-
-                    backgroundColor: "blue",
                   },
                 ],
               },
@@ -144,7 +156,7 @@ export default function HomepageWebSmall({ navigation }) {
             <Animated.Text
               style={[
                 styles.topFadingText,
-                { opacity: fadeOut, fontSize: fontDimension * 70 },
+                { opacity: fadeOut, fontSize: homeAnimatedTextFontSize },
               ]}
             >
               Odyssey
@@ -153,13 +165,15 @@ export default function HomepageWebSmall({ navigation }) {
           <Animated.View
             style={[
               styles.fadingContainerBottom,
-              { transform: [{ translateY: translateBottomText }] },
+              scroll._value > windowHeight / 2
+                ? null
+                : { transform: [{ translateY: translateBottomText }] },
             ]}
           >
             <Animated.Text
               style={[
                 styles.topFadingText,
-                { opacity: fadeIn, fontSize: fontDimension * 70 },
+                { opacity: fadeIn, fontSize: homeAnimatedTextFontSize },
               ]}
             >
               An Epic Journey
@@ -168,38 +182,34 @@ export default function HomepageWebSmall({ navigation }) {
         </View>
 
         <View style={{ alignItems: "center", marginTop: "100%", flex: 1 }}>
+          <Button onPress={() => console.log(scroll)}></Button>
           <Text
+            adjustsFontSizeToFit
             style={{
               fontFamily: "Roboto",
-              fontSize: fontDimension * 30,
+              fontSize: titleFontSize,
               // marginTop: "100%",
             }}
           >
-            TITLE
+            {windowHeight}
           </Text>
         </View>
         <View style={styles.pricesContainer}>
           <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
+            <Text style={{ fontFamily: "Roboto", fontSize: paragraphFontSize }}>
               Let us handle the details of your athletic pursuit by working
               hard, allowing you to work smarter. You’ll shine to your fullest
               potential.
             </Text>
           </View>
           <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
+            <Text style={{ fontFamily: "Roboto", fontSize: paragraphFontSize }}>
               We focus on being athlete-centric, responsive to data, and
               committed to relationships and coaching the whole athlete.
             </Text>
           </View>
           <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
+            <Text style={{ fontFamily: "Roboto", fontSize: paragraphFontSize }}>
               You’re more than a set of numbers. We refine your lifting
               technique, your mind, your nutrition, and habits that will last a
               lifetime.
