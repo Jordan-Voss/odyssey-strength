@@ -13,7 +13,17 @@ export default function HeaderWebSmall(props) {
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          // marginTop: "20%",
+          height: fontDimension * 50,
+          width: fontDimension * 50,
+          justifyContent: "center",
+        },
+      ]}
+    >
       <View style={{ width: fontDimension * 50 }}>
         <TouchableOpacity
           // style={{ flex: 1, justifyContent: "center" }}
@@ -44,10 +54,12 @@ export default function HeaderWebSmall(props) {
 }
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    width: "100%",
-    paddingTop: "30%",
-    paddingLeft: 10,
+    // width: "17.5%",
+    // backgroundColor: "red",
+    // top: "10%",
+    // left: "10%",
+    // paddingTop: "20%",
+    // paddingLeft: 10,
     // flexDirection: "row",
     // flex: 1,
     // top: 10,

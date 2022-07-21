@@ -136,7 +136,7 @@ export default function App() {
   }
   const Drawer = createDrawerNavigator();
 
-  return windowWidth < 800 ? (
+  return windowWidth <= 800 ? (
     <NavigationContainer>
       <Drawer.Navigator
         // overlayColor="transparent"

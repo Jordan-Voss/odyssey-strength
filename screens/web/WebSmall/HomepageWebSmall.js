@@ -87,10 +87,23 @@ export default function HomepageWebSmall({ navigation }) {
             position: "fixed",
           }}
         >
-          <HeaderWebSmall
-            style={{ marginRight: "-10%", flex: 1 }}
-            navigation={navigation}
-          />
+          <View
+            style={{
+              paddingTop: "10%",
+              marginTop: -windowHeight * 0.95,
+              marginLeft: windowWidth / 40,
+
+              // marginTop: "-200%",
+              flex: 1,
+              flexDirection: "column",
+              position: "fixed",
+            }}
+          >
+            <HeaderWebSmall
+              // style={{ position: "fixed", flex: 1 }}
+              navigation={navigation}
+            />
+          </View>
           <View
             style={{
               justifyContent: "center",
@@ -119,7 +132,11 @@ export default function HomepageWebSmall({ navigation }) {
               styles.fadingContainerTop,
               {
                 transform: [
-                  { translateX: translateTopText, backgroundColor: "blue" },
+                  {
+                    translateX: translateTopText,
+
+                    backgroundColor: "blue",
+                  },
                 ],
               },
             ]}
