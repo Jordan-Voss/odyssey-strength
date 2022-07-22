@@ -29,28 +29,20 @@ export default function HomepageWebSmall({ navigation }) {
   const fontDimension = useWindowDimensions().fontScale;
   const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
   const translateTopText = Animated.multiply(topTextDiffClamp, -1);
-  const bottomTextDiffClampView = Animated.diffClamp(
-    scroll,
-    -5,
-    windowHeight / 2
-  );
-  const bottomTextDiffClamp = Animated.diffClamp(
-    scroll,
-    -windowHeight / 5,
-    windowHeight / 6
-  );
-  const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
+  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
+
+  // const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
   const titleFontSize = windowWidth * 0.1;
   const homeAnimatedTextFontSize = windowWidth * 0.2;
   const paragraphFontSize = windowWidth * 0.075;
   // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
   const fadeOut = topTextDiffClamp.interpolate({
-    inputRange: [0, windowHeight / 5],
+    inputRange: [0, windowWidth / 2],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
-  const fadeIn = bottomTextDiffClampView.interpolate({
-    inputRange: [0, windowHeight / 2],
+  const fadeIn = bottomTextDiffClamp.interpolate({
+    inputRange: [0, windowHeight / 3],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
@@ -140,7 +132,7 @@ export default function HomepageWebSmall({ navigation }) {
               source={require("../../../assets/ody2.png")}
             ></Image>
           </View>
-          <Animated.View
+          {/* <Animated.View
             style={[
               styles.fadingContainerTop,
               {
@@ -150,6 +142,15 @@ export default function HomepageWebSmall({ navigation }) {
                     translateX: translateTopText,
                   },
                 ],
+              },
+            ]}
+          > */}
+          <Animated.View
+            style={[
+              styles.fadingContainerTop,
+              {
+                marginTop: windowHeight / 1.7,
+                transform: [{ translateX: translateTopText }],
               },
             ]}
           >
@@ -165,15 +166,21 @@ export default function HomepageWebSmall({ navigation }) {
           <Animated.View
             style={[
               styles.fadingContainerBottom,
-              scroll._value > windowHeight / 2
-                ? null
-                : { transform: [{ translateY: translateBottomText }] },
+              {
+                alignItems: "center",
+                flexDirection: "row",
+                marginTop: windowHeight / 1.7,
+              },
             ]}
           >
             <Animated.Text
               style={[
                 styles.topFadingText,
-                { opacity: fadeIn, fontSize: homeAnimatedTextFontSize },
+                {
+                  opacity: fadeIn,
+                  textAlign: "center",
+                  fontSize: homeAnimatedTextFontSize,
+                },
               ]}
             >
               An Epic Journey
@@ -181,7 +188,7 @@ export default function HomepageWebSmall({ navigation }) {
           </Animated.View>
         </View>
 
-        <View style={{ alignItems: "center", marginTop: "100%", flex: 1 }}>
+        <View style={{ alignItems: "center", flex: 1 }}>
           <Button onPress={() => console.log(scroll)}></Button>
           <Text
             adjustsFontSizeToFit
@@ -233,13 +240,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   fadingContainerTop: {
-    padding: 20,
-    marginTop: "-50%",
+    width: "100%",
+    // marginTop: "-50%",
+    // justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
     // backgroundColor: "powderblue",
   },
   fadingContainerBottom: {
-    padding: 20,
-    // marginTop: "-50%",
+    flex: 1,
+    // padding: 20,
+    // width: "100%",
+    // justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
     // backgroundColor: "powderblue",
   },
   topFadingText: {

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -21,22 +21,38 @@ import * as Linking from "expo-linking";
 export default function Homepage(props) {
   const isWeb = Platform.OS === "web";
   const scroll = useRef(new Animated.Value(0)).current;
+  const scroll2 = useRef(new Animated.Value(0)).current;
 
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const fontDimension = useWindowDimensions().fontScale;
-  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
+  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
   const translateTopText = Animated.multiply(topTextDiffClamp, -1);
-  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 2);
-  const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
+  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
+  // const translateBottomText = bottomTextDiffClampView.interpolate({
+  //   inputRange: [100, windowHeight / 1.3],
+  //   outputRange: [0 - windowHeight / 1.3, -windowHeight],
+  //   extrapolateLeft: "clamp",
+  //   extrapolateRight: "clamp",
+  // });
+  // const translateBottomText = (value) => {
+  //   if (withinRange(value._value)) {
+  //     return Animated.multiply(bottomTextDiffClampView, -1);
+  //   } else {
+  //     return bottomTextDiffClampView;
+  //   }
+  // };
+  const titleFontSize = windowWidth * 0.1;
+  const homeAnimatedTextFontSize = windowWidth * 0.2;
+  const paragraphFontSize = windowWidth * 0.075;
   // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
   const fadeOut = topTextDiffClamp.interpolate({
-    inputRange: [0, windowHeight / 5],
+    inputRange: [0, windowWidth / 2],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
   const fadeIn = bottomTextDiffClamp.interpolate({
-    inputRange: [0, windowHeight / 2],
+    inputRange: [0, windowHeight / 3],
     outputRange: [0, 1],
     extrapolate: "clamp",
   });
@@ -45,7 +61,15 @@ export default function Homepage(props) {
     <ScrollView
       scrollEventThrottle={1}
       onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scroll } } }],
+        [
+          {
+            nativeEvent: {
+              contentOffset: {
+                y: scroll,
+              },
+            },
+          },
+        ],
         {
           useNativeDriver: false,
         }
@@ -87,7 +111,10 @@ export default function Homepage(props) {
           <Animated.View
             style={[
               styles.fadingContainerTop,
-              { transform: [{ translateX: translateTopText }] },
+              {
+                marginTop: windowHeight / 2,
+                transform: [{ translateX: translateTopText }],
+              },
             ]}
           >
             <Animated.Text style={[styles.topFadingText, { opacity: fadeOut }]}>
@@ -97,7 +124,7 @@ export default function Homepage(props) {
           <Animated.View
             style={[
               styles.fadingContainerBottom,
-              { transform: [{ translateY: translateTopText }] },
+              { marginTop: windowHeight / 2 },
             ]}
           >
             <Animated.Text
@@ -108,12 +135,14 @@ export default function Homepage(props) {
           </Animated.View>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
+              onPress={() => console.log("hi")}
               style={{
                 borderRadius: 50,
+                zIndex: 100,
                 backgroundColor: "blue",
                 height: 100,
                 width: 100,
-                marginTop: 100,
+                // marginTop: -600,
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -132,6 +161,90 @@ export default function Homepage(props) {
           >
             TITLE
           </Text>
+        </View>
+        <View style={styles.pricesContainer}>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              Let us handle the details of your athletic pursuit by working
+              hard, allowing you to work smarter. You’ll shine to your fullest
+              potential.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              We focus on being athlete-centric, responsive to data, and
+              committed to relationships and coaching the whole athlete.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              You’re more than a set of numbers. We refine your lifting
+              technique, your mind, your nutrition, and habits that will last a
+              lifetime.
+            </Text>
+          </View>
+        </View>
+        <View style={styles.pricesContainer}>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              Let us handle the details of your athletic pursuit by working
+              hard, allowing you to work smarter. You’ll shine to your fullest
+              potential.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              We focus on being athlete-centric, responsive to data, and
+              committed to relationships and coaching the whole athlete.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              You’re more than a set of numbers. We refine your lifting
+              technique, your mind, your nutrition, and habits that will last a
+              lifetime.
+            </Text>
+          </View>
+        </View>
+        <View style={styles.pricesContainer}>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              Let us handle the details of your athletic pursuit by working
+              hard, allowing you to work smarter. You’ll shine to your fullest
+              potential.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              We focus on being athlete-centric, responsive to data, and
+              committed to relationships and coaching the whole athlete.
+            </Text>
+          </View>
+          <View style={styles.item}>
+            <Text
+              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            >
+              You’re more than a set of numbers. We refine your lifting
+              technique, your mind, your nutrition, and habits that will last a
+              lifetime.
+            </Text>
+          </View>
         </View>
         <View style={styles.pricesContainer}>
           <View style={styles.item}>
@@ -205,11 +318,14 @@ const styles = StyleSheet.create({
   },
   fadingContainerTop: {
     // padding: 20,
-    marginTop: "120%",
+    // marginTop: "120%",
+    position: "absolute",
+
     // backgroundColor: "powderblue",
   },
   fadingContainerBottom: {
-    marginTop: "20%",
+    // marginTop: "20%",
+    position: "absolute",
     // backgroundColor: "powderblue",
   },
   topFadingText: {
