@@ -44,7 +44,8 @@ export default function HomepageWebSmall({ navigation }) {
   const fadeIn = bottomTextDiffClamp.interpolate({
     inputRange: [0, windowHeight / 3],
     outputRange: [0, 1],
-    extrapolate: "clamp",
+    extrapolateLeft: "extend",
+    extrapolateRight: "clamp",
   });
 
   return (
