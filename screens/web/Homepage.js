@@ -6,22 +6,103 @@ import {
   ScrollView,
   Button,
   Image,
+  Modal,
   TouchableOpacity,
   Platform,
+  Easing,
   Animated,
   SafeAreaView,
 } from "react-native";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import { Link } from "@react-navigation/web";
 import Header from "../../components/Header";
 import { Video } from "expo-av";
 import { Dimensions } from "react-native";
 import { useWindowDimensions } from "react-native";
 import * as Linking from "expo-linking";
+import ScrollableView from "./ScrollableView";
 
 export default function Homepage(props) {
   const isWeb = Platform.OS === "web";
+  const card1TextView = useRef(new Animated.Value(0)).current;
   const scroll = useRef(new Animated.Value(0)).current;
-  const scroll2 = useRef(new Animated.Value(0)).current;
+  const iconSize1 = useRef(new Animated.Value(0)).current;
+  const iconSize2 = useRef(new Animated.Value(0)).current;
+  const iconSize3 = useRef(new Animated.Value(0)).current;
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isVisible1, setIsVisible1] = useState(false);
+
+  const handleIsVisible1 = () => {
+    console.log("b");
+    Animated.spring(card1TextView, {
+      toValue: -100,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+    setIsVisible1(!isVisible1);
+  };
+  const handleScaleUpIcon1 = () => {
+    Animated.timing(iconSize1, {
+      toValue: 1,
+      duration: 250,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  };
+  const handleScaleDownIcon1 = () => {
+    Animated.timing(iconSize1, {
+      toValue: 0,
+      duration: 250,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  };
+  const handleScaleUpIcon2 = () => {
+    Animated.timing(iconSize2, {
+      toValue: 1,
+      duration: 250,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  };
+  const handleScaleDownIcon2 = () => {
+    Animated.timing(iconSize2, {
+      toValue: 0,
+      duration: 250,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  };
+  const handleScaleUpIcon3 = () => {
+    Animated.timing(iconSize3, {
+      toValue: 1,
+      duration: 250,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  };
+  const handleScaleDownIcon3 = () => {
+    Animated.timing(iconSize3, {
+      toValue: 0,
+      duration: 250,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  };
+  const [scrollViewAlignment] = useState(new Animated.Value(0));
+  const bringUpScrollView = () => {
+    Animated.timing(scrollViewAlignment, {
+      toValue: 1,
+      duration: 500,
+    }).start();
+  };
+  const scrollViewInterpolate = scrollViewAlignment.interpolate({
+    inputRange: [0, 1],
+    outputRange: [windowHeight / 2, 0],
+  });
+  const scrollViewStyle = {
+    bottom: scrollViewInterpolate,
+  };
 
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -29,19 +110,7 @@ export default function Homepage(props) {
   const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
   const translateTopText = Animated.multiply(topTextDiffClamp, -1);
   const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
-  // const translateBottomText = bottomTextDiffClampView.interpolate({
-  //   inputRange: [100, windowHeight / 1.3],
-  //   outputRange: [0 - windowHeight / 1.3, -windowHeight],
-  //   extrapolateLeft: "clamp",
-  //   extrapolateRight: "clamp",
-  // });
-  // const translateBottomText = (value) => {
-  //   if (withinRange(value._value)) {
-  //     return Animated.multiply(bottomTextDiffClampView, -1);
-  //   } else {
-  //     return bottomTextDiffClampView;
-  //   }
-  // };
+
   const titleFontSize = windowWidth * 0.1;
   const homeAnimatedTextFontSize = windowWidth * 0.2;
   const paragraphFontSize = windowWidth * 0.075;
@@ -151,7 +220,7 @@ export default function Homepage(props) {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ alignItems: "center", marginTop: "100%" }}>
+        <View style={{ alignItems: "center", paddingTop: windowHeight }}>
           <Text
             style={{
               fontFamily: "Roboto",
@@ -163,119 +232,260 @@ export default function Homepage(props) {
           </Text>
         </View>
         <View style={styles.pricesContainer}>
+          <View style={styles.item2}></View>
+
           <View style={styles.item}>
+            <Image
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: "50px",
+              }}
+              source={require("../../assets/img/card_carousel1.JPG")}
+            ></Image>
             <Text
+              style={{
+                position: "absolute",
+                textAlign: "center",
+                fontSize: 30,
+                color: "white",
+              }}
+            >
+              All Access Coaching
+            </Text>
+            {/* <View>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <TouchableOpacity
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </TouchableOpacity>
+            </View> */}
+            <Animated.View
+              style={{
+                alignItems: "center",
+                // position: "relative",
+                justifyContent: "center",
+                // backgroundColor: "red",
+                transform: [
+                  {
+                    translateY: iconSize1.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-30, -50],
+                    }),
+                  },
+                  // {
+                  //   scaleY: iconSize.interpolate({
+                  //     inputRange: [0, 1],
+                  //     outputRange: [1, 12.5],
+                  //   }),
+                  // },
+                ],
+              }}
+              onMouseEnter={() => {
+                // iconSize.setValue(30);
+                handleScaleUpIcon1();
+                // setModalVisible(!modalVisible);
+              }}
+              onMouseLeave={() => {
+                // iconSize.setValue(30);
+                handleScaleDownIcon1();
+              }}
+            >
+              <Entypo
+                size={60}
+                color="grey"
+                name="chevron-up"
+                style={{
+                  position: "absolute",
+                  paddingTop: windowHeight * 1.5,
+                  // marginTop: "-250%",
+                  // backgroundColor: "blue",
+                }}
+                onPress={() => {
+                  handleIsVisible1();
+                }}
+              ></Entypo>
+            </Animated.View>
+            {/* <Animated.View
+              style={
+                (scrollViewStyle,
+                {
+                  // bottom: 400,
+                  overflow: "hidden",
+                  backgroundColor: "blue",
+                  width: "100%",
+                  height: "10%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "50px",
+                })
+              }
+            >
+              <Text>Hello</Text>
+            </Animated.View> */}
+            {/* <Text
               style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
             >
               Let us handle the details of your athletic pursuit by working
               hard, allowing you to work smarter. You’ll shine to your fullest
               potential.
-            </Text>
+            </Text> */}
           </View>
+          <View style={styles.item2}></View>
           <View style={styles.item}>
+            <Image
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "130%",
+                borderRadius: "50px",
+              }}
+              source={require("../../assets/img/card_carousel2.JPG")}
+            ></Image>
             <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+              style={{
+                position: "absolute",
+                textAlign: "center",
+                fontSize: 30,
+                color: "white",
+              }}
             >
-              We focus on being athlete-centric, responsive to data, and
-              committed to relationships and coaching the whole athlete.
+              Powerlifting Coaching
             </Text>
+            <Animated.View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "red",
+                transform: [
+                  {
+                    translateY: iconSize2.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-30, -50],
+                    }),
+                  },
+                  // {
+                  //   scaleY: iconSize.interpolate({
+                  //     inputRange: [0, 1],
+                  //     outputRange: [1, 12.5],
+                  //   }),
+                  // },
+                ],
+              }}
+              onMouseEnter={() => {
+                // iconSize.setValue(30);
+                handleScaleUpIcon2();
+              }}
+              onMouseLeave={() => {
+                // iconSize.setValue(30);
+                handleScaleDownIcon2();
+              }}
+            >
+              <Entypo
+                size={60}
+                color="grey"
+                name="chevron-up"
+                style={{
+                  position: "absolute",
+                  paddingTop: windowHeight * 1.5,
+                  // marginTop: "-250%",
+                  // backgroundColor: "blue",
+                }}
+              ></Entypo>
+            </Animated.View>
           </View>
+          <View style={styles.item2}></View>
           <View style={styles.item}>
+            <Image
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: "50px",
+              }}
+              source={require("../../assets/img/card_carousel3.JPG")}
+            ></Image>
             <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+              style={{
+                position: "absolute",
+                textAlign: "center",
+                fontSize: 30,
+                color: "white",
+              }}
             >
-              You’re more than a set of numbers. We refine your lifting
-              technique, your mind, your nutrition, and habits that will last a
-              lifetime.
+              Programming Consultation
             </Text>
-          </View>
-        </View>
-        <View style={styles.pricesContainer}>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
+            <Animated.View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "red",
+                transform: [
+                  {
+                    translateY: iconSize3.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-30, -50],
+                    }),
+                  },
+                  // {
+                  //   scaleY: iconSize.interpolate({
+                  //     inputRange: [0, 1],
+                  //     outputRange: [1, 12.5],
+                  //   }),
+                  // },
+                ],
+              }}
+              onMouseEnter={() => {
+                // iconSize.setValue(30);
+                handleScaleUpIcon3();
+              }}
+              onMouseLeave={() => {
+                // iconSize.setValue(30);
+                handleScaleDownIcon3();
+              }}
+              onPress={() => console.log("preszs")}
             >
-              Let us handle the details of your athletic pursuit by working
-              hard, allowing you to work smarter. You’ll shine to your fullest
-              potential.
-            </Text>
+              <Entypo
+                size={60}
+                color="grey"
+                name="chevron-up"
+                style={{
+                  position: "absolute",
+                  paddingTop: windowHeight * 1.5,
+                  // marginTop: "-250%",
+                  // backgroundColor: "blue",
+                }}
+              ></Entypo>
+            </Animated.View>
           </View>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              We focus on being athlete-centric, responsive to data, and
-              committed to relationships and coaching the whole athlete.
-            </Text>
-          </View>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              You’re more than a set of numbers. We refine your lifting
-              technique, your mind, your nutrition, and habits that will last a
-              lifetime.
-            </Text>
-          </View>
-        </View>
-        <View style={styles.pricesContainer}>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              Let us handle the details of your athletic pursuit by working
-              hard, allowing you to work smarter. You’ll shine to your fullest
-              potential.
-            </Text>
-          </View>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              We focus on being athlete-centric, responsive to data, and
-              committed to relationships and coaching the whole athlete.
-            </Text>
-          </View>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              You’re more than a set of numbers. We refine your lifting
-              technique, your mind, your nutrition, and habits that will last a
-              lifetime.
-            </Text>
-          </View>
-        </View>
-        <View style={styles.pricesContainer}>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              Let us handle the details of your athletic pursuit by working
-              hard, allowing you to work smarter. You’ll shine to your fullest
-              potential.
-            </Text>
-          </View>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              We focus on being athlete-centric, responsive to data, and
-              committed to relationships and coaching the whole athlete.
-            </Text>
-          </View>
-          <View style={styles.item}>
-            <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              You’re more than a set of numbers. We refine your lifting
-              technique, your mind, your nutrition, and habits that will last a
-              lifetime.
-            </Text>
-          </View>
+          <View style={styles.item2}></View>
         </View>
         <View>{/* <Text>gwreg</Text> */}</View>
         {/* <Text>erfhwe</Text> */}
+      </View>
+      <View style={styles.pricesContainer2}>
+        <View style={styles.item}>
+          <Text style={{ fontFamily: "Roboto", fontSize: paragraphFontSize }}>
+            Let us handle the details of your athletic pursuit by working hard,
+            allowing you to work smarter. You’ll shine to your fullest
+            potential.
+          </Text>
+        </View>
+        <View style={styles.item}>
+          <Text style={{ fontFamily: "Roboto", fontSize: paragraphFontSize }}>
+            We focus on being athlete-centric, responsive to data, and committed
+            to relationships and coaching the whole athlete.
+          </Text>
+        </View>
+        <View style={styles.item}>
+          <Text style={{ fontFamily: "Roboto", fontSize: paragraphFontSize }}>
+            You’re more than a set of numbers. We refine your lifting technique,
+            your mind, your nutrition, and habits that will last a lifetime.
+          </Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -296,6 +506,20 @@ const styles = StyleSheet.create({
     // flex: 1,
     // backgroundColor: "red",
     // marginTop: "100%",
+    width: "100%",
+    height: "60%",
+    flexDirection: "row",
+    paddingTop: "10%",
+    // flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // marginLeft: 1 / 7,
+    // padding: 3,
+  },
+  pricesContainer2: {
+    // flex: 1,
+    // backgroundColor: "red",
+    marginTop: "100%",
     width: "80%",
     height: "30%",
     flexDirection: "row",
@@ -306,7 +530,30 @@ const styles = StyleSheet.create({
     // padding: 3,
   },
   item: {
-    width: "33%",
+    overflow: "hidden",
+    flex: 1,
+    // width: "33%",
+    height: "130%",
+    borderRadius: "50px",
+    // backgroundColor: "red",
+    alignItems: "center",
+    // justifyContent: "center",
+  },
+  hiddenItem: {
+    // flex: 1,
+    // // width: "33%",
+    // height: "100%",
+    // borderRadius: "50px",
+    // // backgroundColor: "red",
+    // alignItems: "center",
+    // justifyContent: "space-between",
+  },
+  item2: {
+    flex: 0.1,
+    // width: "33%",
+    height: "100%",
+    borderRadius: "50px",
+    // backgroundColor: "red",
     alignItems: "center",
     justifyContent: "space-between",
   },
@@ -340,5 +587,46 @@ const styles = StyleSheet.create({
     padding: 15,
     color: "white",
     fontSize: 200,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
