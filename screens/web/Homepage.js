@@ -1,4 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, {
+  useRef,
+  useCallback,
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
 import {
   View,
   Text,
@@ -13,6 +19,10 @@ import {
   Animated,
   SafeAreaView,
 } from "react-native";
+import RBSheet from "react-native-raw-bottom-sheet";
+
+// import Animated as animAted from "react-native-reanimated";
+// import BottomSheet from "reanimated-bottom-sheet";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { Link } from "@react-navigation/web";
 import Header from "../../components/Header";
@@ -20,9 +30,11 @@ import { Video } from "expo-av";
 import { Dimensions } from "react-native";
 import { useWindowDimensions } from "react-native";
 import * as Linking from "expo-linking";
-import ScrollableView from "./ScrollableView";
+import BottomSheet from "./BottomSheet";
 
 export default function Homepage(props) {
+  const refRBSheet = useRef();
+
   const isWeb = Platform.OS === "web";
   const card1TextView = useRef(new Animated.Value(0)).current;
   const scroll = useRef(new Animated.Value(0)).current;
@@ -31,15 +43,15 @@ export default function Homepage(props) {
   const iconSize3 = useRef(new Animated.Value(0)).current;
   const [modalVisible, setModalVisible] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
+
+  // variables
+  const snapPoints = useMemo(() => ["25%", "50%"], []);
 
   const handleIsVisible1 = () => {
     console.log("b");
-    Animated.spring(card1TextView, {
-      toValue: -100,
-      duration: 1000,
-      useNativeDriver: false,
-    }).start();
-    setIsVisible1(!isVisible1);
   };
   const handleScaleUpIcon1 = () => {
     Animated.timing(iconSize1, {
@@ -89,16 +101,23 @@ export default function Homepage(props) {
       useNativeDriver: false,
     }).start();
   };
+  const gestureHandler = (e) => {
+    if (e.nativeEvent.contentOffset.y > 0) {
+      console.log("GRS");
+      bringUpScrollView();
+    }
+  };
   const [scrollViewAlignment] = useState(new Animated.Value(0));
   const bringUpScrollView = () => {
     Animated.timing(scrollViewAlignment, {
       toValue: 1,
       duration: 500,
+      useNativeDriver: false,
     }).start();
   };
   const scrollViewInterpolate = scrollViewAlignment.interpolate({
     inputRange: [0, 1],
-    outputRange: [windowHeight / 2, 0],
+    outputRange: [-windowHeight * 0.7, 0],
   });
   const scrollViewStyle = {
     bottom: scrollViewInterpolate,
@@ -254,6 +273,8 @@ export default function Homepage(props) {
             >
               All Access Coaching
             </Text>
+            <BottomSheet style={{ backgroundColor: "blue" }} />
+
             {/* <View>
               <Text style={styles.modalText}>Hello World!</Text>
               <TouchableOpacity
@@ -267,8 +288,11 @@ export default function Homepage(props) {
               style={{
                 alignItems: "center",
                 // position: "relative",
+                // backgroundColor: "green",
+                // height: 50,
+
                 justifyContent: "center",
-                // backgroundColor: "red",
+                backgroundColor: "blue",
                 transform: [
                   {
                     translateY: iconSize1.interpolate({
@@ -286,6 +310,7 @@ export default function Homepage(props) {
               }}
               onMouseEnter={() => {
                 // iconSize.setValue(30);
+                // console.log()
                 handleScaleUpIcon1();
                 // setModalVisible(!modalVisible);
               }}
@@ -300,9 +325,12 @@ export default function Homepage(props) {
                 name="chevron-up"
                 style={{
                   position: "absolute",
-                  paddingTop: windowHeight * 1.5,
+                  // paddingTop: windowHeight * 1.5,
                   // marginTop: "-250%",
-                  // backgroundColor: "blue",
+                  // top: "500%",
+                  bottom: -windowHeight / 2,
+
+                  backgroundColor: "green",
                 }}
                 onPress={() => {
                   handleIsVisible1();
@@ -310,22 +338,23 @@ export default function Homepage(props) {
               ></Entypo>
             </Animated.View>
             {/* <Animated.View
-              style={
-                (scrollViewStyle,
+              style={[
+                scrollViewStyle,
                 {
-                  // bottom: 400,
+                  bottom: scrollViewInterpolate,
+                  // bottom: windowHeight * 0.6 * -1,
                   overflow: "hidden",
-                  backgroundColor: "blue",
+                  // backgroundColor: "blue",
                   width: "100%",
-                  height: "10%",
+                  height: "100%",
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: "50px",
-                })
-              }
-            >
-              <Text>Hello</Text>
-            </Animated.View> */}
+                  // backgroundColor: "red",
+                },
+              ]}
+            > */}
+            {/* </Animated.View> */}
             {/* <Text
               style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
             >
