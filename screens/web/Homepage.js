@@ -20,9 +20,6 @@ import {
   SafeAreaView,
 } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
-
-// import Animated as animAted from "react-native-reanimated";
-// import BottomSheet from "reanimated-bottom-sheet";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { Link } from "@react-navigation/web";
 import Header from "../../components/Header";
@@ -33,34 +30,34 @@ import * as Linking from "expo-linking";
 import BottomSheet from "./BottomSheet";
 
 export default function Homepage(props) {
-  const refRBSheet = useRef();
-
   const isWeb = Platform.OS === "web";
-  const slideUpCard1 = useRef(new Animated.Value(0)).current;
-  const card1TextView = useRef(new Animated.Value(0)).current;
-  const slideUpCard2 = useRef(new Animated.Value(0)).current;
-  const slideUpCard3 = useRef(new Animated.Value(0)).current;
-  const slideUpCard1View = useRef(new Animated.Value(0)).current;
-  const slideUpCard2View = useRef(new Animated.Value(0)).current;
-  const slideUpCard3View = useRef(new Animated.Value(0)).current;
-
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
+  const fontDimension = useWindowDimensions().fontScale;
+  const titleFontSize = windowWidth * 0.1;
+  const homeAnimatedTextFontSize = windowWidth * 0.2;
+  const paragraphFontSize = windowWidth * 0.075;
   const scroll = useRef(new Animated.Value(0)).current;
-  const iconSize1 = useRef(new Animated.Value(0)).current;
-  const iconSize2 = useRef(new Animated.Value(0)).current;
-  const iconSize3 = useRef(new Animated.Value(0)).current;
+  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
+  const translateTopText = Animated.multiply(topTextDiffClamp, -1);
+  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
+  const card1TextView = useRef(new Animated.Value(0)).current;
   const [modalVisible, setModalVisible] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
   const [iconName, setIconName] = useState("chevron-up");
   const [isCard1Up, setIsCard1Up] = useState(false);
   const [isCard2Up, setIsCard2Up] = useState(false);
   const [isCard3Up, setIsCard3Up] = useState(false);
+  const iconSize1 = useRef(new Animated.Value(0)).current;
+  const iconSize2 = useRef(new Animated.Value(0)).current;
+  const iconSize3 = useRef(new Animated.Value(0)).current;
+  const slideUpCard1 = useRef(new Animated.Value(0)).current;
+  const slideUpCard2 = useRef(new Animated.Value(0)).current;
+  const slideUpCard3 = useRef(new Animated.Value(0)).current;
+  const slideUpCard1View = useRef(new Animated.Value(0)).current;
+  const slideUpCard2View = useRef(new Animated.Value(0)).current;
+  const slideUpCard3View = useRef(new Animated.Value(0)).current;
 
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
-  // variables
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
   const switchCard = (cardNumber, isCardUp) => {
     console.log(isCardUp + "" + cardNumber);
     switch (cardNumber) {
@@ -107,6 +104,7 @@ export default function Homepage(props) {
     }
     switchCard(cardNumber, isCardUp);
   };
+
   const handleScaleIcon = (direction, iconNumber) => {
     if (direction === "down") {
       Animated.timing(iconNumber, {
@@ -125,22 +123,12 @@ export default function Homepage(props) {
     }
   };
 
-  const windowWidth = useWindowDimensions().width;
-  const windowHeight = useWindowDimensions().height;
-  const fontDimension = useWindowDimensions().fontScale;
-  const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
-  const translateTopText = Animated.multiply(topTextDiffClamp, -1);
-  const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
-
-  const titleFontSize = windowWidth * 0.1;
-  const homeAnimatedTextFontSize = windowWidth * 0.2;
-  const paragraphFontSize = windowWidth * 0.075;
-  // const translateHeaderText = Animated.multiply(translateTopText, -1.5);
   const fadeOut = topTextDiffClamp.interpolate({
     inputRange: [0, windowWidth / 2],
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
+
   const fadeIn = bottomTextDiffClamp.interpolate({
     inputRange: [0, windowHeight / 3],
     outputRange: [0, 1],
@@ -171,8 +159,6 @@ export default function Homepage(props) {
           style={{
             height: windowHeight,
             position: "absolute",
-            // width: windowWidth,
-            // aspectRatio: 800 / 800,
           }}
           isMuted={true}
           isLooping={true}
@@ -183,6 +169,8 @@ export default function Homepage(props) {
           rate={1.0}
           ignoreSilentSwitch={"obey"}
         ></Video>
+
+        {/*******HEADER AND ANIMATED TEXT VIEW********************************** */}
         <View
           style={{
             width: windowWidth,
@@ -241,6 +229,9 @@ export default function Homepage(props) {
             </TouchableOpacity>
           </View>
         </View>
+
+        {/*******COACHING TYPES VIEW********************************** */}
+
         <View style={{ alignItems: "center", paddingTop: windowHeight }}>
           <Text
             style={{
@@ -254,6 +245,8 @@ export default function Homepage(props) {
         </View>
         <View style={styles.pricesContainer}>
           <View style={styles.item2}></View>
+
+          {/*******TYPE 1********************************** */}
 
           <View style={styles.item}>
             <Image
@@ -275,30 +268,32 @@ export default function Homepage(props) {
             >
               All Access Coaching
             </Text>
-            {/* <View>
-              <Text style={styles.modalText}>Hello World!</Text>
-              <TouchableOpacity
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableOpacity>
-            </View> */}
-            <Animated.View
+            <View
               style={{
                 position: "absolute",
-                alignItems: "center",
-                // paddingTop: windowHeight * 1.5,
-                // marginTop: "-250%",
-                top: windowHeight * 0.9,
-
-                backgroundColor: "blue",
                 width: "100%",
+                height: "100%",
+                borderRadius: 50,
+                backgroundColor: "red",
+                opacity: 0.2,
+              }}
+            ></View>
+            <Animated.View
+              style={{
+                borderRadius: "50px",
+                position: "absolute",
+                alignItems: "center",
+                top: windowHeight * 0.9,
+                borderRadius: 50,
+                backgroundColor: "white",
+                width: "100%",
+                height: "100%",
+                opacity: 0.7,
                 transform: [
                   {
                     translateY: slideUpCard1View.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [0, -500],
+                      outputRange: [0, -windowHeight * 0.7],
                     }),
                   },
                 ],
@@ -309,9 +304,9 @@ export default function Homepage(props) {
             <Animated.View
               style={{
                 alignItems: "center",
-                // position: "relative",
                 backgroundColor: "green",
                 height: 50,
+                borderRadius: "50px",
 
                 justifyContent: "center",
                 backgroundColor: "blue",
@@ -322,22 +317,12 @@ export default function Homepage(props) {
                       outputRange: [-30, -50],
                     }),
                   },
-                  // {
-                  //   scaleY: iconSize.interpolate({
-                  //     inputRange: [0, 1],
-                  //     outputRange: [1, 12.5],
-                  //   }),
-                  // },
                 ],
               }}
               onMouseEnter={() => {
-                // iconSize.setValue(30);
-                // console.log()
                 handleScaleIcon("up", iconSize1);
-                // setModalVisible(!modalVisible);
               }}
               onMouseLeave={() => {
-                // iconSize.setValue(30);
                 handleScaleIcon("down", iconSize1);
               }}
             >
@@ -345,8 +330,6 @@ export default function Homepage(props) {
                 style={{
                   position: "absolute",
                   alignItems: "center",
-                  // paddingTop: windowHeight * 1.5,
-                  // marginTop: "-250%",
                   width: "100%",
                   transform: [
                     {
@@ -381,39 +364,18 @@ export default function Homepage(props) {
                 ></Entypo>
               </Animated.View>
             </Animated.View>
-            {/* <Animated.View
-              style={[
-                scrollViewStyle,
-                {
-                  bottom: scrollViewInterpolate,
-                  // bottom: windowHeight * 0.6 * -1,
-                  overflow: "hidden",
-                  // backgroundColor: "blue",
-                  width: "100%",
-                  height: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "50px",
-                  // backgroundColor: "red",
-                },
-              ]}
-            > */}
-            {/* </Animated.View> */}
-            {/* <Text
-              style={{ fontFamily: "Roboto", fontSize: fontDimension * 25 }}
-            >
-              Let us handle the details of your athletic pursuit by working
-              hard, allowing you to work smarter. You’ll shine to your fullest
-              potential.
-            </Text> */}
           </View>
+
           <View style={styles.item2}></View>
+
+          {/*******TYPE 2********************************** */}
+
           <View style={styles.item}>
             <Image
               style={{
                 position: "absolute",
                 width: "100%",
-                height: "130%",
+                height: "100%",
                 borderRadius: "50px",
               }}
               source={require("../../assets/img/card_carousel2.JPG")}
@@ -428,12 +390,20 @@ export default function Homepage(props) {
             >
               Powerlifting Coaching
             </Text>
+            <View
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: 50,
+                backgroundColor: "blue",
+                opacity: 0.2,
+              }}
+            ></View>
             <Animated.View
               style={{
                 position: "absolute",
                 alignItems: "center",
-                // paddingTop: windowHeight * 1.5,
-                // marginTop: "-250%",
                 top: windowHeight * 0.9,
 
                 backgroundColor: "blue",
@@ -462,20 +432,12 @@ export default function Homepage(props) {
                       outputRange: [-30, -50],
                     }),
                   },
-                  // {
-                  //   scaleY: iconSize.interpolate({
-                  //     inputRange: [0, 1],
-                  //     outputRange: [1, 12.5],
-                  //   }),
-                  // },
                 ],
               }}
               onMouseEnter={() => {
-                // iconSize.setValue(30);
                 handleScaleIcon("up", iconSize2);
               }}
               onMouseLeave={() => {
-                // iconSize.setValue(30);
                 handleScaleIcon("down", iconSize2);
               }}
             >
@@ -483,8 +445,6 @@ export default function Homepage(props) {
                 style={{
                   position: "absolute",
                   alignItems: "center",
-                  // paddingTop: windowHeight * 1.5,
-                  // marginTop: "-250%",
                   width: "100%",
                   transform: [
                     {
@@ -504,9 +464,6 @@ export default function Homepage(props) {
                     position: "absolute",
                     top: windowHeight * 0.725,
                     height: 50,
-                    // backgroundColor: "blue",
-                    // marginTop: "-250%",
-                    // backgroundColor: "blue",
                   }}
                   onPress={() => {
                     handleMoveHiddenViewCard(
@@ -520,7 +477,11 @@ export default function Homepage(props) {
               </Animated.View>
             </Animated.View>
           </View>
+
           <View style={styles.item2}></View>
+
+          {/*******TYPE 3********************************** */}
+
           <View style={styles.item}>
             <Image
               style={{
@@ -541,12 +502,20 @@ export default function Homepage(props) {
             >
               Programming Consultation
             </Text>
+            <View
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: "50px",
+                backgroundColor: "green",
+                opacity: 0.2,
+              }}
+            ></View>
             <Animated.View
               style={{
                 position: "absolute",
                 alignItems: "center",
-                // paddingTop: windowHeight * 1.5,
-                // marginTop: "-250%",
                 top: windowHeight * 0.9,
 
                 backgroundColor: "blue",
@@ -575,20 +544,12 @@ export default function Homepage(props) {
                       outputRange: [-30, -50],
                     }),
                   },
-                  // {
-                  //   scaleY: iconSize.interpolate({
-                  //     inputRange: [0, 1],
-                  //     outputRange: [1, 12.5],
-                  //   }),
-                  // },
                 ],
               }}
               onMouseEnter={() => {
-                // iconSize.setValue(30);
                 handleScaleIcon("up", iconSize3);
               }}
               onMouseLeave={() => {
-                // iconSize.setValue(30);
                 handleScaleIcon("down", iconSize3);
               }}
               onPress={() => console.log("preszs")}
@@ -597,8 +558,6 @@ export default function Homepage(props) {
                 style={{
                   position: "absolute",
                   alignItems: "center",
-                  // paddingTop: windowHeight * 1.5,
-                  // marginTop: "-250%",
                   width: "100%",
                   transform: [
                     {
@@ -618,9 +577,6 @@ export default function Homepage(props) {
                     position: "absolute",
                     top: windowHeight * 0.725,
                     height: 50,
-                    // backgroundColor: "blue",
-                    // marginTop: "-250%",
-                    // backgroundColor: "blue",
                   }}
                   onPress={() => {
                     handleMoveHiddenViewCard(
@@ -636,9 +592,11 @@ export default function Homepage(props) {
           </View>
           <View style={styles.item2}></View>
         </View>
-        <View>{/* <Text>gwreg</Text> */}</View>
-        {/* <Text>erfhwe</Text> */}
+        <View></View>
       </View>
+
+      {/*******NEXT SECTION********************************** */}
+
       <View style={styles.pricesContainer2}>
         <View style={styles.item}>
           <Text style={{ fontFamily: "Roboto", fontSize: paragraphFontSize }}>
@@ -666,87 +624,44 @@ export default function Homepage(props) {
 
 const styles = StyleSheet.create({
   container: {
-    // flexDirection: "row",
     height: 900,
     width: "100%",
     backgroundColor: "blue",
-    // backgroundColor: 'rgba(0,0,0,.6)',
-    // justifyContent: "space-between",
-    // marginTop: "20%",
-    // alignItems: "center",
   },
   pricesContainer: {
-    // flex: 1,
-    // backgroundColor: "red",
-    // marginTop: "100%",
     width: "100%",
     height: "60%",
     flexDirection: "row",
     paddingTop: "10%",
-    // flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
-    // marginLeft: 1 / 7,
-    // padding: 3,
   },
   pricesContainer2: {
-    // flex: 1,
-    // backgroundColor: "red",
     marginTop: "100%",
     width: "80%",
     height: "30%",
     flexDirection: "row",
-    // flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
-    // marginLeft: 1 / 7,
-    // padding: 3,
   },
   item: {
     overflow: "hidden",
     flex: 1,
-    // width: "33%",
     height: "130%",
-    borderRadius: "50px",
-    // backgroundColor: "red",
     alignItems: "center",
-    // justifyContent: "center",
-  },
-  hiddenItem: {
-    // flex: 1,
-    // // width: "33%",
-    // height: "100%",
-    // borderRadius: "50px",
-    // // backgroundColor: "red",
-    // alignItems: "center",
-    // justifyContent: "space-between",
   },
   item2: {
     flex: 0.1,
-    // width: "33%",
     height: "100%",
     borderRadius: "50px",
-    // backgroundColor: "red",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  tinyLogo: {
-    // flex: 1,
-    // marginTop: "-3vh",
-    width: 40,
-    height: 40,
-  },
   fadingContainerTop: {
-    // padding: 20,
-    // marginTop: "120%",
     position: "absolute",
-
-    // backgroundColor: "powderblue",
   },
   fadingContainerBottom: {
-    // marginTop: "20%",
     position: "absolute",
-    // backgroundColor: "powderblue",
   },
   topFadingText: {
     fontFamily: "Roboto",
@@ -761,45 +676,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 200,
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
   },
 });
