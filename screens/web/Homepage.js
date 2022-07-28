@@ -105,21 +105,39 @@ export default function Homepage(props) {
     switchCard(cardNumber, isCardUp);
   };
 
-  const handleScaleIcon = (direction, iconNumber) => {
+  const handleScaleIcon = (direction, iconNumber, isCardUp) => {
     if (direction === "down") {
-      Animated.timing(iconNumber, {
-        toValue: 0,
-        duration: 250,
-        easing: Easing.ease,
-        useNativeDriver: false,
-      }).start();
+      if (isCardUp) {
+        Animated.timing(iconNumber, {
+          toValue: 1,
+          duration: 250,
+          easing: Easing.ease,
+          useNativeDriver: false,
+        }).start();
+      } else {
+        Animated.timing(iconNumber, {
+          toValue: 0,
+          duration: 250,
+          easing: Easing.ease,
+          useNativeDriver: false,
+        }).start();
+      }
     } else {
-      Animated.timing(iconNumber, {
-        toValue: 1,
-        duration: 250,
-        easing: Easing.ease,
-        useNativeDriver: false,
-      }).start();
+      if (isCardUp) {
+        Animated.timing(iconNumber, {
+          toValue: 0,
+          duration: 250,
+          easing: Easing.ease,
+          useNativeDriver: false,
+        }).start();
+      } else {
+        Animated.timing(iconNumber, {
+          toValue: 1,
+          duration: 250,
+          easing: Easing.ease,
+          useNativeDriver: false,
+        }).start();
+      }
     }
   };
 
@@ -254,10 +272,20 @@ export default function Homepage(props) {
                 position: "absolute",
                 width: "100%",
                 height: "100%",
-                borderRadius: "50px",
+                borderRadius: 50,
               }}
               source={require("../../assets/img/card_carousel1.JPG")}
             ></Image>
+            <View
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: 50,
+                backgroundColor: "black",
+                opacity: 0.4,
+              }}
+            ></View>
             <Text
               style={{
                 position: "absolute",
@@ -268,19 +296,9 @@ export default function Homepage(props) {
             >
               All Access Coaching
             </Text>
-            <View
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                borderRadius: 50,
-                backgroundColor: "red",
-                opacity: 0.2,
-              }}
-            ></View>
             <Animated.View
               style={{
-                borderRadius: "50px",
+                borderRadius: 50,
                 position: "absolute",
                 alignItems: "center",
                 top: windowHeight * 0.9,
@@ -320,10 +338,12 @@ export default function Homepage(props) {
                 ],
               }}
               onMouseEnter={() => {
-                handleScaleIcon("up", iconSize1);
+                handleScaleIcon("up", iconSize1, isCard1Up);
+                console.log(isCard1Up);
               }}
               onMouseLeave={() => {
-                handleScaleIcon("down", iconSize1);
+                handleScaleIcon("down", iconSize1, isCard1Up);
+                console.log(isCard1Up);
               }}
             >
               <Animated.View
@@ -342,14 +362,15 @@ export default function Homepage(props) {
                 }}
               >
                 <Entypo
-                  size={60}
+                  size={windowWidth / 10}
                   color="grey"
                   name={isCard1Up ? "chevron-down" : "chevron-up"}
                   style={{
-                    position: "absolute",
+                    position: "relative",
+                    // paddingBottom: "15%",
                     // paddingTop: windowHeight * 1.5,
                     // marginTop: "-250%",
-                    top: windowHeight * 0.7,
+                    top: windowHeight * 0.71,
                     height: 50,
                     // backgroundColor: "blue",
                   }}
@@ -380,6 +401,16 @@ export default function Homepage(props) {
               }}
               source={require("../../assets/img/card_carousel2.JPG")}
             ></Image>
+            <View
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: 50,
+                backgroundColor: "black",
+                opacity: 0.4,
+              }}
+            ></View>
             <Text
               style={{
                 position: "absolute",
@@ -390,29 +421,22 @@ export default function Homepage(props) {
             >
               Powerlifting Coaching
             </Text>
-            <View
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                borderRadius: 50,
-                backgroundColor: "blue",
-                opacity: 0.2,
-              }}
-            ></View>
             <Animated.View
               style={{
+                borderRadius: 50,
                 position: "absolute",
                 alignItems: "center",
                 top: windowHeight * 0.9,
-
-                backgroundColor: "blue",
+                borderRadius: 50,
+                backgroundColor: "white",
                 width: "100%",
+                height: "100%",
+                opacity: 0.7,
                 transform: [
                   {
                     translateY: slideUpCard2View.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [0, -500],
+                      outputRange: [0, -windowHeight * 0.7],
                     }),
                   },
                 ],
@@ -425,6 +449,8 @@ export default function Homepage(props) {
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: "red",
+                height: 50,
+
                 transform: [
                   {
                     translateY: iconSize2.interpolate({
@@ -435,10 +461,10 @@ export default function Homepage(props) {
                 ],
               }}
               onMouseEnter={() => {
-                handleScaleIcon("up", iconSize2);
+                handleScaleIcon("up", iconSize2, isCard2Up);
               }}
               onMouseLeave={() => {
-                handleScaleIcon("down", iconSize2);
+                handleScaleIcon("down", iconSize2, isCard2Up);
               }}
             >
               <Animated.View
@@ -457,12 +483,12 @@ export default function Homepage(props) {
                 }}
               >
                 <Entypo
-                  size={60}
+                  size={windowWidth / 10}
                   color="grey"
                   name={isCard2Up ? "chevron-down" : "chevron-up"}
                   style={{
-                    position: "absolute",
-                    top: windowHeight * 0.725,
+                    position: "relative",
+                    top: windowHeight * 0.71,
                     height: 50,
                   }}
                   onPress={() => {
@@ -492,6 +518,16 @@ export default function Homepage(props) {
               }}
               source={require("../../assets/img/card_carousel3.JPG")}
             ></Image>
+            <View
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                borderRadius: "50px",
+                backgroundColor: "black",
+                opacity: 0.4,
+              }}
+            ></View>
             <Text
               style={{
                 position: "absolute",
@@ -502,29 +538,22 @@ export default function Homepage(props) {
             >
               Programming Consultation
             </Text>
-            <View
-              style={{
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                borderRadius: "50px",
-                backgroundColor: "green",
-                opacity: 0.2,
-              }}
-            ></View>
             <Animated.View
               style={{
+                borderRadius: 50,
                 position: "absolute",
                 alignItems: "center",
                 top: windowHeight * 0.9,
-
-                backgroundColor: "blue",
+                borderRadius: 50,
+                backgroundColor: "white",
                 width: "100%",
+                height: "100%",
+                opacity: 0.7,
                 transform: [
                   {
                     translateY: slideUpCard3View.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [0, -500],
+                      outputRange: [0, -windowHeight * 0.7],
                     }),
                   },
                 ],
@@ -536,6 +565,7 @@ export default function Homepage(props) {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
+                height: 50,
                 backgroundColor: "red",
                 transform: [
                   {
@@ -570,12 +600,12 @@ export default function Homepage(props) {
                 }}
               >
                 <Entypo
-                  size={60}
+                  size={windowWidth / 10}
                   color="grey"
                   name={isCard3Up ? "chevron-down" : "chevron-up"}
                   style={{
-                    position: "absolute",
-                    top: windowHeight * 0.725,
+                    position: "relative",
+                    top: windowHeight * 0.71,
                     height: 50,
                   }}
                   onPress={() => {
