@@ -36,91 +36,93 @@ export default function Homepage(props) {
   const refRBSheet = useRef();
 
   const isWeb = Platform.OS === "web";
+  const slideUpCard1 = useRef(new Animated.Value(0)).current;
   const card1TextView = useRef(new Animated.Value(0)).current;
+  const slideUpCard2 = useRef(new Animated.Value(0)).current;
+  const slideUpCard3 = useRef(new Animated.Value(0)).current;
+  const slideUpCard1View = useRef(new Animated.Value(0)).current;
+  const slideUpCard2View = useRef(new Animated.Value(0)).current;
+  const slideUpCard3View = useRef(new Animated.Value(0)).current;
+
   const scroll = useRef(new Animated.Value(0)).current;
   const iconSize1 = useRef(new Animated.Value(0)).current;
   const iconSize2 = useRef(new Animated.Value(0)).current;
   const iconSize3 = useRef(new Animated.Value(0)).current;
   const [modalVisible, setModalVisible] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
+  const [iconName, setIconName] = useState("chevron-up");
+  const [isCard1Up, setIsCard1Up] = useState(false);
+  const [isCard2Up, setIsCard2Up] = useState(false);
+  const [isCard3Up, setIsCard3Up] = useState(false);
+
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
 
   // variables
   const snapPoints = useMemo(() => ["25%", "50%"], []);
-
-  const handleIsVisible1 = () => {
-    console.log("b");
-  };
-  const handleScaleUpIcon1 = () => {
-    Animated.timing(iconSize1, {
-      toValue: 1,
-      duration: 250,
-      easing: Easing.ease,
-      useNativeDriver: false,
-    }).start();
-  };
-  const handleScaleDownIcon1 = () => {
-    Animated.timing(iconSize1, {
-      toValue: 0,
-      duration: 250,
-      easing: Easing.ease,
-      useNativeDriver: false,
-    }).start();
-  };
-  const handleScaleUpIcon2 = () => {
-    Animated.timing(iconSize2, {
-      toValue: 1,
-      duration: 250,
-      easing: Easing.ease,
-      useNativeDriver: false,
-    }).start();
-  };
-  const handleScaleDownIcon2 = () => {
-    Animated.timing(iconSize2, {
-      toValue: 0,
-      duration: 250,
-      easing: Easing.ease,
-      useNativeDriver: false,
-    }).start();
-  };
-  const handleScaleUpIcon3 = () => {
-    Animated.timing(iconSize3, {
-      toValue: 1,
-      duration: 250,
-      easing: Easing.ease,
-      useNativeDriver: false,
-    }).start();
-  };
-  const handleScaleDownIcon3 = () => {
-    Animated.timing(iconSize3, {
-      toValue: 0,
-      duration: 250,
-      easing: Easing.ease,
-      useNativeDriver: false,
-    }).start();
-  };
-  const gestureHandler = (e) => {
-    if (e.nativeEvent.contentOffset.y > 0) {
-      console.log("GRS");
-      bringUpScrollView();
+  const switchCard = (cardNumber, isCardUp) => {
+    console.log(isCardUp + "" + cardNumber);
+    switch (cardNumber) {
+      case "1":
+        setIsCard1Up(!isCardUp);
+        break;
+      case "2":
+        setIsCard2Up(!isCardUp);
+        break;
+      case "3":
+        setIsCard3Up(!isCardUp);
+        break;
     }
   };
-  const [scrollViewAlignment] = useState(new Animated.Value(0));
-  const bringUpScrollView = () => {
-    Animated.timing(scrollViewAlignment, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
+
+  const handleMoveHiddenViewCard = (
+    isCardUp,
+    cardNumberAnimatedValue,
+    cardNumber,
+    cardViewNumber
+  ) => {
+    if (isCardUp === true) {
+      Animated.timing(cardNumberAnimatedValue, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+      Animated.timing(cardViewNumber, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      Animated.timing(cardNumberAnimatedValue, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+      Animated.timing(cardViewNumber, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: false,
+      }).start();
+    }
+    switchCard(cardNumber, isCardUp);
   };
-  const scrollViewInterpolate = scrollViewAlignment.interpolate({
-    inputRange: [0, 1],
-    outputRange: [-windowHeight * 0.7, 0],
-  });
-  const scrollViewStyle = {
-    bottom: scrollViewInterpolate,
+  const handleScaleIcon = (direction, iconNumber) => {
+    if (direction === "down") {
+      Animated.timing(iconNumber, {
+        toValue: 0,
+        duration: 250,
+        easing: Easing.ease,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      Animated.timing(iconNumber, {
+        toValue: 1,
+        duration: 250,
+        easing: Easing.ease,
+        useNativeDriver: false,
+      }).start();
+    }
   };
 
   const windowWidth = useWindowDimensions().width;
@@ -273,8 +275,6 @@ export default function Homepage(props) {
             >
               All Access Coaching
             </Text>
-            <BottomSheet style={{ backgroundColor: "blue" }} />
-
             {/* <View>
               <Text style={styles.modalText}>Hello World!</Text>
               <TouchableOpacity
@@ -286,10 +286,32 @@ export default function Homepage(props) {
             </View> */}
             <Animated.View
               style={{
+                position: "absolute",
+                alignItems: "center",
+                // paddingTop: windowHeight * 1.5,
+                // marginTop: "-250%",
+                top: windowHeight * 0.9,
+
+                backgroundColor: "blue",
+                width: "100%",
+                transform: [
+                  {
+                    translateY: slideUpCard1View.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -500],
+                    }),
+                  },
+                ],
+              }}
+            >
+              <Text>sregherhetra</Text>
+            </Animated.View>
+            <Animated.View
+              style={{
                 alignItems: "center",
                 // position: "relative",
-                // backgroundColor: "green",
-                // height: 50,
+                backgroundColor: "green",
+                height: 50,
 
                 justifyContent: "center",
                 backgroundColor: "blue",
@@ -311,31 +333,53 @@ export default function Homepage(props) {
               onMouseEnter={() => {
                 // iconSize.setValue(30);
                 // console.log()
-                handleScaleUpIcon1();
+                handleScaleIcon("up", iconSize1);
                 // setModalVisible(!modalVisible);
               }}
               onMouseLeave={() => {
                 // iconSize.setValue(30);
-                handleScaleDownIcon1();
+                handleScaleIcon("down", iconSize1);
               }}
             >
-              <Entypo
-                size={60}
-                color="grey"
-                name="chevron-up"
+              <Animated.View
                 style={{
                   position: "absolute",
+                  alignItems: "center",
                   // paddingTop: windowHeight * 1.5,
                   // marginTop: "-250%",
-                  // top: "500%",
-                  bottom: -windowHeight / 2,
-
-                  backgroundColor: "green",
+                  width: "100%",
+                  transform: [
+                    {
+                      translateY: slideUpCard1.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, -500],
+                      }),
+                    },
+                  ],
                 }}
-                onPress={() => {
-                  handleIsVisible1();
-                }}
-              ></Entypo>
+              >
+                <Entypo
+                  size={60}
+                  color="grey"
+                  name={isCard1Up ? "chevron-down" : "chevron-up"}
+                  style={{
+                    position: "absolute",
+                    // paddingTop: windowHeight * 1.5,
+                    // marginTop: "-250%",
+                    top: windowHeight * 0.7,
+                    height: 50,
+                    // backgroundColor: "blue",
+                  }}
+                  onPress={() => {
+                    handleMoveHiddenViewCard(
+                      isCard1Up,
+                      slideUpCard1,
+                      "1",
+                      slideUpCard1View
+                    );
+                  }}
+                ></Entypo>
+              </Animated.View>
             </Animated.View>
             {/* <Animated.View
               style={[
@@ -386,6 +430,28 @@ export default function Homepage(props) {
             </Text>
             <Animated.View
               style={{
+                position: "absolute",
+                alignItems: "center",
+                // paddingTop: windowHeight * 1.5,
+                // marginTop: "-250%",
+                top: windowHeight * 0.9,
+
+                backgroundColor: "blue",
+                width: "100%",
+                transform: [
+                  {
+                    translateY: slideUpCard2View.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -500],
+                    }),
+                  },
+                ],
+              }}
+            >
+              <Text>sregherhetra</Text>
+            </Animated.View>
+            <Animated.View
+              style={{
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: "red",
@@ -406,24 +472,52 @@ export default function Homepage(props) {
               }}
               onMouseEnter={() => {
                 // iconSize.setValue(30);
-                handleScaleUpIcon2();
+                handleScaleIcon("up", iconSize2);
               }}
               onMouseLeave={() => {
                 // iconSize.setValue(30);
-                handleScaleDownIcon2();
+                handleScaleIcon("down", iconSize2);
               }}
             >
-              <Entypo
-                size={60}
-                color="grey"
-                name="chevron-up"
+              <Animated.View
                 style={{
                   position: "absolute",
-                  paddingTop: windowHeight * 1.5,
+                  alignItems: "center",
+                  // paddingTop: windowHeight * 1.5,
                   // marginTop: "-250%",
-                  // backgroundColor: "blue",
+                  width: "100%",
+                  transform: [
+                    {
+                      translateY: slideUpCard2.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, -500],
+                      }),
+                    },
+                  ],
                 }}
-              ></Entypo>
+              >
+                <Entypo
+                  size={60}
+                  color="grey"
+                  name={isCard2Up ? "chevron-down" : "chevron-up"}
+                  style={{
+                    position: "absolute",
+                    top: windowHeight * 0.725,
+                    height: 50,
+                    // backgroundColor: "blue",
+                    // marginTop: "-250%",
+                    // backgroundColor: "blue",
+                  }}
+                  onPress={() => {
+                    handleMoveHiddenViewCard(
+                      isCard2Up,
+                      slideUpCard2,
+                      "2",
+                      slideUpCard2View
+                    );
+                  }}
+                ></Entypo>
+              </Animated.View>
             </Animated.View>
           </View>
           <View style={styles.item2}></View>
@@ -449,6 +543,28 @@ export default function Homepage(props) {
             </Text>
             <Animated.View
               style={{
+                position: "absolute",
+                alignItems: "center",
+                // paddingTop: windowHeight * 1.5,
+                // marginTop: "-250%",
+                top: windowHeight * 0.9,
+
+                backgroundColor: "blue",
+                width: "100%",
+                transform: [
+                  {
+                    translateY: slideUpCard3View.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -500],
+                    }),
+                  },
+                ],
+              }}
+            >
+              <Text>sregherhetra</Text>
+            </Animated.View>
+            <Animated.View
+              style={{
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: "red",
@@ -469,25 +585,53 @@ export default function Homepage(props) {
               }}
               onMouseEnter={() => {
                 // iconSize.setValue(30);
-                handleScaleUpIcon3();
+                handleScaleIcon("up", iconSize3);
               }}
               onMouseLeave={() => {
                 // iconSize.setValue(30);
-                handleScaleDownIcon3();
+                handleScaleIcon("down", iconSize3);
               }}
               onPress={() => console.log("preszs")}
             >
-              <Entypo
-                size={60}
-                color="grey"
-                name="chevron-up"
+              <Animated.View
                 style={{
                   position: "absolute",
-                  paddingTop: windowHeight * 1.5,
+                  alignItems: "center",
+                  // paddingTop: windowHeight * 1.5,
                   // marginTop: "-250%",
-                  // backgroundColor: "blue",
+                  width: "100%",
+                  transform: [
+                    {
+                      translateY: slideUpCard3.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, -500],
+                      }),
+                    },
+                  ],
                 }}
-              ></Entypo>
+              >
+                <Entypo
+                  size={60}
+                  color="grey"
+                  name={isCard3Up ? "chevron-down" : "chevron-up"}
+                  style={{
+                    position: "absolute",
+                    top: windowHeight * 0.725,
+                    height: 50,
+                    // backgroundColor: "blue",
+                    // marginTop: "-250%",
+                    // backgroundColor: "blue",
+                  }}
+                  onPress={() => {
+                    handleMoveHiddenViewCard(
+                      isCard3Up,
+                      slideUpCard3,
+                      "3",
+                      slideUpCard3View
+                    );
+                  }}
+                ></Entypo>
+              </Animated.View>
             </Animated.View>
           </View>
           <View style={styles.item2}></View>
