@@ -258,7 +258,7 @@ export default function Homepage(props) {
 							// marginTop: "100%",
 						}}
 					>
-						TITLE
+						What We Offer
 					</Text>
 				</View>
 				<View style={styles.pricesContainer}>

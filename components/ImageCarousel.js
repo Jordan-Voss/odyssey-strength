@@ -2,137 +2,92 @@ import React, { useRef, useState } from 'react';
 import {
 	StyleSheet,
 	Text,
+	Image,
 	TouchableOpacity,
 	View,
 	Dimensions,
+	ScrollView,
 	ImageBackground,
+	useWindowDimensions,
 } from 'react-native';
 import Carousel from 'react-native-anchor-carousel';
 import CarouselDot from './CarouselDot';
 
-const { width: windowWidth } = Dimensions.get('window');
+export default function ImageCarousel() {
+	const windowWidth = useWindowDimensions().width;
+	const windowHeight = useWindowDimensions().height;
+	return (
+		<View
+			style={{
+				paddingTop: 50,
+				height: windowHeight * 0.7,
+				justifyContent: 'space-between',
+				// alignItems: 'center',
+			}}
+		>
+			<ScrollView
+				showsHorizontalScrollIndicator={false}
+				pagingEnabled
+				horizontal
+				style={{
+					flex: 1,
 
-const data = [
-	{
-		uri: 'https://i.imgur.com/GImvG4q.jpg',
-		title: 'Lorem ipsum dolor sit amet',
-		content:
-			'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-	},
-	{
-		uri: 'https://i.imgur.com/Pz2WYAc.jpg',
-		title: 'Lorem ipsum ',
-		content: 'Neque porro quisquam est qui dolorem ipsum ',
-	},
-	{
-		uri: 'https://i.imgur.com/IGRuEAa.jpg',
-		title: 'Lorem ipsum dolor',
-		content:
-			'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-	},
-	{
-		uri: 'https://i.imgur.com/fRGHItn.jpg',
-		title: 'Lorem ipsum dolor',
-		content: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet',
-	},
-	{
-		uri: 'https://i.imgur.com/WmenvXr.jpg',
-		title: 'Lorem ipsum ',
-		content: 'Neque porro quisquam est qui dolorem ipsum quia dolor ',
-	},
-];
-
-const INITIAL_INDEX = 0;
-export default function ImageCarousel(props) {
-	const carouselRef = useRef(null);
-	const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
-
-	function handleCarouselScrollEnd(item, index) {
-		setCurrentIndex(index);
-	}
-
-	function renderItem({ item, index }) {
-		const { uri, title, content } = item;
-		return (
-			<TouchableOpacity
-				activeOpacity={1}
-				style={styles.item}
-				onPress={() => {
-					carouselRef.current.scrollToIndex(index);
+					width: windowWidth,
+					height: windowHeight * 0.5,
 				}}
 			>
-				<ImageBackground source={{ uri: uri }} style={styles.imageBackground}>
-					<View style={styles.rightTextContainer}>
-						<Text style={styles.rightText}>Lorem</Text>
-					</View>
-				</ImageBackground>
-				<View style={styles.lowerContainer}>
-					<Text style={styles.titleText}>{title}</Text>
-					<Text style={styles.contentText}>{content}</Text>
+				<View style={{ width: windowWidth * 0.1 }}></View>
+				<View style={styles.item}>
+					<Image
+						source={require('../assets/img/card_carousel4.JPG')}
+						style={{
+							flex: 1,
+							width: windowWidth * 0.7,
+							height: windowHeight * 0.7,
+							resizeMode: 'cover',
+							borderRadius: '70px',
+						}}
+					></Image>
 				</View>
-			</TouchableOpacity>
-		);
-	}
+				<View style={{ width: windowWidth * 0.1 }}></View>
+				<View style={styles.item}>
+					<Image
+						source={require('../assets/img/card_carousel5.JPG')}
+						style={{
+							flex: 1,
+							width: windowWidth * 0.7,
+							height: windowHeight * 0.7,
+							resizeMode: 'cover',
+							borderRadius: '70px',
+						}}
+					></Image>
+				</View>
 
-	return (
-		<View style={styles.container}>
-			<Carousel
-				style={styles.carousel}
-				data={data}
-				renderItem={renderItem}
-				itemWidth={0.7 * windowWidth}
-				inActiveOpacity={0.3}
-				containerWidth={windowWidth}
-				onScrollEnd={handleCarouselScrollEnd}
-				ref={carouselRef}
-			/>
-			<CarouselDot currentIndex={currentIndex} length={data.length} />
+				<View style={{ width: windowWidth * 0.1 }}></View>
+				<View style={styles.item}>
+					<Image
+						source={require('../assets/img/card_carousel6.JPG')}
+						style={{
+							flex: 1,
+							width: windowWidth * 0.7,
+							height: windowHeight * 0.7,
+							resizeMode: 'cover',
+							backgroundColor: 'red',
+							borderRadius: '70px',
+						}}
+					></Image>
+				</View>
+
+				<View style={{ width: windowWidth * 0.1 }}></View>
+			</ScrollView>
 		</View>
 	);
 }
-
 const styles = StyleSheet.create({
-	container: { backgroundColor: '#141518', paddingVertical: 20 },
-	carousel: {
-		backgroundColor: '#141518',
-		aspectRatio: 1.5,
-		flexGrow: 0,
-		marginBottom: 20,
-	},
 	item: {
-		borderWidth: 2,
-		backgroundColor: 'white',
+		overflow: 'hidden',
 		flex: 1,
-		borderRadius: 5,
-		borderColor: 'white',
-		elevation: 3,
-	},
-	imageBackground: {
-		flex: 2,
-		backgroundColor: '#EBEBEB',
-		borderWidth: 5,
-		borderColor: 'white',
-	},
-	rightTextContainer: {
-		marginLeft: 'auto',
-		marginRight: -2,
-		backgroundColor: 'rgba(49, 49, 51,0.5)',
-		padding: 3,
-		marginTop: 3,
-		borderTopLeftRadius: 5,
-		borderBottomLeftRadius: 5,
-	},
-	rightText: { color: 'white' },
-	lowerContainer: {
-		flex: 1,
-		margin: 10,
-	},
-	titleText: {
-		fontWeight: 'bold',
-		fontSize: 18,
-	},
-	contentText: {
-		marginTop: 10,
-		fontSize: 12,
+		// height: '130%',
+		alignItems: 'center',
 	},
 });

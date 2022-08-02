@@ -10,9 +10,9 @@ import {
 	Platform,
 	AppState,
 } from 'react-native';
+import ImageCarousel from '../../../components/ImageCarousel';
 import { useSharedValue } from 'react-native-reanimated';
 import { useAnimatedScrollHandler } from 'react-native-reanimated';
-import ImageCarousel from '../../../components/ImageCarousel';
 import { Link } from '@react-navigation/web';
 import { useWindowDimensions, TouchableOpacity } from 'react-native';
 import { Video } from 'expo-av';
@@ -26,10 +26,27 @@ export default function HomepageWebSmall({ navigation }) {
 	const windowWidth = useWindowDimensions().width;
 	const windowHeight = useWindowDimensions().height;
 	const fontDimension = useWindowDimensions().fontScale;
+	const ITEM_WIDTH = Math.round(windowWidth + 30 * 0.8);
 	const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
 	const translateTopText = Animated.multiply(topTextDiffClamp, -1);
 	const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
-
+	const data = [
+		{
+			id: 1,
+			name: 'React JS',
+			url: 'https://icon-library.com/images/react-icon/react-icon-29.jpg',
+		},
+		{
+			id: 2,
+			name: 'JavaScript',
+			url: 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Javascript_Logo.png',
+		},
+		{
+			id: 3,
+			name: 'Node JS',
+			url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/NodeJS.png',
+		},
+	];
 	// const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
 	const titleFontSize = windowWidth * 0.1;
 	const homeAnimatedTextFontSize = windowWidth * 0.2;
@@ -198,13 +215,18 @@ export default function HomepageWebSmall({ navigation }) {
 							// marginTop: "100%",
 						}}
 					>
-						{windowHeight}
+						What We Offer
 					</Text>
 				</View>
 				<View style={styles.pricesContainer}>
+					{/* <Text>wergh</Text> */}
+					{/* <Image
+						source={require('../../../assets/img/card_carousel1.JPG')}
+						style={{ height: '100%', width: '100%' }}
+					></Image> */}
 					<ImageCarousel></ImageCarousel>
 				</View>
-				<View style={styles.pricesContainer}>
+				{/* <View style={styles.pricesContainer}>
 					<View style={styles.item}>
 						<Text style={{ fontFamily: 'Roboto', fontSize: paragraphFontSize }}>
 							Let us handle the details of your athletic pursuit by working
@@ -277,5 +299,9 @@ const styles = StyleSheet.create({
 		// paddingLeft: 10,
 		width: 300,
 		height: 300,
+	},
+	pricesContainer: {
+		width: '100%',
+		height: '100%',
 	},
 });
