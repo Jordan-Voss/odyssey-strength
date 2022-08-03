@@ -18,6 +18,9 @@ import { useWindowDimensions, TouchableOpacity } from 'react-native';
 import { Video } from 'expo-av';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import HeaderWebSmall from '../../../components/HeaderWebSmall';
+import Preview from './Preview';
+// import Indicator from '../../../components/Indicator';
+
 const isWeb = Platform.OS === 'web';
 
 export default function HomepageWebSmall({ navigation }) {
@@ -32,19 +35,24 @@ export default function HomepageWebSmall({ navigation }) {
 	const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
 	const data = [
 		{
-			id: 1,
-			name: 'React JS',
-			url: 'https://icon-library.com/images/react-icon/react-icon-29.jpg',
+			image:
+				'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+			desc: 'Silent Waters in the mountains in midst of Himilayas',
 		},
 		{
-			id: 2,
-			name: 'JavaScript',
-			url: 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Javascript_Logo.png',
+			image:
+				'https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80',
+			desc: 'Red fort in India New Delhi is a magnificient masterpeiece of humans',
 		},
 		{
-			id: 3,
-			name: 'Node JS',
-			url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/NodeJS.png',
+			image:
+				'https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+			desc: 'Sample Description below the image for representation purpose only',
+		},
+		{
+			image:
+				'https://images.unsplash.com/photo-1584271854089-9bb3e5168e32?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80',
+			desc: 'Sample Description below the image for representation purpose only',
 		},
 	];
 	// const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
@@ -224,7 +232,17 @@ export default function HomepageWebSmall({ navigation }) {
 						source={require('../../../assets/img/card_carousel1.JPG')}
 						style={{ height: '100%', width: '100%' }}
 					></Image> */}
-					<ImageCarousel></ImageCarousel>
+					{/* <ImageCarousel></ImageCarousel>
+					 */}
+					<ImageCarousel
+						data={data}
+						width={windowWidth}
+						timer={4000}
+						component={<Preview />}
+						onPress={(item) => alert(JSON.stringify(item))}
+						indicatorActiveWidth={40}
+						contentContainerStyle={styles.contentStyle}
+					/>
 				</View>
 				{/* <View style={styles.pricesContainer}>
 					<View style={styles.item}>
@@ -286,6 +304,9 @@ const styles = StyleSheet.create({
 	},
 	bottomFadingText: {
 		color: 'white',
+	},
+	contentStyle: {
+		paddingHorizontal: 16,
 	},
 	buttonRow: {
 		flexBasis: 100,
