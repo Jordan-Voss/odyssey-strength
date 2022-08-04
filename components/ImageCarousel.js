@@ -11,6 +11,8 @@ import {
 	Animated,
 	useWindowDimensions,
 } from 'react-native';
+import { ExpandingDot } from 'react-native-animated-pagination-dots';
+
 import { AntDesign, Entypo } from '@expo/vector-icons';
 
 const switchCard = (cardNumber, isCardUp, setIsCardUp) => {
@@ -319,6 +321,7 @@ export default function ImageCarousel(props) {
 	const slideUpCard1 = useRef(new Animated.Value(0)).current;
 	const slideUpCard2 = useRef(new Animated.Value(0)).current;
 	const slideUpCard3 = useRef(new Animated.Value(0)).current;
+	const scrollX = useRef(new Animated.Value(0)).current;
 	const slideUpCard1View = useRef(new Animated.Value(0)).current;
 	const slideUpCard2View = useRef(new Animated.Value(0)).current;
 	const slideUpCard3View = useRef(new Animated.Value(0)).current;
@@ -358,13 +361,38 @@ export default function ImageCarousel(props) {
 			<FlatList
 				data={DATA}
 				horizontal
+				onScroll={Animated.event(
+					[{ nativeEvent: { contentOffset: { x: scrollX } } }],
+					{
+						useNativeDriver: false,
+					}
+				)}
 				pagingEnabled={true}
 				viewabilityConfig={{ itemVisiblePercentThreshold: 90 }}
 				renderItem={renderItem}
 				snapToAlignment='center'
-				decelerationRate={'fast'}
-				snapToInterval={windowWidth * 0.5}
+				decelerationRate={'slow'}
+				snapToInterval={windowWidth * 0.9}
+				scrollEventThrottle={16}
 				keyExtractor={(item) => item.id}
+			/>
+			<ExpandingDot
+				data={DATA}
+				expandingDotWidth={30}
+				scrollX={scrollX}
+				inActiveDotOpacity={0.6}
+				dotStyle={{
+					width: 10,
+					height: 10,
+					backgroundColor: 'grey',
+					borderRadius: 5,
+					marginHorizontal: 5,
+				}}
+				activeDotColor={'lightgrey'}
+				slidingIndicatorStyle={{ backgroundColor: 'grey' }}
+				containerStyle={{
+					top: windowHeight * 0.75,
+				}}
 			/>
 		</SafeAreaView>
 	);
