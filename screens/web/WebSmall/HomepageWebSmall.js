@@ -19,6 +19,8 @@ import { Video } from 'expo-av';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import HeaderWebSmall from '../../../components/HeaderWebSmall';
 import Preview from './Preview';
+import * as Device from 'expo-device';
+
 // import Indicator from '../../../components/Indicator';
 
 const isWeb = Platform.OS === 'web';
@@ -201,7 +203,7 @@ export default function HomepageWebSmall({ navigation }) {
 							// marginTop: "100%",
 						}}
 					>
-						What We Offer
+						What We Offer {Device.brand} h
 					</Text>
 				</View>
 				<View style={styles.pricesContainer}>
