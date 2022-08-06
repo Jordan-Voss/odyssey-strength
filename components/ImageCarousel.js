@@ -56,15 +56,12 @@ const handleMoveHiddenViewCard = (
 const determineWhichView = (cardNumber, first, second, third) => {
 	switch (cardNumber) {
 		case '1':
-			console.log('first' + first);
 			return first;
 			break;
 		case '2':
-			console.log('second' + second);
 			return second;
 			break;
 		case '3':
-			console.log('third' + third);
 			return third;
 			break;
 	}
@@ -222,6 +219,7 @@ const Item = ({
 						// paddingBottom: "15%",
 						// paddingTop: windowHeight * 1.5,
 						// marginTop: "-250%",
+						borderColor: 'black',
 						top: height * 0.21,
 						height: 50,
 						// backgroundColor: "blue",

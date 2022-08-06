@@ -28,6 +28,7 @@ import { Dimensions } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import * as Linking from 'expo-linking';
 import BottomSheet from './BottomSheet';
+import * as Device from 'expo-device';
 
 export default function Homepage(props) {
 	const isWeb = Platform.OS === 'web';
@@ -57,6 +58,7 @@ export default function Homepage(props) {
 	const slideUpCard1View = useRef(new Animated.Value(0)).current;
 	const slideUpCard2View = useRef(new Animated.Value(0)).current;
 	const slideUpCard3View = useRef(new Animated.Value(0)).current;
+	const onPress = () => console.log(Device.brand);
 
 	const switchCard = (cardNumber, isCardUp) => {
 		console.log(isCardUp + '' + cardNumber);
@@ -229,23 +231,6 @@ export default function Homepage(props) {
 							An Epic Journey
 						</Animated.Text>
 					</Animated.View>
-					<View style={{ alignItems: 'center' }}>
-						<TouchableOpacity
-							onPress={() => console.log('hi')}
-							style={{
-								borderRadius: 50,
-								zIndex: 100,
-								backgroundColor: 'blue',
-								height: 100,
-								width: 100,
-								// marginTop: -600,
-								justifyContent: 'center',
-								alignItems: 'center',
-							}}
-						>
-							<Text>My button</Text>
-						</TouchableOpacity>
-					</View>
 				</View>
 
 				{/*******COACHING TYPES VIEW********************************** */}
@@ -260,6 +245,23 @@ export default function Homepage(props) {
 					>
 						What We Offer
 					</Text>
+				</View>
+				<View onPress={onPress} style={{ alignItems: 'center' }}>
+					<TouchableOpacity
+						onPress={onPress}
+						style={{
+							// borderRadius: 50,
+							// zIndex: 100,
+							backgroundColor: 'blue',
+							height: 100,
+							width: 100,
+							// marginTop: -600,
+							// justifyContent: 'center',
+							// alignItems: 'center',
+						}}
+					>
+						{/* <Text>My button</Text> */}
+					</TouchableOpacity>
 				</View>
 				<View style={styles.pricesContainer}>
 					<View style={styles.item2}></View>
