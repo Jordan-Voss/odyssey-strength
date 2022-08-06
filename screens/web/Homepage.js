@@ -243,7 +243,8 @@ export default function Homepage(props) {
 							// marginTop: "100%",
 						}}
 					>
-						What We Offer{Device.brand} h
+						What We Offer{Device.brand}
+						{Device.osName} h
 					</Text>
 				</View>
 				<View onPress={onPress} style={{ alignItems: 'center' }}>
