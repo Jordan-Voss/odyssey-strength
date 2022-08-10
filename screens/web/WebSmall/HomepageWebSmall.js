@@ -70,7 +70,8 @@ export default function HomepageWebSmall({ navigation }) {
 				}}
 			>
 				<Video
-					source={require('../../../assets/video/ody2_AdobeExpress.mp4')}
+					source={{ uri: 'https://www.youtube.com/watch?v=hATY468dqfU' }}
+					// require('../../../assets/video/ody2_AdobeExpress.mp4')}
 					style={{
 						height: windowHeight,
 						// width: windowWidth,

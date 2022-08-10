@@ -142,6 +142,8 @@ export default function Homepage(props) {
 			}
 		}
 	};
+	const view = useRef();
+	const icon = useRef();
 
 	const fadeOut = topTextDiffClamp.interpolate({
 		inputRange: [0, windowWidth / 2],
@@ -199,7 +201,7 @@ export default function Homepage(props) {
 						// aspectRatio: 800 / 450,
 						backgroundColor: 'rgba(0, 0, 0, 0.6)',
 						justifyContent: 'center',
-						position: 'fixed',
+						// position: 'fixed',
 					}}
 				>
 					<Header
@@ -232,10 +234,11 @@ export default function Homepage(props) {
 						</Animated.Text>
 					</Animated.View>
 				</View>
+			</View>
 
-				{/*******COACHING TYPES VIEW********************************** */}
-
-				<View style={{ alignItems: 'center', paddingTop: windowHeight }}>
+			{/*******COACHING TYPES VIEW********************************** */}
+			<View style={{ alignItems: 'center', height: windowHeight }}>
+				<View style={{ alignItems: 'center', paddingTop: 10 }}>
 					<Text
 						style={{
 							fontFamily: 'Roboto',
@@ -243,8 +246,16 @@ export default function Homepage(props) {
 							// marginTop: "100%",
 						}}
 					>
-						What We Offer{Device.brand}
-						{Device.osName} h
+						Our two coaching options will cover your needs throughout the
+						training year.
+					</Text>
+					<Text>
+						We always begin with a detailed application and a one-on-one
+						coaching call to get to know you better. We’ll discuss your training
+						history, what makes you tick, your goals, what’s worked well for
+						you, nutrition, technique, motivation and athlete mindset, and
+						everything in between. From there, everything for you is built from
+						the ground up and tailored to your needs.{' '}
 					</Text>
 				</View>
 				<View onPress={onPress} style={{ alignItems: 'center' }}>
@@ -322,11 +333,12 @@ export default function Homepage(props) {
 							All Access Coaching
 						</Text>
 						<Animated.View
+							ref={view}
 							style={{
 								borderRadius: 50,
 								position: 'absolute',
+								top: '100%',
 								alignItems: 'center',
-								top: windowHeight * 0.9,
 								borderRadius: 50,
 								backgroundColor: 'white',
 								width: '100%',
@@ -336,7 +348,7 @@ export default function Homepage(props) {
 									{
 										translateY: slideUpCard1View.interpolate({
 											inputRange: [0, 1],
-											outputRange: [0, -windowHeight * 0.7],
+											outputRange: [0, -windowHeight * 0.5],
 										}),
 									},
 								],
@@ -346,13 +358,13 @@ export default function Homepage(props) {
 						</Animated.View>
 						<Animated.View
 							style={{
+								position: 'absolute',
+								top: '85%',
 								alignItems: 'center',
-								backgroundColor: 'green',
 								height: 50,
 								borderRadius: '50px',
-
+								paddingBottom: '10%',
 								justifyContent: 'center',
-								backgroundColor: 'blue',
 								transform: [
 									{
 										translateY: iconSize1.interpolate({
@@ -364,6 +376,7 @@ export default function Homepage(props) {
 							}}
 							onMouseEnter={() => {
 								handleScaleIcon('up', iconSize1, isCard1Up);
+								console.log(view.current.offsetTop, { icon });
 								console.log(isCard1Up);
 							}}
 							onMouseLeave={() => {
@@ -372,6 +385,7 @@ export default function Homepage(props) {
 							}}
 						>
 							<Animated.View
+								ref={icon}
 								style={{
 									position: 'absolute',
 									alignItems: 'center',
@@ -380,24 +394,19 @@ export default function Homepage(props) {
 										{
 											translateY: slideUpCard1.interpolate({
 												inputRange: [0, 1],
-												outputRange: [0, -500],
+												outputRange: [0, -windowHeight * 0.38],
 											}),
 										},
 									],
 								}}
 							>
 								<Entypo
-									size={windowWidth / 10}
+									size={100}
 									color='grey'
 									name={isCard1Up ? 'chevron-down' : 'chevron-up'}
 									style={{
-										position: 'relative',
-										// paddingBottom: "15%",
-										// paddingTop: windowHeight * 1.5,
-										// marginTop: "-250%",
-										top: windowHeight * 0.71,
+										position: 'absolute',
 										height: 50,
-										// backgroundColor: "blue",
 									}}
 									onPress={() => {
 										handleMoveHiddenViewCard(
@@ -472,8 +481,8 @@ export default function Homepage(props) {
 							style={{
 								borderRadius: 50,
 								position: 'absolute',
+								top: '100%',
 								alignItems: 'center',
-								top: windowHeight * 0.9,
 								borderRadius: 50,
 								backgroundColor: 'white',
 								width: '100%',
@@ -483,7 +492,7 @@ export default function Homepage(props) {
 									{
 										translateY: slideUpCard2View.interpolate({
 											inputRange: [0, 1],
-											outputRange: [0, -windowHeight * 0.7],
+											outputRange: [0, -windowHeight * 0.5],
 										}),
 									},
 								],
@@ -493,11 +502,13 @@ export default function Homepage(props) {
 						</Animated.View>
 						<Animated.View
 							style={{
+								position: 'absolute',
+								top: '85%',
 								alignItems: 'center',
-								justifyContent: 'center',
-								backgroundColor: 'red',
 								height: 50,
-
+								borderRadius: '50px',
+								paddingBottom: '10%',
+								justifyContent: 'center',
 								transform: [
 									{
 										translateY: iconSize2.interpolate({
@@ -523,19 +534,18 @@ export default function Homepage(props) {
 										{
 											translateY: slideUpCard2.interpolate({
 												inputRange: [0, 1],
-												outputRange: [0, -500],
+												outputRange: [0, -windowHeight * 0.38],
 											}),
 										},
 									],
 								}}
 							>
 								<Entypo
-									size={windowWidth / 10}
+									size={100}
 									color='grey'
 									name={isCard2Up ? 'chevron-down' : 'chevron-up'}
 									style={{
-										position: 'relative',
-										top: windowHeight * 0.71,
+										position: 'absolute',
 										height: 50,
 									}}
 									onPress={() => {
@@ -611,8 +621,8 @@ export default function Homepage(props) {
 							style={{
 								borderRadius: 50,
 								position: 'absolute',
+								top: '100%',
 								alignItems: 'center',
-								top: windowHeight * 0.9,
 								borderRadius: 50,
 								backgroundColor: 'white',
 								width: '100%',
@@ -622,7 +632,7 @@ export default function Homepage(props) {
 									{
 										translateY: slideUpCard3View.interpolate({
 											inputRange: [0, 1],
-											outputRange: [0, -windowHeight * 0.7],
+											outputRange: [0, -windowHeight * 0.5],
 										}),
 									},
 								],
@@ -632,10 +642,13 @@ export default function Homepage(props) {
 						</Animated.View>
 						<Animated.View
 							style={{
+								position: 'absolute',
+								top: '85%',
 								alignItems: 'center',
-								justifyContent: 'center',
 								height: 50,
-								backgroundColor: 'red',
+								borderRadius: '50px',
+								paddingBottom: '10%',
+								justifyContent: 'center',
 								transform: [
 									{
 										translateY: iconSize3.interpolate({
@@ -662,19 +675,18 @@ export default function Homepage(props) {
 										{
 											translateY: slideUpCard3.interpolate({
 												inputRange: [0, 1],
-												outputRange: [0, -500],
+												outputRange: [0, -windowHeight * 0.38],
 											}),
 										},
 									],
 								}}
 							>
 								<Entypo
-									size={windowWidth / 10}
+									size={100}
 									color='grey'
 									name={isCard3Up ? 'chevron-down' : 'chevron-up'}
 									style={{
-										position: 'relative',
-										top: windowHeight * 0.71,
+										position: 'absolute',
 										height: 50,
 									}}
 									onPress={() => {
