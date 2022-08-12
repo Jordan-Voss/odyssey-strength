@@ -35,25 +35,49 @@ export default function HomepageWebSmall({ navigation }) {
 	const topTextDiffClamp = Animated.diffClamp(scroll, 0, windowWidth);
 	const translateTopText = Animated.multiply(topTextDiffClamp, -1);
 	const bottomTextDiffClamp = Animated.diffClamp(scroll, 0, windowHeight / 3);
-	// const translateBottomText = Animated.multiply(bottomTextDiffClamp, -1);
+	const scrollOffsetY = useRef(new Animated.Value(0)).current;
 	const titleFontSize = windowWidth * 0.1;
 	const homeAnimatedTextFontSize = windowWidth * 0.2;
 	const paragraphFontSize = windowWidth * 0.075;
+	const minScroll = 100;
+
+	const clampedScrollY = scroll.interpolate({
+		inputRange: [150, 350],
+		outputRange: [-windowWidth, 0],
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+
+	const minusScrollY = Animated.multiply(clampedScrollY, -1);
+
+	const translateY = Animated.diffClamp(minusScrollY, -windowHeight, 0);
+	const clampedScrollX = scroll.interpolate({
+		inputRange: [350, 500],
+		outputRange: [-windowHeight, -windowHeight * 0.7],
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+
+	const minusScrollX = Animated.multiply(clampedScrollX, -1);
+
+	const translateX = Animated.diffClamp(minusScrollX, -windowHeight, 0);
+
 	// const translateHeaderText = Animated.multiply(translateTopText, -1.5);
 	const fadeOut = topTextDiffClamp.interpolate({
-		inputRange: [0, windowWidth / 2],
+		inputRange: [200, windowWidth],
 		outputRange: [1, 0],
 		extrapolate: 'clamp',
 	});
 	const fadeIn = bottomTextDiffClamp.interpolate({
-		inputRange: [0, windowHeight / 3],
+		inputRange: [200, windowHeight / 2.5],
 		outputRange: [0, 1],
-		extrapolateLeft: 'extend',
+		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
 
 	return (
 		<ScrollView
+			stickyHeaderIndices={[0]}
 			scrollEventThrottle={1}
 			onScroll={Animated.event(
 				[{ nativeEvent: { contentOffset: { y: scroll } } }],
@@ -65,13 +89,32 @@ export default function HomepageWebSmall({ navigation }) {
 		>
 			<View
 				style={{
-					alignItems: 'center',
+					// paddingTop: '3%',
+					// marginTop: '2%',
+					backgroundColor: 'black',
+					// marginLeft: windowWidth / 40,
+
+					// marginTop: "-200%",
 					// flex: 1,
+					// flexDirection: 'column',
+					// position: 'fixed',
+				}}
+			>
+				<HeaderWebSmall
+					// style={{ position: "fixed", flex: 1 }}
+					animHeaderValue={scroll}
+					navigation={navigation}
+				/>
+			</View>
+			<View
+				style={{
+					alignItems: 'center',
+					flex: 1,
+					marginTop: -50,
 				}}
 			>
 				<Video
-					source={{ uri: 'https://www.youtube.com/watch?v=hATY468dqfU' }}
-					// require('../../../assets/video/ody2_AdobeExpress.mp4')}
+					source={require('../../../assets/video/ody2_AdobeExpress.mp4')}
 					style={{
 						height: windowHeight,
 						// width: windowWidth,
@@ -86,35 +129,21 @@ export default function HomepageWebSmall({ navigation }) {
 					rate={1.0}
 					ignoreSilentSwitch={'obey'}
 				></Video>
+				{/* </View> */}
 				<View
 					style={{
 						width: windowWidth,
 						height: windowHeight,
 						flex: 1,
+						marginTop: -windowHeight,
+
 						// top: 0,
 						// aspectRatio: 800 / 450,
-						backgroundColor: 'rgba(0, 0, 0, 0.6)',
+						backgroundColor: 'rgba(0, 0, 0, 0.9)',
 						justifyContent: 'center',
-						position: 'fixed',
+						// position: 'fixed',
 					}}
 				>
-					<View
-						style={{
-							paddingTop: '10%',
-							marginTop: -windowHeight * 0.95,
-							marginLeft: windowWidth / 40,
-
-							// marginTop: "-200%",
-							flex: 1,
-							flexDirection: 'column',
-							position: 'fixed',
-						}}
-					>
-						<HeaderWebSmall
-							// style={{ position: "fixed", flex: 1 }}
-							navigation={navigation}
-						/>
-					</View>
 					<View
 						style={{
 							justifyContent: 'center',
@@ -155,15 +184,18 @@ export default function HomepageWebSmall({ navigation }) {
 						style={[
 							styles.fadingContainerTop,
 							{
-								marginTop: windowHeight / 1.7,
-								transform: [{ translateX: translateTopText }],
+								marginTop: windowHeight / 0.75,
+								transform: [{ translateX: translateY }],
 							},
 						]}
 					>
 						<Animated.Text
 							style={[
 								styles.topFadingText,
-								{ opacity: fadeOut, fontSize: homeAnimatedTextFontSize },
+								{
+									opacity: fadeOut,
+									fontSize: homeAnimatedTextFontSize,
+								},
 							]}
 						>
 							Odyssey
@@ -175,7 +207,8 @@ export default function HomepageWebSmall({ navigation }) {
 							{
 								alignItems: 'center',
 								flexDirection: 'row',
-								marginTop: windowHeight / 1.7,
+								marginTop: windowHeight * 2,
+								transform: [{ translateY: translateX }],
 							},
 						]}
 					>
@@ -193,39 +226,52 @@ export default function HomepageWebSmall({ navigation }) {
 						</Animated.Text>
 					</Animated.View>
 				</View>
-
-				<View style={{ alignItems: 'center', flex: 1 }}>
-					<Button onPress={() => console.log(scroll)}></Button>
-					<Text
-						adjustsFontSizeToFit
-						style={{
-							fontFamily: 'Roboto',
-							fontSize: titleFontSize,
-							// marginTop: "100%",
-						}}
-					>
-						What We Offer {Device.brand} {Device.osName} h
-					</Text>
-				</View>
-				<View style={styles.pricesContainer}>
-					{/* <Text>wergh</Text> */}
-					{/* <Image
+			</View>
+			<View
+				style={{
+					// position: 'absolute',
+					borderWidth: 1,
+					justifyContent: 'center',
+					alignContent: 'center',
+					alignItems: 'center',
+					flex: 1,
+					marginTop: windowHeight,
+				}}
+			>
+				<TouchableOpacity
+					style={{ width: 100, height: 100, backgroundColor: 'red' }}
+					onPress={() => console.log(scroll)}
+				></TouchableOpacity>
+				<Text
+					adjustsFontSizeToFit
+					style={{
+						fontFamily: 'Roboto',
+						fontSize: titleFontSize,
+						// marginTop: "100%",
+					}}
+				>
+					What We Offer {Device.brand} {Device.osName} h
+				</Text>
+			</View>
+			<View style={styles.pricesContainer}>
+				{/* <Text>wergh</Text> */}
+				{/* <Image
 						source={require('../../../assets/img/card_carousel1.JPG')}
 						style={{ height: '100%', width: '100%' }}
 					></Image> */}
-					{/* <ImageCarousel></ImageCarousel>
-					 */}
-					<ImageCarousel
-						navigation={navigation}
-						width={windowWidth}
-						timer={4000}
-						component={<Preview />}
-						onPress={(item) => alert(JSON.stringify(item))}
-						indicatorActiveWidth={40}
-						contentContainerStyle={styles.contentStyle}
-					/>
-				</View>
-				{/* <View style={styles.pricesContainer}>
+				{/* <ImageCarousel></ImageCarousel>
+				 */}
+				<ImageCarousel
+					navigation={navigation}
+					width={windowWidth}
+					timer={4000}
+					component={<Preview />}
+					onPress={(item) => alert(JSON.stringify(item))}
+					indicatorActiveWidth={40}
+					contentContainerStyle={styles.contentStyle}
+				/>
+			</View>
+			{/* <View style={styles.pricesContainer}>
 					<View style={styles.item}>
 						<Text style={{ fontFamily: 'Roboto', fontSize: paragraphFontSize }}>
 							Let us handle the details of your athletic pursuit by working
@@ -252,7 +298,7 @@ export default function HomepageWebSmall({ navigation }) {
           <Button title="Fade In View" onPress={fadeIn(1000)} />
           <Button title="Fade Out View" onPress={fadeOut(1000)} />
         </View> */}
-			</View>
+			{/* </View> */}
 		</ScrollView>
 	);
 }
