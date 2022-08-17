@@ -33,7 +33,7 @@ export default function Header({ navigation }) {
 			<View style={styles.rowContainer}>
 				<TouchableOpacity
 					// style={styles.link}
-					style={{ flex: 1, backgroundColor: 'red' }}
+					style={{ flex: 1 }}
 					title='Go to About'
 					onPress={() => {
 						if (navigation.state.routeName != 'About')
@@ -86,7 +86,7 @@ export default function Header({ navigation }) {
 					></Image>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={{ flex: 1, backgroundColor: 'red' }}
+					style={{ flex: 1 }}
 					title='Go to Homepage'
 					onPress={() => {
 						if (navigation.state.routeName != 'Resources')

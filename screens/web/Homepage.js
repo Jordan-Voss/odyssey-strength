@@ -142,8 +142,26 @@ export default function Homepage(props) {
 			}
 		}
 	};
-	const view = useRef();
-	const icon = useRef();
+	const clampedScrollY = scroll.interpolate({
+		inputRange: [75, 200],
+		outputRange: [-windowWidth, 0],
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+
+	const minusScrollY = Animated.multiply(clampedScrollY, -1);
+
+	const translateY = Animated.diffClamp(minusScrollY, -windowHeight, 0);
+	const clampedScrollX = scroll.interpolate({
+		inputRange: [windowHeight / 10, windowHeight / 5],
+		outputRange: [0, windowHeight / 4],
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+
+	const minusScrollX = Animated.multiply(clampedScrollX, -1);
+
+	const translateX = Animated.diffClamp(minusScrollX, -windowHeight, 0);
 
 	const fadeOut = topTextDiffClamp.interpolate({
 		inputRange: [0, windowWidth / 2],
@@ -213,7 +231,7 @@ export default function Homepage(props) {
 							styles.fadingContainerTop,
 							{
 								marginTop: windowHeight / 2,
-								transform: [{ translateX: translateTopText }],
+								transform: [{ translateX: translateY }],
 							},
 						]}
 					>
@@ -224,7 +242,10 @@ export default function Homepage(props) {
 					<Animated.View
 						style={[
 							styles.fadingContainerBottom,
-							{ marginTop: windowHeight / 2 },
+							{
+								marginTop: windowHeight,
+								transform: [{ translateY: translateX }],
+							},
 						]}
 					>
 						<Animated.Text
@@ -333,7 +354,6 @@ export default function Homepage(props) {
 							All Access Coaching
 						</Text>
 						<Animated.View
-							ref={view}
 							style={{
 								borderRadius: 50,
 								position: 'absolute',
@@ -376,7 +396,7 @@ export default function Homepage(props) {
 							}}
 							onMouseEnter={() => {
 								handleScaleIcon('up', iconSize1, isCard1Up);
-								console.log(view.current.offsetTop, { icon });
+								console.log(view.current.offsetTop);
 								console.log(isCard1Up);
 							}}
 							onMouseLeave={() => {
@@ -385,7 +405,6 @@ export default function Homepage(props) {
 							}}
 						>
 							<Animated.View
-								ref={icon}
 								style={{
 									position: 'absolute',
 									alignItems: 'center',
