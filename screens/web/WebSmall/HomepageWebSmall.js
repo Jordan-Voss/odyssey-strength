@@ -42,7 +42,7 @@ export default function HomepageWebSmall({ navigation }) {
 	const minScroll = 100;
 
 	const clampedScrollY = scroll.interpolate({
-		inputRange: [150, 350],
+		inputRange: [75, 200],
 		outputRange: [-windowWidth, 0],
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
@@ -52,8 +52,8 @@ export default function HomepageWebSmall({ navigation }) {
 
 	const translateY = Animated.diffClamp(minusScrollY, -windowHeight, 0);
 	const clampedScrollX = scroll.interpolate({
-		inputRange: [350, 500],
-		outputRange: [-windowHeight, -windowHeight * 0.7],
+		inputRange: [75, 300],
+		outputRange: [-windowHeight, -windowHeight * 0.6],
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
@@ -68,9 +68,22 @@ export default function HomepageWebSmall({ navigation }) {
 		outputRange: [1, 0],
 		extrapolate: 'clamp',
 	});
-	const fadeIn = bottomTextDiffClamp.interpolate({
-		inputRange: [200, windowHeight / 2.5],
+	const fadeIn = scroll.interpolate({
+		inputRange: [75, 300],
 		outputRange: [0, 1],
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+
+	const menuBackgroundColourDiffClamp = Animated.diffClamp(
+		scroll,
+		0,
+		windowHeight
+	);
+
+	const menuBackgroundColour = menuBackgroundColourDiffClamp.interpolate({
+		inputRange: [0, 300],
+		outputRange: ['rgba( 0, 0,0,0)', 'rgba(0,0,0,1)'],
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
@@ -87,30 +100,21 @@ export default function HomepageWebSmall({ navigation }) {
 			)}
 			// scrollEventThrottle={1}
 		>
-			<View
+			<Animated.View
 				style={{
-					// paddingTop: '3%',
-					// marginTop: '2%',
-					backgroundColor: 'black',
-					// marginLeft: windowWidth / 40,
-
-					// marginTop: "-200%",
-					// flex: 1,
-					// flexDirection: 'column',
-					// position: 'fixed',
+					backgroundColor: menuBackgroundColour,
 				}}
 			>
-				<HeaderWebSmall
-					// style={{ position: "fixed", flex: 1 }}
-					animHeaderValue={scroll}
-					navigation={navigation}
-				/>
-			</View>
+				<HeaderWebSmall navigation={navigation} />
+			</Animated.View>
 			<View
 				style={{
+					height: windowHeight,
+					width: windowWidth,
 					alignItems: 'center',
-					flex: 1,
+					// flex: 1,
 					marginTop: -50,
+					backgroundColor: 'red',
 				}}
 			>
 				<Video
@@ -129,119 +133,99 @@ export default function HomepageWebSmall({ navigation }) {
 					rate={1.0}
 					ignoreSilentSwitch={'obey'}
 				></Video>
-				{/* </View> */}
-				<View
-					style={{
-						width: windowWidth,
-						height: windowHeight,
-						flex: 1,
-						marginTop: -windowHeight,
-
-						// top: 0,
-						// aspectRatio: 800 / 450,
-						backgroundColor: 'rgba(0, 0, 0, 0.9)',
-						justifyContent: 'center',
-						// position: 'fixed',
-					}}
-				>
-					<View
-						style={{
-							justifyContent: 'center',
-							// position: "center",
-							position: 'fixed',
-							top: '15%',
-							left: '12.5%',
-							// padding: 20,
-							// marginTop: "-250%",
-							// backgroundColor: "red",
-							alignItems: 'center',
-							// height: "100%",
-							// width: "100%",
-							// paddingTop: "30%",
-							// paddingLeft: 10,
-						}}
-					>
-						<Image
-							//   style={{ flex: 1, backgroundColor: "red" }}
-							style={[styles.tinyLogo, {}]}
-							source={require('../../../assets/ody2.png')}
-						></Image>
-					</View>
-					{/* <Animated.View
-            style={[
-              styles.fadingContainerTop,
-              {
-                marginTop: windowHeight / 1.3,
-                transform: [
-                  {
-                    translateX: translateTopText,
-                  },
-                ],
-              },
-            ]}
-          > */}
-					<Animated.View
-						style={[
-							styles.fadingContainerTop,
-							{
-								marginTop: windowHeight / 0.75,
-								transform: [{ translateX: translateY }],
-							},
-						]}
-					>
-						<Animated.Text
-							style={[
-								styles.topFadingText,
-								{
-									opacity: fadeOut,
-									fontSize: homeAnimatedTextFontSize,
-								},
-							]}
-						>
-							Odyssey
-						</Animated.Text>
-					</Animated.View>
-					<Animated.View
-						style={[
-							styles.fadingContainerBottom,
-							{
-								alignItems: 'center',
-								flexDirection: 'row',
-								marginTop: windowHeight * 2,
-								transform: [{ translateY: translateX }],
-							},
-						]}
-					>
-						<Animated.Text
-							style={[
-								styles.topFadingText,
-								{
-									opacity: fadeIn,
-									textAlign: 'center',
-									fontSize: homeAnimatedTextFontSize,
-								},
-							]}
-						>
-							An Epic Journey
-						</Animated.Text>
-					</Animated.View>
-				</View>
 			</View>
 			<View
 				style={{
+					// height: '100%',
+					height: windowHeight,
+					width: windowWidth,
+					alignItems: 'center',
+					// zIndex: 1,
+					// flex: 1,
+					marginTop: -windowHeight,
+					backgroundColor: 'rgba(0, 0, 0, 0.5)',
+				}}
+			></View>
+			<View
+				style={{
+					justifyContent: 'center',
+					// position: "center",
+					position: 'fixed',
+					top: '15%',
+					left: '12.5%',
+					// padding: 20,
+					// marginTop: "-250%",
+					// backgroundColor: 'red',
+					alignItems: 'center',
+					// height: "100%",
+					// width: "100%",
+					// paddingTop: "30%",
+					// paddingLeft: 10,
+				}}
+			>
+				<Image
+					//   style={{ flex: 1, backgroundColor: "red" }}
+					style={[styles.tinyLogo, {}]}
+					source={require('../../../assets/ody2.png')}
+				></Image>
+				<Text>{windowHeight}</Text>
+			</View>
+			<Animated.View
+				style={[
+					styles.fadingContainerTop,
+					{
+						marginTop: windowHeight / 1.5,
+						transform: [{ translateX: translateY }],
+					},
+				]}
+			>
+				<Animated.Text
+					style={[
+						styles.topFadingText,
+						{
+							opacity: fadeOut,
+							fontSize: homeAnimatedTextFontSize,
+						},
+					]}
+				>
+					Odyssey
+				</Animated.Text>
+			</Animated.View>
+			<Animated.View
+				style={[
+					styles.fadingContainerBottom,
+					{
+						alignItems: 'center',
+						flexDirection: 'row',
+						marginTop: windowHeight,
+						transform: [{ translateY: translateX }],
+					},
+				]}
+			>
+				<Animated.Text
+					style={[
+						styles.topFadingText,
+						{
+							opacity: fadeIn,
+							textAlign: 'center',
+							fontSize: homeAnimatedTextFontSize,
+						},
+					]}
+				>
+					An Epic Journey
+				</Animated.Text>
+			</Animated.View>
+			<View
+				style={{
 					// position: 'absolute',
-					borderWidth: 1,
+					// borderWidth: 1,
 					justifyContent: 'center',
 					alignContent: 'center',
 					alignItems: 'center',
 					flex: 1,
-					marginTop: windowHeight,
+					// marginTop: windowHeight,
 				}}
 			>
-				<TouchableOpacity
-					style={{ width: 100, height: 100, backgroundColor: 'red' }}
-					onPress={() => console.log(scroll)}
-				></TouchableOpacity>
 				<Text
 					adjustsFontSizeToFit
 					style={{
@@ -254,13 +238,6 @@ export default function HomepageWebSmall({ navigation }) {
 				</Text>
 			</View>
 			<View style={styles.pricesContainer}>
-				{/* <Text>wergh</Text> */}
-				{/* <Image
-						source={require('../../../assets/img/card_carousel1.JPG')}
-						style={{ height: '100%', width: '100%' }}
-					></Image> */}
-				{/* <ImageCarousel></ImageCarousel>
-				 */}
 				<ImageCarousel
 					navigation={navigation}
 					width={windowWidth}
@@ -271,34 +248,6 @@ export default function HomepageWebSmall({ navigation }) {
 					contentContainerStyle={styles.contentStyle}
 				/>
 			</View>
-			{/* <View style={styles.pricesContainer}>
-					<View style={styles.item}>
-						<Text style={{ fontFamily: 'Roboto', fontSize: paragraphFontSize }}>
-							Let us handle the details of your athletic pursuit by working
-							hard, allowing you to work smarter. You’ll shine to your fullest
-							potential.
-						</Text>
-					</View>
-					<View style={styles.item}>
-						<Text style={{ fontFamily: 'Roboto', fontSize: paragraphFontSize }}>
-							We focus on being athlete-centric, responsive to data, and
-							committed to relationships and coaching the whole athlete.
-						</Text>
-					</View>
-					<View style={styles.item}>
-						<Text style={{ fontFamily: 'Roboto', fontSize: paragraphFontSize }}>
-							You’re more than a set of numbers. We refine your lifting
-							technique, your mind, your nutrition, and habits that will last a
-							lifetime.
-						</Text>
-					</View>
-				</View>
-				{/* 
-        <View style={styles.buttonRow}>
-          <Button title="Fade In View" onPress={fadeIn(1000)} />
-          <Button title="Fade Out View" onPress={fadeOut(1000)} />
-        </View> */}
-			{/* </View> */}
 		</ScrollView>
 	);
 }
@@ -311,20 +260,22 @@ const styles = StyleSheet.create({
 	},
 	fadingContainerTop: {
 		width: '100%',
-		// marginTop: "-50%",
+		marginTop: '50%',
 		// justifyContent: "center",
 		alignItems: 'center',
 		position: 'absolute',
-		// backgroundColor: "powderblue",
+		// backgroundColor: 'powderblue',
 	},
 	fadingContainerBottom: {
 		flex: 1,
 		// padding: 20,
 		// width: "100%",
 		// justifyContent: "center",
+		marginTop: '-50%',
+
 		alignItems: 'center',
 		position: 'absolute',
-		// backgroundColor: "powderblue",
+		// backgroundColor: 'powderblue',
 	},
 	topFadingText: {
 		color: 'white',
@@ -349,7 +300,6 @@ const styles = StyleSheet.create({
 		height: 300,
 	},
 	pricesContainer: {
-		width: '100%',
-		height: '100%',
+		marginTop: -50,
 	},
 });
