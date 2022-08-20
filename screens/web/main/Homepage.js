@@ -22,12 +22,11 @@ import {
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import { Link } from '@react-navigation/web';
-import Header from '../../components/Header';
+import Header from '../../../components/Header';
 import { Video } from 'expo-av';
 import { Dimensions } from 'react-native';
 import { useWindowDimensions } from 'react-native';
 import * as Linking from 'expo-linking';
-import BottomSheet from './BottomSheet';
 import * as Device from 'expo-device';
 
 export default function Homepage(props) {
@@ -195,7 +194,7 @@ export default function Homepage(props) {
 		>
 			<View style={{ alignItems: 'center' }}>
 				<Video
-					source={require('../../assets/video/odyssey.mp4')}
+					source={require('../../../assets/video/odyssey.mp4')}
 					style={{
 						height: windowHeight,
 						position: 'absolute',
@@ -309,7 +308,7 @@ export default function Homepage(props) {
 								height: '100%',
 								borderRadius: 50,
 							}}
-							source={require('../../assets/img/card_carousel1.JPG')}
+							source={require('../../../assets/img/card_carousel1.JPG')}
 						></Image>
 						<View
 							style={{
@@ -338,8 +337,8 @@ export default function Homepage(props) {
 									// backgroundColor: 'red',
 								}}
 								onPress={() => {
-									console.log('WER');
-									props.navigation.navigate('About');
+									console.log(props.navigation);
+									props.navigation.navigate('AllAccessCoaching');
 								}}
 							></TouchableOpacity>
 						</View>
@@ -396,7 +395,7 @@ export default function Homepage(props) {
 							}}
 							onMouseEnter={() => {
 								handleScaleIcon('up', iconSize1, isCard1Up);
-								console.log(view.current.offsetTop);
+								// console.log(view.current.offsetTop);
 								console.log(isCard1Up);
 							}}
 							onMouseLeave={() => {
@@ -452,7 +451,7 @@ export default function Homepage(props) {
 								height: '100%',
 								borderRadius: '50px',
 							}}
-							source={require('../../assets/img/card_carousel2.JPG')}
+							source={require('../../../assets/img/card_carousel2.JPG')}
 						></Image>
 						<View
 							style={{
@@ -481,7 +480,7 @@ export default function Homepage(props) {
 									// backgroundColor: 'red',
 								}}
 								onPress={() => {
-									console.log('WER');
+									console.log(props.navigation);
 									props.navigation.navigate('About');
 								}}
 							></TouchableOpacity>
@@ -592,7 +591,7 @@ export default function Homepage(props) {
 								height: '100%',
 								borderRadius: '50px',
 							}}
-							source={require('../../assets/img/card_carousel3.JPG')}
+							source={require('../../../assets/img/card_carousel3.JPG')}
 						></Image>
 						<View
 							style={{

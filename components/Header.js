@@ -7,10 +7,10 @@ import {
 	Dimensions,
 	TouchableOpacity,
 } from 'react-native';
-import HomepageWeb from '../screens/web/Homepage';
+import HomepageWeb from '../screens/web/main/Homepage';
 import HomepageMobile from '../screens/mobile/Homepage';
-import AboutWeb from '../screens/web/About';
-import Coaching from '../screens/web/Coaching';
+import AboutWeb from '../screens/web/main/About';
+import Coaching from '../screens/web/main/Coaching';
 
 import AboutMobile from '../screens/mobile/About';
 import { Link } from '@react-navigation/web';
