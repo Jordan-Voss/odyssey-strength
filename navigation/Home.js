@@ -8,6 +8,10 @@ import AboutWeb from '../screens/web/main/About';
 import Resources from '../screens/web/main/Resources';
 import Pricing from '../screens/web/main/Pricing';
 import AllAccessCoaching from '../screens/web/sub/AllAccessCoaching';
+import ProgrammingConsultation from '../screens/web/sub/ProgrammingConsultation';
+import PowerliftingCoaching from '../screens/web/sub/PowerliftingCoaching';
+import SignUpForm from '../screens/web/sub/SignUpForm';
+
 import Coaching from '../screens/web/main/Coaching';
 
 import AboutMobile from '../screens/mobile/About';
@@ -34,6 +38,9 @@ const HomeWeb = createStackNavigator(
 		Homepage: HomepageWeb,
 		Header: Header,
 		AllAccessCoaching: AllAccessCoaching,
+		ProgrammingConsultation: ProgrammingConsultation,
+		PowerliftingCoaching: PowerliftingCoaching,
+		SignUpForm: SignUpForm,
 	},
 	{
 		initialRouteName: 'Homepage',

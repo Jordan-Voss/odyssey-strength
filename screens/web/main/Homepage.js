@@ -481,7 +481,7 @@ export default function Homepage(props) {
 								}}
 								onPress={() => {
 									console.log(props.navigation);
-									props.navigation.navigate('About');
+									props.navigation.navigate('PowerliftingCoaching');
 								}}
 							></TouchableOpacity>
 						</View>
@@ -621,7 +621,7 @@ export default function Homepage(props) {
 								}}
 								onPress={() => {
 									console.log('WER');
-									props.navigation.navigate('About');
+									props.navigation.navigate('ProgrammingConsultation');
 								}}
 							></TouchableOpacity>
 						</View>
