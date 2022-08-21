@@ -17,6 +17,7 @@ import Header from '../../../components/Header';
 import { useWindowDimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import { AntDesign } from '@expo/vector-icons';
+import SignUpModal from '../../../components/SignUpModal';
 
 export default function AllAccessCoaching({ navigation }) {
 	const scroll = useRef(new Animated.Value(0)).current;
@@ -242,7 +243,12 @@ export default function AllAccessCoaching({ navigation }) {
 					Apply Now!
 				</Text>
 			</TouchableOpacity>
-			<Modal isVisible={isModalVisible} style={{ alignItems: 'center' }}>
+			<SignUpModal
+				navigation={navigation}
+				isModalVisible={isModalVisible}
+				setIsModalVisible={setIsModalVisible}
+			></SignUpModal>
+			{/* <Modal isVisible={isModalVisible} style={{ alignItems: 'center' }}>
 				<View
 					style={{
 						backgroundColor: 'white',
@@ -311,7 +317,7 @@ export default function AllAccessCoaching({ navigation }) {
 						/>
 					</View>
 				</View>
-			</Modal>
+			</Modal> */}
 			{/* </View> */}
 			<ScrollView
 				scrollEventThrottle={1}
