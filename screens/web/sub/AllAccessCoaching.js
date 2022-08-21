@@ -23,30 +23,60 @@ export default function AllAccessCoaching({ navigation }) {
 	const clampedScrollXTop = scroll.interpolate({
 		inputRange: [0, windowHeight],
 		outputRange: [0, windowWidth],
-		// extrapolateLeft: 'clamp',
+		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
 
 	const clampedScrollXBottom = scroll.interpolate({
 		inputRange: [0, windowHeight],
-		outputRange: [-windowWidth * 0.7, 0],
+		outputRange: [0, windowWidth],
+
+		// outputRange: [-windowWidth * 0.7, 0],
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 	});
 
+	const fadeScrollDiffClamp1 = Animated.diffClamp(
+		scroll,
+		windowWidth * 2,
+		windowHeight * 4
+	);
+
 	const minusScrollXTop = Animated.multiply(clampedScrollXTop, -1);
 	const minusScrollXBottom = Animated.multiply(clampedScrollXBottom, 1);
 
-	const translateXTop = Animated.diffClamp(minusScrollXTop, -windowHeight, 0);
+	const translateXTop = Animated.diffClamp(
+		minusScrollXTop,
+		-windowWidth,
+		windowWidth
+	);
 	const translateXBottom = Animated.diffClamp(
 		minusScrollXBottom,
-		-windowHeight,
-		0
+		-windowWidth,
+		windowWidth
 	);
 
+	const fadeOut = fadeScrollDiffClamp1.interpolate({
+		inputRange: [windowWidth * 2, windowHeight * 3, windowHeight * 4],
+		outputRange: [0, 1, 0],
+		extrapolate: 'clamp',
+	});
+
+	// const fadeOut = topTextDiffClamp.interpolate({
+	// 	inputRange: [0, windowWidth / 2],
+	// 	outputRange: [1, 0],
+	// 	extrapolate: 'clamp',
+	// });
+
 	return (
-		<View style={{ flex: 1, backgroundColor: 'red' }}>
-			<View style={{ zIndex: -100, backgroundColor: 'red' }}>
+		<View style={{ flex: 1, backgroundColor: 'red', alignItems: 'center' }}>
+			<View
+				style={{
+					zIndex: -100,
+					alignItems: 'center',
+					backgroundColor: 'red',
+				}}
+			>
 				<ImageBackground
 					style={{
 						// tintColor: 'rgba(0,0,0,0.6)',
@@ -62,46 +92,20 @@ export default function AllAccessCoaching({ navigation }) {
 				>
 					<View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }}></View>
 				</ImageBackground>
-
-				{/* <View
-					style={{
-						width: windowWidth,
-						height: windowHeight,
-						zIndex: -100,
-						// marginTop: windowHeight,
-						// top: 0,
-						// aspectRatio: 800 / 450,
-						// backgroundColor: 'rgba(0, 0, 0, 0.6)',
-						// justifyContent: 'center',
-						// position: 'fixed',
-					}}
-				></View> */}
 			</View>
 			<View
 				style={{
 					width: windowWidth,
 					height: windowHeight,
 					marginTop: -windowHeight,
-					// top: 0,
-					// zIndex: -1,
-					// aspectRatio: 800 / 450,
 					backgroundColor: 'rgba(0, 0, 0, 0.6)',
-					// justifyContent: 'center',
-					// position: 'fixed',
 				}}
 			></View>
-			<TouchableOpacity
-				onPress={() => {
-					console.log(translateXBottom);
-				}}
-				style={{ width: windowWidth, height: 50, backgroundColor: 'red' }}
-			></TouchableOpacity>
 			<Animated.View
 				style={{
-					// marginLeft: -windowWidth,
+					marginLeft: -windowWidth * 0.3,
 					marginTop: windowHeight / 3,
 					position: 'absolute',
-					top: 50,
 					width: windowWidth * 0.7,
 					backgroundColor: 'rgba(255,255,255,0.7)',
 					transform: [{ translateX: translateXTop }],
@@ -111,16 +115,52 @@ export default function AllAccessCoaching({ navigation }) {
 			</Animated.View>
 			<Animated.View
 				style={{
-					marginLeft: windowWidth,
+					marginLeft: windowWidth * 0.3,
 					marginTop: windowHeight / 3 + 125,
 					position: 'absolute',
-					top: 50,
 					width: windowWidth * 0.7,
 					backgroundColor: 'rgba(0,0,0,0.7)',
 					transform: [{ translateX: translateXBottom }],
 				}}
 			>
 				<Text style={{ color: 'white', fontSize: 125 }}>Coaching</Text>
+			</Animated.View>
+			<Animated.View
+				style={{
+					width: windowWidth / 1.5,
+					height: windowHeight / 3,
+					marginTop: windowHeight / 3.3,
+					position: 'absolute',
+					// alignItems: 'center',
+					justifyContent: 'center',
+					backgroundColor: 'rgba(255,255,255,0.2)',
+					borderRadius: 50,
+					opacity: fadeOut,
+					transform: [
+						{
+							scale: scroll.interpolate({
+								inputRange: [windowWidth / 2, windowHeight * 2],
+								outputRange: [0, 3],
+								extrapolateRight: 'clamp',
+								extrapolateLeft: 'clamp',
+							}),
+						},
+						// {
+						// 	scale: scroll.interpolate({
+						// 		inputRange: [windowWidth * 2, windowWidth * 3],
+						// 		outputRange: [1, 5],
+						// 		extrapolateRight: 'clamp',
+						// 		extrapolateLeft: 'clamp',
+						// 	}),
+						// },
+					],
+				}}
+			>
+				<Text style={{ fontSize: 25, color: 'white' }}>
+					The most in-depth coaching experience that we offer. For individuals
+					that wish to be highly invested in the coaching process. Daily one on
+					one support with your coach via your communication medium of choice
+				</Text>
 			</Animated.View>
 			<ScrollView
 				scrollEventThrottle={1}
@@ -138,20 +178,13 @@ export default function AllAccessCoaching({ navigation }) {
 						useNativeDriver: false,
 					}
 				)}
-				stickyHeaderIndices={[0, 2]}
+				stickyHeaderIndices={[0]}
 				style={{ flex: 1 }}
 			>
 				<View
 					style={{
 						width: windowWidth,
 						height: windowHeight,
-						// marginTop: windowHeight,
-						// top: 0,
-						// zIndex: -1,
-						// aspectRatio: 800 / 450,
-						// backgroundColor: 'rgba(0, 0, 0, 0.6)',
-						// justifyContent: 'center',
-						// position: 'fixed',
 					}}
 				>
 					<View>
@@ -161,22 +194,8 @@ export default function AllAccessCoaching({ navigation }) {
 						></Header>
 					</View>
 				</View>
-				{/* style={{ flex: 1, position: 'absolute' }}> */}
-				{/* <Animated.View
-					style={{
-						// position: 'fixed',
-						marginTop: -windowHeight / 1.5,
-						// transform: [{ translateX: translateX }],
-
-						// alignItems: 'left',
-						// alignSelf: 'left',
-
-						// marginLeft: '20%',
-						// justifyContent: 'left',
-					}}
-				> */}
-				<View style={{ height: windowHeight * 2 }}></View>
-				{/* </Animated.View> */}
+				<View style={{ height: windowHeight / 1.5 }}></View>
+				<View style={{ height: windowHeight * 6 }}></View>
 			</ScrollView>
 		</View>
 	);
