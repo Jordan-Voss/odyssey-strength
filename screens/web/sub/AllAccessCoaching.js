@@ -18,6 +18,8 @@ import { useWindowDimensions } from 'react-native';
 import Modal from 'react-native-modal';
 import { AntDesign } from '@expo/vector-icons';
 import SignUpModal from '../../../components/SignUpModal';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import ReactNativeParallaxHeader from 'react-native-parallax-header';
 
 export default function AllAccessCoaching({ navigation }) {
 	const scroll = useRef(new Animated.Value(0)).current;
@@ -43,8 +45,6 @@ export default function AllAccessCoaching({ navigation }) {
 		extrapolateRight: 'clamp',
 	});
 
-	const fadeScrollDiffClamp1 = Animated.diffClamp(scroll, 0, windowHeight);
-
 	const minusScrollXTop = Animated.multiply(clampedScrollXTop, -1);
 	const minusScrollXBottom = Animated.multiply(clampedScrollXBottom, 1);
 
@@ -59,10 +59,12 @@ export default function AllAccessCoaching({ navigation }) {
 		windowWidth
 	);
 
-	const fadeOut = fadeScrollDiffClamp1.interpolate({
-		inputRange: [0, windowHeight],
-		outputRange: [1, 0],
-		extrapolateRight: 'clamp',
+	const fadeOut = scroll.interpolate({
+		inputRange: [0, windowHeight, windowHeight * 2],
+		outputRange: [1, 0, 0],
+
+		extrapolateRight: 'extend',
+		extrapolateLeft: 'extend',
 	});
 
 	const apply = () => navigation.navigate('SignUpForm');
@@ -84,240 +86,104 @@ export default function AllAccessCoaching({ navigation }) {
 		});
 		console.log(inputValues);
 	};
-	// const fadeOut = topTextDiffClamp.interpolate({
-	// 	inputRange: [0, windowWidth / 2],
-	// 	outputRange: [1, 0],
-	// 	extrapolate: 'clamp',
-	// });
+	const renderNavBar = () => (
+		<View>
+			<Header></Header>
+		</View>
+	);
+
+	const renderContent = () => (
+		<View style={styles.navContainer}>
+			<View style={styles.statusBar} />
+			<View style={styles.navBar}>
+				<TouchableOpacity style={styles.iconLeft} onPress={() => {}}>
+					<Icon name='add' size={25} color='#fff' />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.iconRight} onPress={() => {}}>
+					<Icon name='search' size={25} color='#fff' />
+				</TouchableOpacity>
+			</View>
+			<View style={styles.navBar}>
+				<TouchableOpacity style={styles.iconLeft} onPress={() => {}}>
+					<Icon name='add' size={25} color='#fff' />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.iconRight} onPress={() => {}}>
+					<Icon name='search' size={25} color='#fff' />
+				</TouchableOpacity>
+			</View>
+			<View style={styles.navBar}>
+				<TouchableOpacity style={styles.iconLeft} onPress={() => {}}>
+					<Icon name='add' size={25} color='#fff' />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.iconRight} onPress={() => {}}>
+					<Icon name='search' size={25} color='#fff' />
+				</TouchableOpacity>
+			</View>
+			<View style={styles.navBar}>
+				<TouchableOpacity style={styles.iconLeft} onPress={() => {}}>
+					<Icon name='add' size={25} color='#fff' />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.iconRight} onPress={() => {}}>
+					<Icon name='search' size={25} color='#fff' />
+				</TouchableOpacity>
+			</View>
+		</View>
+	);
+	const images = {
+		background: require('../../../assets/img/card_carousel1.JPG'),
+		// Put your own image here
+	};
 
 	return (
-		<View style={{ flex: 1, backgroundColor: 'red', alignItems: 'center' }}>
-			<View
-				style={{
-					zIndex: -100,
-					alignItems: 'center',
-					backgroundColor: 'red',
+		<View style={styles.container}>
+			<ReactNativeParallaxHeader
+				headerMinHeight={windowHeight / 10}
+				headerMaxHeight={500}
+				extraScrollHeight={20}
+				navbarColor='black'
+				title='All Access Coaching'
+				titleStyle={styles.titleStyle}
+				backgroundImage={images.background}
+				backgroundImageScale={0.3}
+				renderNavBar={renderNavBar}
+				renderContent={renderContent}
+				containerStyle={styles.container}
+				contentContainerStyle={styles.contentContainer}
+				innerContainerStyle={styles.container}
+				scrollViewProps={{
+					onScrollBeginDrag: () => console.log('onScrollBeginDrag'),
+					onScrollEndDrag: () => console.log('onScrollEndDrag'),
 				}}
-			>
-				<ImageBackground
-					style={{
-						// tintColor: 'rgba(0,0,0,0.6)',
-						// tintOpacity: 0.6,
-						position: 'absolute',
-						width: windowWidth,
-						height: windowHeight,
-						backgroundColor: 'red',
-
-						// borderRadius: 50,
-					}}
-					source={require('../../../assets/img/card_carousel1.JPG')}
-				>
-					<View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }}></View>
-				</ImageBackground>
-			</View>
-			<View
-				style={{
-					width: windowWidth,
-					height: windowHeight,
-					marginTop: -windowHeight,
-					backgroundColor: 'rgba(0, 0, 0, 0.6)',
-				}}
-			></View>
-			<Animated.View
-				style={{
-					marginLeft: -windowWidth * 0.3,
-					marginTop: windowHeight / 3,
-					position: 'absolute',
-					width: windowWidth * 0.7,
-					backgroundColor: 'rgba(255,255,255,0.7)',
-					transform: [{ translateX: translateXTop }],
-				}}
-			>
-				<Text style={{ color: 'black', fontSize: 125 }}>All Access</Text>
-			</Animated.View>
-			<Animated.View
-				style={{
-					marginLeft: windowWidth * 0.3,
-					marginTop: windowHeight / 3 + 125,
-					position: 'absolute',
-					width: windowWidth * 0.7,
-					backgroundColor: 'rgba(0,0,0,0.7)',
-					transform: [{ translateX: translateXBottom }],
-				}}
-			>
-				<Text style={{ color: 'white', fontSize: 125 }}>Coaching</Text>
-			</Animated.View>
-			{/* <View
-				style={{
-					position: 'absolute',
-					borderRadius: 50,
-					height: windowHeight / 10,
-					width: windowWidth / 3,
-					backgroundColor: 'black',
-					top: windowHeight - windowHeight / 8,
-					right: windowWidth / 20,
-					alignItems: 'left',
-				}}
-			> */}
-			<TouchableOpacity
-				style={{
-					position: 'absolute',
-					borderRadius: 50,
-					height: windowHeight / 10,
-					width: 800 / 3,
-					backgroundColor: 'black',
-					top: windowHeight - windowHeight / 8,
-					right: windowWidth / 20,
-					zIndex: 1,
-					justifyContent: 'center',
-					flexDirection: 'row',
-					// alignItems: 'center',
-				}}
-				onPress={handleModal}
-			>
-				<Image
-					//   style={{ flex: 1, backgroundColor: "red" }}
-					style={{
-						// top: windowHeight - windowHeight / 9,
-						// height: windowHeight / 10,
-						// width: windowWidth / 3,
-						flex: 1,
-						resizeMode: 'contain',
-						// backgroundColor: 'red',
-					}}
-					source={require('../../../assets/ody2.png')}
-				></Image>
-				<Text
-					style={{
-						flex: 1,
-						color: 'white',
-						// marginLeft: 100,
-						alignSelf: 'center',
-						fontSize: 30,
-						// height: windowHeight / 10,
-						// width: windowWidth / 3,
-						// backgroundColor: 'red',
-					}}
-				>
-					Apply Now!
-				</Text>
-			</TouchableOpacity>
-			<SignUpModal
-				navigation={navigation}
-				isModalVisible={isModalVisible}
-				setIsModalVisible={setIsModalVisible}
-			></SignUpModal>
-			<View
-				style={{ height: windowHeight / 50, width: windowWidth, zIndex: 10 }}
-			>
-				<Header navigation={navigation} style={{ position: 'fixed' }}></Header>
-			</View>
-			<Animated.View
-				style={{
-					opacity: fadeOut,
-					marginTop: windowHeight * 0.65,
-				}}
-			>
-				<Text style={{ color: 'white', fontSize: windowHeight / 40 }}>
-					"STRENGTH COACHING WITH AROUND THE CLOCK SUPPORT"
-				</Text>
-			</Animated.View>
-			<ScrollView
-				scrollEventThrottle={1}
-				onScroll={Animated.event(
-					[
-						{
-							nativeEvent: {
-								contentOffset: {
-									y: scroll,
-								},
-							},
-						},
-					],
-					{
-						useNativeDriver: false,
-					}
-				)}
-				stickyHeaderIndices={[0]}
-				style={{ flex: 1, marginTop: -50 - windowHeight * 0.65, zIndex: 0 }}
-			>
-				<View
-					style={{
-						width: windowWidth,
-						height: windowHeight,
-						alignItems: 'center',
-					}}
-				>
-					{/* <Animated.View
-						style={{
-							opacity: fadeOut,
-							marginTop: windowHeight * 0.65,
-						}}
-					>
-						<Text style={{ color: 'white', fontSize: windowHeight / 40 }}>
-							"STRENGTH COACHING WITH AROUND THE CLOCK SUPPORT"
-						</Text>
-					</Animated.View>
-					<View
-						style={[
-							styles.info,
-							{
-								width: windowWidth / 1.4,
-								height: windowHeight * 0.4,
-								marginTop: windowHeight * 0.5,
-							},
-						]}
-					>
-						<Text style={{ fontSize: 40, color: 'white', padding: 10 }}>
-							All Access Coaching is the most in-depth coaching experience that
-							we offer. For individuals that wish to be highly invested in the
-							coaching process. Daily one on one support with your coach via
-							your communication medium of choice
-						</Text>
-					</View>
-					<View
-						style={[
-							styles.info,
-							{
-								width: windowWidth / 1.5,
-								height: windowHeight / 3,
-								marginTop: windowHeight * 0.5,
-							},
-						]}
-					>
-						<Text style={{ fontSize: 40, color: 'white' }}>
-							Daily one on one support with your coach via your communication
-							medium of choice.
-						</Text>
-					</View> */}
-				</View>
-				<View style={{ height: windowHeight / 1.5 }}></View>
-				<View style={{ height: windowHeight * 6 }}></View>
-			</ScrollView>
+			/>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	scrollview: {
-		backgroundColor: 'green',
+	container: {
+		flex: 1,
 	},
-	input: {
-		width: 350,
-		height: 55,
-		backgroundColor: '#42A5F5',
-		margin: 10,
-		padding: 8,
-		color: 'white',
-		borderRadius: 14,
-		fontSize: 18,
-		fontWeight: '500',
+	contentContainer: {
+		flexGrow: 1,
 	},
-	info: {
-		// position: 'absolute',
+	navContainer: {
+		height: 400,
+		marginHorizontal: 10,
+	},
+	statusBar: {
+		height: 400,
+		backgroundColor: 'transparent',
+	},
+	navBar: {
+		height: 400,
+		justifyContent: 'space-between',
 		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: 'rgba(0,0,0,0.8)',
-		borderRadius: 50,
+		flexDirection: 'row',
+		backgroundColor: 'transparent',
+	},
+	titleStyle: {
+		color: 'white',
+		fontWeight: 'bold',
+		fontSize: 18,
 	},
 });
